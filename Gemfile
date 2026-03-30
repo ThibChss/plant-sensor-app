@@ -66,6 +66,9 @@ group :development, :test do
 
   # Clean database
   gem "database_cleaner"
+
+  # Faker to generate test data
+  gem "faker"
 end
 
 group :development do
@@ -77,4 +80,16 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # RSpec for testing
+  gem "rspec-rails"
+
+  # Factory Bot to create test data
+  gem "factory_bot_rails"
+
+  # Shoulda Matchers to test Rails models
+  gem "shoulda-matchers"
+
+  # Test Prof to profile tests
+  gem "test-prof"
 end
