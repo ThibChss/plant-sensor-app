@@ -16,6 +16,9 @@ class Plant < ApplicationRecord
                       atmospheric_humidity
                       maximum_precipitation
                       minimum_precipitation].freeze
+  MONTHS = Date::MONTHNAMES.compact.map(&:downcase).freeze
+
+  private_constant :ACCESSORS_KEYS
 
   store_accessor :growth_data, *ACCESSORS_KEYS
   store_accessor :translated_name, :en, :fr, prefix: true
@@ -23,7 +26,7 @@ class Plant < ApplicationRecord
   validates :name, :scientific_name, :trefle_id, :image_url, :min_temp, :max_temp, :ideal_humidity, presence: true
   validates :trefle_id, uniqueness: true
   validates :growth_data, presence: true, if: :valid_growth_data?
-  validate :valid_monthes?
+  validate :proper_months
 
   private
 
@@ -31,13 +34,11 @@ class Plant < ApplicationRecord
     ACCESSORS_KEYS.all? { |key| growth_data[key].present? }
   end
 
-  def valid_monthes?
-    %i[bloom_months fruit_months growth_months].all? do |data|
-      public_send(data).is_a?(Array) && public_send(data).all? { |month| monthes.include?(month) }
-    end
-  end
+  def proper_months
+    %i[bloom_months fruit_months growth_months].each do |attr|
+      next if public_send(attr).is_a?(Array) && public_send(attr).all? { |month| MONTHS.include?(month) }
 
-  def monthes
-    Date::MONTHNAMES.compact.map(&:downcase).freeze
+      errors.add(attr, :invalid)
+    end
   end
 end
