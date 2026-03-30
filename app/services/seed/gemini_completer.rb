@@ -4,7 +4,7 @@ module Seed
 
     def initialize(plant)
       @plant = plant
-      @gemini_client = GeminiClient.new
+      @gemini_client = GeminiClient.new.client
       @retries = 0
     end
 

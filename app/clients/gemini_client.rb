@@ -1,4 +1,6 @@
 class GeminiClient
+  attr_reader :client
+
   def initialize(event: false)
     @client = Gemini.new(
       credentials: {
