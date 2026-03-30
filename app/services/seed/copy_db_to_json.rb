@@ -6,7 +6,7 @@ module Seed
     end
 
     def call
-      File.write(@file_path, JSON.pretty_generate(@plants.as_json))
+      File.write(@file_path, JSON.pretty_generate(@plants.as_json(except: %i[created_at updated_at])))
     end
   end
 end
