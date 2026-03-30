@@ -7,14 +7,20 @@ module Seed
 
     alias_call :start
 
-    def initialize(page = 1)
+    def initialize(page: 1, from_json: false)
       @page = page
+      @from_json = from_json
+      @json_file = Rails.root.join('db', 'plants.json')
     end
 
     def call
       clean_database!
 
-      iterate_plants
+      if @from_json
+        generate_new_plants_from_json
+      else
+        generate_new_plants
+      end
     end
 
     def get_all_plants
@@ -25,11 +31,21 @@ module Seed
         )["data"]
     end
 
-    def iterate_plants
+    def generate_new_plants
       get_all_plants.each do |plant|
         plant = get_plant(plant["id"])
 
         find_or_create_plant(plant)
+      end
+    end
+
+    def generate_new_plants_from_json
+      JSON.parse(File.read(@json_file)).each do |plant|
+        puts "Creating plant: #{plant['name']}"
+
+        Plant.create!(plant)
+
+        puts "Plant created: #{PLANT_EMOJIS.sample} #{plant['name']}"
       end
     end
 

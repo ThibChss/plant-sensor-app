@@ -1,1 +1,1 @@
-Seed::Initializer.start
+Seed::Initializer.start(from_json: true)
