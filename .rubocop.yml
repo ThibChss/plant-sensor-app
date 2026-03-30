@@ -93,3 +93,5 @@ Style/ArgumentsForwarding:
   Enabled: false
 Style/OptionalBooleanParameter:
   Enabled: false
+Lint/ItWithoutArgumentsInBlock:
+  Enabled: false
