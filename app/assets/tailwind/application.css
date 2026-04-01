@@ -1,1 +1,26 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;700;800;900&family=Merriweather:wght@300;400;700&family=Palanquin:wght@300;400;500;600;700&display=swap');
+
+@import 'tailwindcss';
+
+/* Tailwind v4: theme lives here — config/tailwind.config.js is not used for theme unless you add @config. */
+@theme {
+  --color-pulse-forest: #346739;
+  --color-pulse-moss: #79ae6f;
+  --color-pulse-sage: #9fcb98;
+  --color-pulse-mist: #ecf4e8;
+
+  --font-palanquin: 'Palanquin', ui-sans-serif, system-ui, sans-serif;
+  --font-alegreya: 'Alegreya Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-merriweather: 'Merriweather', ui-serif, Georgia, 'Times New Roman', serif;
+}
+
+@layer components {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
