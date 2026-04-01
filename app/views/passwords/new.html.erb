@@ -1,17 +1,53 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <% if alert = flash[:alert] %>
-    <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
-  <% end %>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 bg-pulse-mist">
 
-  <h1 class="font-bold text-4xl">Forgot your password?</h1>
+  <!-- Logo et Titre -->
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
+    <h2 class="mt-10 text-center text-3xl font-black leading-9 tracking-tight text-pulse-forest font-alegreya uppercase tracking-[0.2em]">
+      Mot de passe oublié ?
+    </h2>
+    <p class="mt-2 text-center text-sm text-pulse-moss font-merriweather italic">
+      Entrez votre email pour recevoir les instructions de réinitialisation.
+    </p>
+  </div>
 
-  <%= form_with url: passwords_path, class: "contents" do |form| %>
-    <div class="my-5">
-      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class: "block shadow-sm rounded-md border border-gray-400 focus:outline-solid focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
-    </div>
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 
-    <div class="inline">
-      <%= form.submit "Email reset instructions", class: "w-full sm:w-auto text-center rounded-lg px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
-    </div>
-  <% end %>
+    <!-- Notifications Flash (Alert) -->
+    <% if alert = flash[:alert] %>
+      <div class="mb-6 rounded-[1.5rem] bg-rose-50 p-4 text-sm font-medium text-rose-500 border border-rose-100 flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+        <span class="text-lg">⚠️</span> <%= alert %>
+      </div>
+    <% end %>
+
+    <!-- Formulaire de récupération -->
+    <%= form_with url: passwords_path, class: "space-y-6" do |form| %>
+
+      <!-- Champ Email -->
+      <div>
+        <%= form.label :email_address, "Votre Adresse Email",
+            class: "block text-[10px] font-bold text-pulse-moss uppercase tracking-widest mb-2 px-1 font-alegreya" %>
+        <div class="relative">
+          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+              placeholder: "votre@email.com", value: params[:email_address],
+              class: "block w-full rounded-[1.5rem] border-0 py-4 text-pulse-forest shadow-sm ring-1 ring-inset ring-pulse-sage/30 placeholder:text-pulse-sage/60 focus:ring-2 focus:ring-inset focus:ring-pulse-forest bg-white/50 backdrop-blur-sm sm:text-sm sm:leading-6 px-5 transition-all font-palanquin" %>
+        </div>
+      </div>
+
+      <!-- Bouton Submit -->
+      <div class="pt-2">
+        <%= form.submit "Envoyer les instructions",
+            class: "flex w-full justify-center rounded-full bg-pulse-forest px-3 py-4 text-sm font-black leading-6 text-white shadow-lg shadow-pulse-forest/20 hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all cursor-pointer font-alegreya uppercase tracking-widest" %>
+      </div>
+    <% end %>
+
+    <!-- Lien de retour -->
+    <p class="mt-10 text-center text-sm font-palanquin">
+      <%= link_to new_session_path, class: "group flex items-center justify-center gap-2 font-bold text-pulse-forest/60 hover:text-pulse-forest transition-colors" do %>
+        <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Retour à la connexion
+      <% end %>
+    </p>
+  </div>
 </div>
