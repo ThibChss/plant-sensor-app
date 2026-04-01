@@ -733,7 +733,7 @@
         "june",
         "july"
       ],
-      "fruit_months": null,
+      "fruit_months": [],
       "soil_texture": 5,
       "growth_months": [
         "march",

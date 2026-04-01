@@ -14,7 +14,7 @@ module Seed
     end
 
     def call
-      clean_database!
+      clean_database! unless Rails.env.production?
 
       if @from_json
         generate_new_plants_from_json
