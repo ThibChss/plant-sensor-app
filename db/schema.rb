@@ -10,21 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_01_132221) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_02_105632) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
 
   create_table "plants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.jsonb "growth_data", default: { "light" => nil, "sowing" => nil, "spread" => {}, "ph_maximum" => nil, "ph_minimum" => nil, "row_spacing" => {}, "bloom_months" => [], "fruit_months" => [], "soil_texture" => nil, "growth_months" => [], "soil_salinity" => nil, "days_to_harvest" => nil, "soil_nutriments" => nil, "minimum_root_depth" => {}, "atmospheric_humidity" => nil, "maximum_precipitation" => {}, "minimum_precipitation" => {} }, comment: "Additional growth data"
+    t.jsonb "growth_data", default: {"light" => nil, "sowing" => nil, "spread" => {}, "ph_maximum" => nil, "ph_minimum" => nil, "row_spacing" => {}, "bloom_months" => [], "fruit_months" => [], "soil_texture" => nil, "growth_months" => [], "soil_salinity" => nil, "days_to_harvest" => nil, "soil_nutriments" => nil, "minimum_root_depth" => {}, "atmospheric_humidity" => nil, "maximum_precipitation" => {}, "minimum_precipitation" => {}}, comment: "Additional growth data"
     t.integer "ideal_humidity", comment: "Ideal humidity on a scale of 1 to 10, 1 being very dry, 10 being very humid"
     t.string "image_url"
     t.float "max_temp", comment: "Maximum temperature in Celsius"
     t.float "min_temp", comment: "Minimum temperature in Celsius"
     t.string "name"
     t.string "scientific_name"
-    t.jsonb "translated_name", default: { "en" => [], "fr" => [] }
+    t.jsonb "translated_name", default: {"en" => [], "fr" => []}
     t.string "trefle_id"
     t.datetime "updated_at", null: false
     t.index ["trefle_id"], name: "index_plants_on_trefle_id", unique: true
@@ -37,6 +37,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_01_132221) do
     t.string "user_agent"
     t.uuid "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "solid_cache_entries", force: :cascade do |t|
+    t.integer "byte_size", null: false
+    t.datetime "created_at", null: false
+    t.binary "key", null: false
+    t.bigint "key_hash", null: false
+    t.binary "value", null: false
+    t.index ["byte_size"], name: "index_solid_cache_entries_on_byte_size"
+    t.index ["key_hash", "byte_size"], name: "index_solid_cache_entries_on_key_hash_and_byte_size"
+    t.index ["key_hash"], name: "index_solid_cache_entries_on_key_hash", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
