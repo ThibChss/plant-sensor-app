@@ -86,6 +86,7 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
+  <<: *default
   # primary: &primary_production
   #   <<: *default
   #   database: plant_sensor_app_production
@@ -103,14 +104,14 @@ production:
   #   <<: *primary_production
   #   database: plant_sensor_app_production_cable
   #   migrations_paths: db/cable_migrate
-    primary: &primary_production
-      <<: *default
-    cache:
-      <<: *primary_production
-      migrations_paths: db/cache_migrate
-    queue:
-      <<: *primary_production
-      migrations_paths: db/queue_migrate
-    cable:
-      <<: *primary_production
-      migrations_paths: db/cable_migrate
+    # primary: &primary_production
+    #   <<: *default
+    # cache:
+    #   <<: *primary_production
+    #   migrations_paths: db/cache_migrate
+    # queue:
+    #   <<: *primary_production
+    #   migrations_paths: db/queue_migrate
+    # cable:
+    #   <<: *primary_production
+    #   migrations_paths: db/cable_migrate
