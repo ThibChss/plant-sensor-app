@@ -16,6 +16,7 @@ class Plant < ApplicationRecord
                       atmospheric_humidity
                       maximum_precipitation
                       minimum_precipitation].freeze
+
   MONTHS = Date::MONTHNAMES.compact.map(&:downcase).freeze
 
   private_constant :ACCESSORS_KEYS
@@ -23,7 +24,7 @@ class Plant < ApplicationRecord
   store_accessor :growth_data, *ACCESSORS_KEYS
   store_accessor :translated_name, :en, :fr, prefix: true
 
-  validates :name, :scientific_name, :trefle_id, :image_url, :min_temp, :max_temp, :ideal_humidity, presence: true
+  validates :name, :scientific_name, :trefle_id, :image_url, presence: true
   validates :trefle_id, uniqueness: true
   validates :growth_data, presence: true, if: :valid_growth_data?
   validate :proper_months

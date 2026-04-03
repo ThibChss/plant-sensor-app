@@ -1,5 +1,7 @@
 module Seed
   class Initializer < ApplicationService
+    class SeedInitializerError < StandardError; end
+
     TREFLE_TOKEN = ENV["TREFLE_API_TOKEN"]
     TREFLE_URL = ENV["TREFLE_API_URL"]
 
@@ -7,14 +9,17 @@ module Seed
 
     alias_call :start
 
-    def initialize(page: 1, from_json: false)
+    def initialize(env:, page: 1, from_json: false)
+      @env = env&.inquiry
       @page = page
       @from_json = from_json
-      @json_file = Rails.root.join('db', 'plants.json')
+      @trefle_client = TrefleClient.new
+
+      raise SeedInitializerError if @env.nil?
     end
 
     def call
-      clean_database! unless Rails.env.production?
+      clean_database! unless @env.production?
 
       if @from_json
         generate_new_plants_from_json
@@ -24,11 +29,7 @@ module Seed
     end
 
     def get_all_plants
-      @get_all_plants ||=
-        HTTParty.get(
-          "#{TREFLE_URL}/plants",
-          headers: { "Authorization" => "Token #{TREFLE_TOKEN}" }
-        )["data"]
+      @get_all_plants ||= @trefle_client.get_all_plants
     end
 
     def generate_new_plants
@@ -40,7 +41,7 @@ module Seed
     end
 
     def generate_new_plants_from_json
-      JSON.parse(File.read(@json_file)).each do |plant|
+      plants_from_json.each do |plant|
         puts "Creating plant: #{plant['name']}"
 
         Plant.create!(plant)
@@ -49,11 +50,12 @@ module Seed
       end
     end
 
+    def plants_from_json
+      JSON.parse(File.read(json_file_path))["plants"].first(20)
+    end
+
     def get_plant(id)
-      HTTParty.get(
-        "#{TREFLE_URL}/plants/#{id}",
-        headers: { "Authorization" => "Token #{TREFLE_TOKEN}" }
-      )["data"]
+      @trefle_client.get_plant(id)
     end
 
     def find_or_create_plant(plant)
@@ -94,13 +96,17 @@ module Seed
     end
 
     def get_growth_data(plant)
-      GeminiCompleter.call(plant)
+      Plants::GrowthDataFetcher.call(plant)
     end
 
     def clean_database!
       puts "Cleaning database..."
       DatabaseCleaner.clean_with(:truncation)
       puts "Database cleaned"
+    end
+
+    def json_file_path
+      @json_file_path ||= @env.production? ? Rails.root.join('db', 'plants.json') : Rails.root.join('db', 'plants_development.json')
     end
   end
 end

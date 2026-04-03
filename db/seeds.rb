@@ -1,8 +1,10 @@
-Seed::Initializer.start(from_json: true)
+Seed::Initializer.start(from_json: true, env: ENV.fetch("RAILS_ENV", "development"))
 
-User.create!(
-  first_name: "Thibault",
-  last_name: "Chassine",
-  email_address: "thib@gmail.com",
-  password: "password"
-)
+if Rails.env.development?
+  User.create!(
+    first_name: "Thibault",
+    last_name: "Chassine",
+    email_address: "thib@gmail.com",
+    password: "password"
+  )
+end
