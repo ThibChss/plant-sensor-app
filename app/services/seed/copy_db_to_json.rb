@@ -2,7 +2,7 @@ module Seed
   class CopyDbToJson < ApplicationService
     def initialize
       @plants = Plant.all
-      @file_path = Rails.root.join('db', 'plants.json')
+      @file_path = Rails.root.join('db', 'plants_development.json')
     end
 
     def call

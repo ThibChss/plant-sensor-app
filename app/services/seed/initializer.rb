@@ -9,10 +9,9 @@ module Seed
 
     alias_call :start
 
-    def initialize(env:, page: 1, from_json: false)
+    def initialize(env:, from_json: 'true')
       @env = env&.inquiry
-      @page = page
-      @from_json = from_json
+      @from_json = ActiveModel::Type::Boolean.new.cast(from_json)
       @trefle_client = TrefleClient.new
 
       raise SeedInitializerError if @env.nil?
@@ -29,7 +28,7 @@ module Seed
     end
 
     def get_all_plants
-      @get_all_plants ||= @trefle_client.get_all_plants
+      @get_all_plants ||= @trefle_client.get_all_plants['data']
     end
 
     def generate_new_plants
@@ -55,7 +54,7 @@ module Seed
     end
 
     def get_plant(id)
-      @trefle_client.get_plant(id)
+      @trefle_client.get_plant(id)['data']
     end
 
     def find_or_create_plant(plant)

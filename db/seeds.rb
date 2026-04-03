@@ -1,4 +1,4 @@
-Seed::Initializer.start(from_json: true, env: ENV.fetch("RAILS_ENV", "development"))
+Seed::Initializer.start(from_json: ENV.fetch("FROM_JSON", "true"), env: ENV.fetch("RAILS_ENV", "development"))
 
 if Rails.env.development?
   User.create!(

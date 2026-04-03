@@ -55,6 +55,14 @@ module Plants
           "ph_minimum": float,
           "light": integer (échelle 1 à 10, 10 étant plein soleil),
           "atmospheric_humidity": integer (échelle 1 à 10, 10 étant très humide),
+          "min_soil_moisture": {
+            "indoor": integer (échelle 1 à 100),
+            "outdoor": integer (échelle 1 à 100)
+          },
+          "max_soil_moisture": {
+            "indoor": integer (échelle 1 à 100),
+            "outdoor": integer (échelle 1 à 100)
+          },
           "growth_months": [strings en anglais minuscules ou array vide si inconnue],
           "bloom_months": [strings en anglais minuscules ou array vide si inconnue],
           "fruit_months": [strings en anglais minuscules ou array vide si inconnue],
