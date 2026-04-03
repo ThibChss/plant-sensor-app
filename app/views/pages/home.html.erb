@@ -104,40 +104,5 @@
     </section>
   </main>
 
-  <!-- Bottom navigation -->
-  <% if authenticated? %>
-    <nav class="pointer-events-auto flex h-20 w-full items-center justify-around rounded-t-[2.5rem] border border-white/40 bg-white/40 px-2 shadow-2xl shadow-pulse-forest/10 backdrop-blur-lg">
-      <!-- STATS -->
-      <button class="group flex h-14 w-14 items-center justify-center rounded-full text-pulse-moss transition-all hover:bg-pulse-sage/10 active:scale-90">
-        <%= icon "chart-column", class: "w-6 h-6" %>
-      </button>
-
-      <!-- HOME (Active) -->
-      <button class="relative flex h-14 w-14 items-center justify-center rounded-3xl bg-pulse-sage/10 text-pulse-forest transition-all active:scale-90">
-        <%= icon "house", class: "w-6 h-6" %>
-        <!-- Petit indicateur actif -->
-        <div class="absolute -bottom-1 h-1 w-5 rounded-full bg-pulse-forest"></div>
-      </button>
-
-      <!-- ADD BUTTON (Le "+" qui ressort) -->
-      <button class="group relative -mt-10 flex h-16 w-16 items-center justify-center rounded-full bg-pulse-forest text-white shadow-xl shadow-pulse-forest/30 transition-all hover:scale-105 active:scale-95">
-        <%= icon "plus", class: "w-8 h-8 stroke-[3]" %>
-      </button>
-
-      <!-- NOTIFICATIONS (Ou historique) -->
-      <button class="group flex h-14 w-14 items-center justify-center rounded-full text-pulse-moss transition-all hover:bg-pulse-sage/10 active:scale-90">
-        <%= icon "bell", class: "w-6 h-6" %>
-      </button>
-
-      <!-- PROFIL -->
-      <button class="group flex h-14 w-14 items-center justify-center rounded-full text-pulse-moss transition-all hover:bg-pulse-sage/10 active:scale-90">
-        <%= icon "user", class: "w-6 h-6" %>
-      </button>
-    </nav>
-  <% end %>
-
-  <!-- Home indicator -->
-  <% unless @browser.device.mobile? %>
-    <div class="pointer-events-none absolute bottom-1 left-1/2 h-1.5 w-32 -translate-x-1/2 rounded-full bg-pulse-forest/10"></div>
-  <% end %>
+  <%= render Components::NavigationBar.new if authenticated? %>
 </div>
