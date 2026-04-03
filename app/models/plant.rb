@@ -20,23 +20,27 @@
 #  index_plants_on_trefle_id  (trefle_id) UNIQUE
 #
 class Plant < ApplicationRecord
-  ACCESSORS_KEYS = %i[light
-                      sowing
-                      spread
-                      ph_maximum
-                      ph_minimum
-                      row_spacing
-                      bloom_months
-                      fruit_months
-                      soil_texture
-                      growth_months
-                      soil_salinity
-                      days_to_harvest
-                      soil_nutriments
-                      minimum_root_depth
-                      atmospheric_humidity
-                      maximum_precipitation
-                      minimum_precipitation].freeze
+  ACCESSORS_KEYS = %i[
+    light
+    sowing
+    spread
+    ph_maximum
+    ph_minimum
+    row_spacing
+    bloom_months
+    fruit_months
+    soil_texture
+    growth_months
+    soil_salinity
+    days_to_harvest
+    soil_nutriments
+    minimum_root_depth
+    atmospheric_humidity
+    maximum_precipitation
+    minimum_precipitation
+    max_soil_moisture
+    min_soil_moisture
+  ].freeze
 
   MONTHS = Date::MONTHNAMES.compact.map(&:downcase).freeze
 
@@ -58,7 +62,8 @@ class Plant < ApplicationRecord
 
   def proper_months
     %i[bloom_months fruit_months growth_months].each do |attr|
-      next if public_send(attr).is_a?(Array) && public_send(attr).all? { |month| MONTHS.include?(month) }
+      next if public_send(attr).is_a?(Array) &&
+              (public_send(attr).empty? || public_send(attr).all? { |month| MONTHS.include?(month) })
 
       errors.add(attr, :invalid)
     end
