@@ -52,18 +52,30 @@
       <div>
         <%= form.label :password, "Mot de passe",
           class: "block text-[10px] font-bold text-pulse-moss uppercase tracking-widest mb-2 px-1 font-alegreya" %>
-        <%= form.password_field :password, required: true, autocomplete: "new-password",
-          placeholder: "••••••••",
-          class: "block w-full rounded-[1.5rem] border-0 py-4 text-pulse-forest shadow-sm ring-1 ring-inset ring-pulse-sage/30 placeholder:text-pulse-sage/60 focus:ring-2 focus:ring-inset focus:ring-pulse-forest bg-white/50 backdrop-blur-sm sm:text-sm px-5 transition-all font-palanquin" %>
+        <%= render "shared/password_visibility_field",
+            form: form,
+            field: :password,
+            options: {
+              required: true,
+              autocomplete: "new-password",
+              placeholder: "••••••••",
+              class: "block w-full rounded-[1.5rem] border-0 py-4 text-pulse-forest shadow-sm ring-1 ring-inset ring-pulse-sage/30 placeholder:text-pulse-sage/60 focus:ring-2 focus:ring-inset focus:ring-pulse-forest bg-white/50 backdrop-blur-sm sm:text-sm px-5 transition-all font-palanquin"
+            } %>
       </div>
 
       <%# Confirmation Mot de passe %>
       <div>
         <%= form.label :password_confirmation, "Confirmez le mot de passe",
           class: "block text-[10px] font-bold text-pulse-moss uppercase tracking-widest mb-2 px-1 font-alegreya" %>
-        <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password",
-          placeholder: "••••••••",
-          class: "block w-full rounded-[1.5rem] border-0 py-4 text-pulse-forest shadow-sm ring-1 ring-inset ring-pulse-sage/30 placeholder:text-pulse-sage/60 focus:ring-2 focus:ring-inset focus:ring-pulse-forest bg-white/50 backdrop-blur-sm sm:text-sm px-5 transition-all font-palanquin" %>
+        <%= render "shared/password_visibility_field",
+            form: form,
+            field: :password_confirmation,
+            options: {
+              required: true,
+              autocomplete: "new-password",
+              placeholder: "••••••••",
+              class: "block w-full rounded-[1.5rem] border-0 py-4 text-pulse-forest shadow-sm ring-1 ring-inset ring-pulse-sage/30 placeholder:text-pulse-sage/60 focus:ring-2 focus:ring-inset focus:ring-pulse-forest bg-white/50 backdrop-blur-sm sm:text-sm px-5 transition-all font-palanquin"
+            } %>
       </div>
 
       <%# Bouton Submit %>

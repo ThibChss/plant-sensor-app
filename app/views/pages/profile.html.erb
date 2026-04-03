@@ -40,9 +40,9 @@
         </h3>
         <div class="bg-white/40 backdrop-blur-xl rounded-[2.5rem] border border-white/40 overflow-hidden shadow-sm">
           <!-- Item Notifications -->
-          <div class="flex items-center justify-between p-5 hover:bg-white/20 transition-colors">
+          <div class="flex items-center justify-between px-5 py-2 hover:bg-white/20 transition-colors">
             <div class="flex items-center gap-4">
-              <div class="w-11 h-11 bg-white/50 rounded-2xl flex items-center justify-center text-pulse-forest">
+              <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-pulse-forest">
                 <%= icon "bell", class: "w-5 h-5" %>
               </div>
               <span class="font-bold text-pulse-forest font-palanquin">Notifications Push</span>
@@ -56,9 +56,9 @@
           <div class="h-px bg-pulse-forest/5 mx-5"></div>
 
           <!-- Item Sécurité / FaceID -->
-          <%= link_to "#", class: "flex items-center justify-between p-5 hover:bg-white/20 transition-colors" do %>
+          <%= link_to "#", class: "flex items-center justify-between px-5 py-2 hover:bg-white/20 transition-colors" do %>
             <div class="flex items-center gap-4">
-              <div class="w-11 h-11 bg-white/50 rounded-2xl flex items-center justify-center text-pulse-forest">
+              <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-pulse-forest">
                 <%= icon "shield-check", class: "w-5 h-5" %>
               </div>
               <span class="font-bold text-pulse-forest font-palanquin">Sécurité & PIN</span>
@@ -75,9 +75,9 @@
         </h3>
         <div class="bg-white/40 backdrop-blur-xl rounded-[2.5rem] border border-white/40 overflow-hidden shadow-sm">
           <!-- Aide & Support -->
-          <%= link_to "#", class: "flex items-center justify-between p-5 hover:bg-white/20 transition-colors" do %>
+          <%= link_to "#", class: "flex items-center justify-between px-5 py-2 hover:bg-white/20 transition-colors" do %>
             <div class="flex items-center gap-4">
-              <div class="w-11 h-11 bg-white/50 rounded-2xl flex items-center justify-center text-pulse-forest">
+              <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-pulse-forest">
                 <%= icon "circle-question-mark", class: "w-5 h-5" %>
               </div>
               <span class="font-bold text-pulse-forest font-palanquin">Aide & Support</span>
@@ -88,9 +88,9 @@
           <div class="h-px bg-pulse-forest/5 mx-5"></div>
 
           <!-- Déconnexion (Rouge) -->
-          <%= button_to session_path, method: :delete, class: "w-full flex items-center justify-between p-5 hover:bg-rose-50/50 transition-colors group" do %>
+          <%= button_to session_path, method: :delete, class: "w-full flex items-center justify-between px-5 py-2" do %>
             <div class="flex items-center gap-4">
-              <div class="w-11 h-11 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 group-hover:bg-rose-100">
+              <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-rose-500">
                 <%= icon "log-out", class: "w-5 h-5" %>
               </div>
               <span class="font-bold text-rose-500 font-palanquin">Déconnexion</span>
