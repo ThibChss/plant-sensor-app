@@ -33,4 +33,32 @@ RSpec.describe User, type: :model do
       expect(user.email_address).to eq('jane@example.com')
     end
   end
+
+  describe 'methods' do
+    describe '#full_name' do
+      let(:user) { build(:user, first_name: 'Jean', last_name: 'Dupont') }
+
+      it 'joins first_name and last_name with a space' do
+        expect(user.full_name).to eq('Jean Dupont')
+      end
+    end
+
+    describe '#initials' do
+      context 'when first_name and last_name are lowercase' do
+        let(:user) { build(:user, first_name: 'jean', last_name: 'dupont') }
+
+        it 'returns the first character of each name in uppercase' do
+          expect(user.initials).to eq('JD')
+        end
+      end
+
+      context 'when first_name and last_name are uppercase' do
+        let(:user) { build(:user, first_name: 'Marie', last_name: 'Curie') }
+
+        it 'leaves uppercase initials unchanged' do
+          expect(user.initials).to eq('MC')
+        end
+      end
+    end
+  end
 end

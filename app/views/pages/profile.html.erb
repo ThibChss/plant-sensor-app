@@ -1,0 +1,107 @@
+<div class="relative h-full flex flex-col bg-pulse-mist overflow-hidden">
+  <!-- Zone de contenu défilante -->
+  <main class="flex-1 overflow-y-auto no-scrollbar pb-8">
+    <!-- Section En-tête Profil -->
+    <div class="flex flex-col items-center pt-12 pb-10 px-6">
+      <!-- Conteneur Avatar -->
+      <div class="relative mb-6">
+        <div class="w-28 h-28 bg-white rounded-[2.5rem] shadow-xl shadow-pulse-forest/5 flex items-center justify-center border-4 border-white overflow-hidden">
+          <% if @current_user&.first_name.present? %>
+            <span class="text-4xl font-black text-pulse-forest font-alegreya">
+              <%= @current_user.initials %>
+            </span>
+          <% else %>
+            <%= icon "user", class: "w-12 h-12 text-pulse-sage" %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Informations Utilisateur -->
+      <h2 class="text-3xl font-black text-pulse-forest font-alegreya tracking-tight">
+        <%= @current_user&.full_name %>
+      </h2>
+      <p class="text-sm text-pulse-moss font-palanquin opacity-70 mb-8">
+        <%= @current_user&.email_address %>
+      </p>
+
+      <!-- Bouton Modifier -->
+      <%= link_to "#", class: "px-8 py-3 bg-pulse-forest text-white text-sm font-bold rounded-full shadow-lg shadow-pulse-forest/20 transition-all hover:scale-105 active:scale-95 font-palanquin" do %>
+        Modifier le profil
+      <% end %>
+    </div>
+
+    <!-- Sections de Menu Style iOS -->
+    <div class="px-6 space-y-8">
+
+      <!-- Groupe Préférences -->
+      <div>
+        <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-4 px-4 font-merriweather">
+          Préférences
+        </h3>
+        <div class="bg-white/40 backdrop-blur-xl rounded-[2.5rem] border border-white/40 overflow-hidden shadow-sm">
+          <!-- Item Notifications -->
+          <div class="flex items-center justify-between p-5 hover:bg-white/20 transition-colors">
+            <div class="flex items-center gap-4">
+              <div class="w-11 h-11 bg-white/50 rounded-2xl flex items-center justify-center text-pulse-forest">
+                <%= icon "bell", class: "w-5 h-5" %>
+              </div>
+              <span class="font-bold text-pulse-forest font-palanquin">Notifications Push</span>
+            </div>
+            <!-- Switch Toggle Simulée -->
+            <button class="relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full bg-pulse-forest transition-colors focus:outline-none">
+              <span class="translate-x-6 inline-block h-5 w-5 transform rounded-full bg-white shadow-sm transition-transform"></span>
+            </button>
+          </div>
+
+          <div class="h-px bg-pulse-forest/5 mx-5"></div>
+
+          <!-- Item Sécurité / FaceID -->
+          <%= link_to "#", class: "flex items-center justify-between p-5 hover:bg-white/20 transition-colors" do %>
+            <div class="flex items-center gap-4">
+              <div class="w-11 h-11 bg-white/50 rounded-2xl flex items-center justify-center text-pulse-forest">
+                <%= icon "shield-check", class: "w-5 h-5" %>
+              </div>
+              <span class="font-bold text-pulse-forest font-palanquin">Sécurité & PIN</span>
+            </div>
+            <%= icon "chevron-right", class: "w-4 h-4 text-pulse-moss/30" %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Groupe Compte -->
+      <div>
+        <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-4 px-4 font-merriweather">
+          Compte
+        </h3>
+        <div class="bg-white/40 backdrop-blur-xl rounded-[2.5rem] border border-white/40 overflow-hidden shadow-sm">
+          <!-- Aide & Support -->
+          <%= link_to "#", class: "flex items-center justify-between p-5 hover:bg-white/20 transition-colors" do %>
+            <div class="flex items-center gap-4">
+              <div class="w-11 h-11 bg-white/50 rounded-2xl flex items-center justify-center text-pulse-forest">
+                <%= icon "circle-question-mark", class: "w-5 h-5" %>
+              </div>
+              <span class="font-bold text-pulse-forest font-palanquin">Aide & Support</span>
+            </div>
+            <%= icon "chevron-right", class: "w-4 h-4 text-pulse-moss/30" %>
+          <% end %>
+
+          <div class="h-px bg-pulse-forest/5 mx-5"></div>
+
+          <!-- Déconnexion (Rouge) -->
+          <%= button_to session_path, method: :delete, class: "w-full flex items-center justify-between p-5 hover:bg-rose-50/50 transition-colors group" do %>
+            <div class="flex items-center gap-4">
+              <div class="w-11 h-11 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 group-hover:bg-rose-100">
+                <%= icon "log-out", class: "w-5 h-5" %>
+              </div>
+              <span class="font-bold text-rose-500 font-palanquin">Déconnexion</span>
+            </div>
+            <%= icon "chevron-right", class: "w-4 h-4 text-rose-200" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Barre de Navigation (Fixed via le composant) -->
+  <%= render Components::NavigationBar.new %>
+</div>

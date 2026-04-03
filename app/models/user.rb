@@ -23,4 +23,12 @@ class User < ApplicationRecord
                             format: { with: URI::MailTo::EMAIL_REGEXP }
 
   normalizes :email_address, with: -> { it.strip.downcase }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def initials
+    "#{first_name[0].upcase}#{last_name[0].upcase}"
+  end
 end
