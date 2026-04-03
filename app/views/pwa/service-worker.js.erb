@@ -1,0 +1,10 @@
+// Minimal service worker so the app can be installed as a PWA (see Rails PWA routes).
+// Extend with caching or push when needed.
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(self.skipWaiting())
+})
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(self.clients.claim())
+})

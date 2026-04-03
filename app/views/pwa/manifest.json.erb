@@ -1,22 +1,31 @@
 {
-  "name": "Green Pulse",
+  "id": "green-pulse-monitoring-app",
+  "name": "Green Pulse Monitoring",
+  "short_name": "Green Pulse",
+  "description": "Prenez le pouls de votre jardin — capteurs et plantes.",
   "icons": [
     {
-      "src": "/icon.png",
+      "src": "<%= image_path "logo.png" %>",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "192x192",
+      "purpose": "any"
     },
     {
-      "src": "/icon.png",
+      "src": "<%= image_path "logo.png" %>",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "<%= image_path "logo.png" %>",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     }
   ],
-  "start_url": "/",
+  "start_url": "<%= root_path %>",
   "display": "standalone",
-  "scope": "/",
-  "description": "Green Pulse.",
-  "theme_color": "red",
-  "background_color": "red"
+  "scope": "<%= root_path %>",
+  "theme_color": "#346739",
+  "background_color": "#ecf4e8"
 }
