@@ -1,19 +1,17 @@
 <div class="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-pulse-mist font-palanquin">
-  <!-- HEADER : Application name & Login button -->
-  <header class="flex shrink-0 items-center justify-between px-6 pb-4 pt-[max(1.25rem,env(safe-area-inset-top))]">
-    <div class="flex flex-col">
-      <h1 class="text-3xl font-black text-pulse-forest tracking-tight font-alegreya">Green Pulse</h1>
-    </div>
+  <% unless authenticated? %>
+    <!-- HEADER : Application name & Login button -->
+    <header class="flex shrink-0 items-center justify-between px-6 pb-4 pt-[max(1.25rem,env(safe-area-inset-top))]">
+      <div class="flex flex-col">
+        <h1 class="text-3xl font-black text-pulse-forest tracking-tight font-alegreya">Green Pulse</h1>
+      </div>
 
-    <% if authenticated? %>
-      <%= button_to "Se déconnecter", session_path, method: :delete, class: "px-5 py-2 bg-pulse-forest text-white text-xs font-bold rounded-full shadow-lg shadow-pulse-forest/20 font-palanquin" %>
-    <% else %>
       <%= button_to "Se connecter", new_session_path, method: :get, class: "px-5 py-2 bg-pulse-forest text-white text-xs font-bold rounded-full shadow-lg shadow-pulse-forest/20 font-palanquin" %>
-    <% end %>
-  </header>
+    </header>
+  <% end %>
 
   <!-- Scrollable area -->
-  <main class="min-h-0 flex-1 overflow-y-auto px-6 pb-36 no-scrollbar font-palanquin">
+  <main class="min-h-0 flex-1 overflow-y-auto px-6 <%= authenticated? ? 'pt-6 pb-5' : 'pb-2' %> no-scrollbar font-palanquin">
 
     <!-- Hero section -->
     <section class="mb-8 mt-2">
@@ -107,26 +105,39 @@
   </main>
 
   <!-- Bottom navigation -->
-  <nav class="absolute bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-6 right-6 z-40 flex h-20 items-center justify-around rounded-[2.5rem] border border-white/50 bg-white/90 px-4 shadow-xl backdrop-blur-md font-palanquin">
-    <button class="text-pulse-forest flex flex-col items-center gap-1 font-palanquin">
-      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
-      </svg>
-    </button>
+  <% if authenticated? %>
+    <nav class="pointer-events-auto flex h-20 w-full items-center justify-around rounded-t-[2.5rem] border border-white/40 bg-white/40 px-2 shadow-2xl shadow-pulse-forest/10 backdrop-blur-lg">
+      <!-- STATS -->
+      <button class="group flex h-14 w-14 items-center justify-center rounded-full text-pulse-moss transition-all hover:bg-pulse-sage/10 active:scale-90">
+        <%= icon "chart-column", class: "w-6 h-6" %>
+      </button>
 
-    <button class="w-12 h-12 bg-pulse-forest rounded-2xl flex items-center justify-center text-white shadow-lg shadow-pulse-forest/30 -translate-y-2 rotate-45 font-alegreya">
-      <svg class="w-6 h-6 -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-      </svg>
-    </button>
+      <!-- HOME (Active) -->
+      <button class="relative flex h-14 w-14 items-center justify-center rounded-3xl bg-pulse-sage/10 text-pulse-forest transition-all active:scale-90">
+        <%= icon "house", class: "w-6 h-6" %>
+        <!-- Petit indicateur actif -->
+        <div class="absolute -bottom-1 h-1 w-5 rounded-full bg-pulse-forest"></div>
+      </button>
 
-    <button class="text-gray-300 flex flex-col items-center gap-1 font-palanquin">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-      </svg>
-    </button>
-  </nav>
+      <!-- ADD BUTTON (Le "+" qui ressort) -->
+      <button class="group relative -mt-10 flex h-16 w-16 items-center justify-center rounded-full bg-pulse-forest text-white shadow-xl shadow-pulse-forest/30 transition-all hover:scale-105 active:scale-95">
+        <%= icon "plus", class: "w-8 h-8 stroke-[3]" %>
+      </button>
+
+      <!-- NOTIFICATIONS (Ou historique) -->
+      <button class="group flex h-14 w-14 items-center justify-center rounded-full text-pulse-moss transition-all hover:bg-pulse-sage/10 active:scale-90">
+        <%= icon "bell", class: "w-6 h-6" %>
+      </button>
+
+      <!-- PROFIL -->
+      <button class="group flex h-14 w-14 items-center justify-center rounded-full text-pulse-moss transition-all hover:bg-pulse-sage/10 active:scale-90">
+        <%= icon "user", class: "w-6 h-6" %>
+      </button>
+    </nav>
+  <% end %>
 
   <!-- Home indicator -->
-  <div class="pointer-events-none absolute bottom-1 left-1/2 h-1.5 w-32 -translate-x-1/2 rounded-full bg-pulse-forest/10"></div>
+  <% unless @browser.device.mobile? %>
+    <div class="pointer-events-none absolute bottom-1 left-1/2 h-1.5 w-32 -translate-x-1/2 rounded-full bg-pulse-forest/10"></div>
+  <% end %>
 </div>
