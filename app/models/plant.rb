@@ -20,6 +20,8 @@
 #  index_plants_on_trefle_id  (trefle_id) UNIQUE
 #
 class Plant < ApplicationRecord
+  has_many :sensors, dependent: :destroy
+
   ACCESSORS_KEYS = %i[
     light
     sowing

@@ -3,7 +3,7 @@ FactoryBot.define do
     first_name { 'Jane' }
     last_name { 'Doe' }
 
-    email_address { Faker::Internet.unique.email }
+    email_address { "#{[first_name, last_name].join('.')}@example.com".downcase }
 
     password { 'password123' }
     password_confirmation { 'password123' }

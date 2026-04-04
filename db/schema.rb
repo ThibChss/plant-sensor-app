@@ -10,10 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_03_173108) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_03_173646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "sensor_location", ["indoor", "outdoor"]
 
   create_table "plants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -28,6 +32,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_03_173108) do
     t.string "trefle_id"
     t.datetime "updated_at", null: false
     t.index ["trefle_id"], name: "index_plants_on_trefle_id", unique: true
+  end
+
+  create_table "sensors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "current_data", default: {"temperature" => nil, "battery_level" => nil, "moisture_level" => nil}
+    t.datetime "last_seen_at"
+    t.enum "location", default: "indoor", null: false, enum_type: "sensor_location"
+    t.integer "moisture_threshold"
+    t.string "nickname"
+    t.uuid "plant_id", null: false
+    t.string "secret_key", null: false
+    t.string "uid", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.index ["current_data"], name: "index_sensors_on_current_data", using: :gin
+    t.index ["plant_id"], name: "index_sensors_on_plant_id"
+    t.index ["secret_key"], name: "index_sensors_on_secret_key", unique: true
+    t.index ["uid"], name: "index_sensors_on_uid", unique: true
+    t.index ["user_id"], name: "index_sensors_on_user_id"
   end
 
   create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -60,5 +83,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_03_173108) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "sensors", "plants"
+  add_foreign_key "sensors", "users"
   add_foreign_key "sessions", "users"
 end

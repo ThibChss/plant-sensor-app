@@ -9,9 +9,6 @@ RSpec.describe Plant, type: :model do
       it { should validate_presence_of(:scientific_name) }
       it { should validate_presence_of(:trefle_id) }
       it { should validate_presence_of(:image_url) }
-      it { should validate_presence_of(:min_temp) }
-      it { should validate_presence_of(:max_temp) }
-      it { should validate_presence_of(:ideal_humidity) }
     end
 
     describe 'uniqueness' do

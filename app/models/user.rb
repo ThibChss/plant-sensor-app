@@ -17,6 +17,8 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
+  has_many :sensors, dependent: :destroy
+  has_many :plants, through: :sensors
 
   validates :first_name, :last_name, :password, presence: true
   validates :email_address, presence: true, uniqueness: true,
