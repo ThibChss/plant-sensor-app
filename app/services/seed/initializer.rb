@@ -50,7 +50,7 @@ module Seed
     end
 
     def plants_from_json
-      JSON.parse(File.read(json_file_path))["plants"].first(20)
+      JSON.parse(File.read(json_file_path))
     end
 
     def get_plant(id)

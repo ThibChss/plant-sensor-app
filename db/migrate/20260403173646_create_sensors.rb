@@ -18,8 +18,8 @@ class CreateSensors < ActiveRecord::Migration[8.1]
         battery_level: nil
       }
 
-      t.references :user, null: false, foreign_key: true, type: :uuid
-      t.references :plant, null: false, foreign_key: true, type: :uuid
+      t.references :user, foreign_key: true, type: :uuid
+      t.references :plant, foreign_key: true, type: :uuid
     end
 
     add_index :sensors, :uid, unique: true

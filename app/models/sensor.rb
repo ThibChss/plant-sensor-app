@@ -12,8 +12,8 @@
 #  uid                :string           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  plant_id           :uuid             not null
-#  user_id            :uuid             not null
+#  plant_id           :uuid
+#  user_id            :uuid
 #
 # Indexes
 #
@@ -42,7 +42,6 @@ class Sensor < ApplicationRecord
   store_accessor :current_data, :moisture_level, :temperature, :battery_level
 
   validates :uid, :secret_key, presence: true, uniqueness: { case_sensitive: false }
-  validates :user_id, :plant_id, presence: true
   validates :uid, uniqueness: { case_sensitive: false }
 
   private

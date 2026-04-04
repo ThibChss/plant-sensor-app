@@ -41,11 +41,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_03_173646) do
     t.enum "location", default: "indoor", null: false, enum_type: "sensor_location"
     t.integer "moisture_threshold"
     t.string "nickname"
-    t.uuid "plant_id", null: false
+    t.uuid "plant_id"
     t.string "secret_key", null: false
     t.string "uid", null: false
     t.datetime "updated_at", null: false
-    t.uuid "user_id", null: false
+    t.uuid "user_id"
     t.index ["current_data"], name: "index_sensors_on_current_data", using: :gin
     t.index ["plant_id"], name: "index_sensors_on_plant_id"
     t.index ["secret_key"], name: "index_sensors_on_secret_key", unique: true

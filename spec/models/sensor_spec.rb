@@ -11,11 +11,6 @@ RSpec.describe Sensor, type: :model do
 
   describe 'validations' do
     describe 'presence' do
-      subject { build_stubbed(:sensor, user:, plant:) }
-
-      it { should validate_presence_of(:user_id) }
-      it { should validate_presence_of(:plant_id) }
-
       context 'when uid is nil' do
         let(:sensor) { build(:sensor, user:, plant:, uid: nil) }
 
