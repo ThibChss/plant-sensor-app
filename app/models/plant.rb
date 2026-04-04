@@ -59,15 +59,15 @@ class Plant < ApplicationRecord
   private
 
   def valid_growth_data?
-    ACCESSORS_KEYS.all? { |key| growth_data[key].present? }
+    ACCESSORS_KEYS.all? { growth_data[it].present? }
   end
 
   def proper_months
-    %i[bloom_months fruit_months growth_months].each do |attr|
-      next if public_send(attr).is_a?(Array) &&
-              (public_send(attr).empty? || public_send(attr).all? { |month| MONTHS.include?(month) })
+    %i[bloom_months fruit_months growth_months].each do
+      next if public_send(it).is_a?(Array) &&
+              (public_send(it).empty? || public_send(it).all? { |month| MONTHS.include?(month) })
 
-      errors.add(attr, :invalid)
+      errors.add(it, :invalid)
     end
   end
 end

@@ -1,0 +1,60 @@
+{
+  "plants": [
+    {
+      "name": "Snake Plant",
+      "scientific_name": "Sansevieria trifasciata",
+      "translated_name": {
+        "en": ["Mother-in-law tongue"],
+        "fr": ["Plante serpent"]
+      }
+    },
+    {
+      "name": "Boston Fern",
+      "scientific_name": "Nephrolepis exaltata",
+      "translated_name": { "en": [], "fr": [] }
+    },
+    {
+      "name": "Unrelated",
+      "scientific_name": "Alius generis",
+      "translated_name": {
+        "en": ["Other"],
+        "fr": ["Autre"]
+      }
+    },
+    {
+      "name": "Peace Lily",
+      "scientific_name": "Spathiphyllum wallisii",
+      "translated_name": { "en": [], "fr": [] }
+    },
+    {
+      "name": "Rubber Tree",
+      "scientific_name": "Ficus elastica",
+      "translated_name": { "en": [], "fr": [] }
+    },
+    {
+      "name": "ZZ Plant",
+      "scientific_name": "Zamioculcas zamiifolia",
+      "translated_name": { "en": [], "fr": [] }
+    },
+    {
+      "name": "Golden Pothos",
+      "scientific_name": "Epipremnum aureum",
+      "translated_name": { "en": [], "fr": [] }
+    },
+    {
+      "name": "Monstera",
+      "scientific_name": "Monstera deliciosa",
+      "translated_name": { "en": [], "fr": [] }
+    },
+    {
+      "name": "Aloe Vera",
+      "scientific_name": "Aloe barbadensis",
+      "translated_name": { "en": [], "fr": [] }
+    },
+    {
+      "name": "Jade Plant",
+      "scientific_name": "Crassula ovata",
+      "translated_name": { "en": [], "fr": [] }
+    }
+  ]
+}

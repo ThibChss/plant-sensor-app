@@ -95,3 +95,5 @@ Style/OptionalBooleanParameter:
   Enabled: false
 Lint/ItWithoutArgumentsInBlock:
   Enabled: false
+Style/ItBlockParameter:
+  Enabled: false
