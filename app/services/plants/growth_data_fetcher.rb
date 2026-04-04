@@ -11,7 +11,7 @@ module Plants
     def call
       JSON.parse(unparsed_response_with_retries)
     rescue JSON::ParserError
-      Rails.logger.error("Error parsing Gemini response: #{unparsed_response}")
+      Rails.logger.error("Error parsing Gemini response: #{unparsed_response_with_retries}")
       nil
     end
 
@@ -82,16 +82,19 @@ module Plants
     end
 
     def unparsed_response_with_retries
-      unparsed_response
-    rescue Faraday::TooManyRequestsError => e
-      raise e unless @retries < RETRY_DELAYS.size
+      @unparsed_response_with_retries ||=
+        begin
+          unparsed_response
+        rescue Faraday::TooManyRequestsError => e
+          raise e unless @retries < RETRY_DELAYS.size
 
-      Rails.logger.error("[Gemini] Limite atteinte ou erreur réseau. Nouvel essai dans #{RETRY_DELAYS[@retries]}s... (Tentative #{@retries + 1})")
-      sleep RETRY_DELAYS[@retries]
+          Rails.logger.error("[Gemini] Limite atteinte ou erreur réseau. Nouvel essai dans #{RETRY_DELAYS[@retries]}s... (Tentative #{@retries + 1})")
+          sleep RETRY_DELAYS[@retries]
 
-      @retries += 1
+          @retries += 1
 
-      retry
+          retry
+        end
     end
   end
 end

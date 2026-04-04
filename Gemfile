@@ -106,4 +106,10 @@ group :test do
 
   # Test Prof to profile tests
   gem "test-prof"
+
+  # VCR to record and replay HTTP requests
+  gem "vcr"
+
+  # WebMock to stub HTTP requests
+  gem "webmock"
 end

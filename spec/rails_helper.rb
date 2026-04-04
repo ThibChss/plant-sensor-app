@@ -1,6 +1,8 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+
 ENV['RAILS_ENV'] ||= 'test'
+
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -14,6 +16,9 @@ require 'rspec/rails'
 require "test_prof/factory_prof/nate_heckler"
 require "test_prof/recipes/rspec/let_it_be"
 require "test_prof/recipes/rspec/factory_default"
+
+# VCR to record and replay HTTP requests
+require 'vcr'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -86,5 +91,13 @@ RSpec.configure do |config|
 
   TestProf.configure do |test_prof_config|
     test_prof_config.color = true
+  end
+
+  VCR.configure do |config|
+    config.cassette_library_dir = "#{Rails.root}/spec/cassettes"
+    config.hook_into :webmock
+    config.ignore_localhost = true
+    config.configure_rspec_metadata!
+    config.filter_sensitive_data('<GEMINI_API_KEY>') { Rails.application.credentials.gemini.api_key }
   end
 end
