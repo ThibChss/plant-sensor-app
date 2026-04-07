@@ -47,5 +47,11 @@ jobs:
       - name: Prepare test database
         run: bin/rails db:test:prepare
 
+      - name: Bundler audit
+        run: bundle exec bundler-audit check --update
+
+      - name: Brakeman
+        run: bundle exec brakeman --no-pager -q -w2
+
       - name: Run RSpec
         run: bundle exec rspec
