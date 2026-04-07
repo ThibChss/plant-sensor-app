@@ -1,0 +1,55 @@
+<!-- ÉTAPE 3 : RÉGLAGES FINAUX -->
+<div data-sensor-setup-wizard-target="step" class="hidden space-y-8 animate-in fade-in slide-in-from-right-4">
+  <div class="space-y-6">
+    <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] px-2">Étape 3 : Personnalisation</h3>
+
+    <div data-sensor-setup-plant-search-target="selectedPlantBlock" class="hidden space-y-3">
+      <div data-sensor-setup-plant-search-target="selectedPlantSummary"
+           class="overflow-hidden rounded-[2.5rem] border border-white/50 bg-white/60 shadow-sm backdrop-blur-md animate-in zoom-in-95 duration-300">
+        <!-- Rempli par JS à la sélection de la plante (étape 2) -->
+      </div>
+    </div>
+
+    <div class="bg-white/60 backdrop-blur-md rounded-[2.5rem] p-6 border border-white/50 shadow-sm space-y-6">
+      <div>
+        <%= f.label :nickname, 'Surnom du capteur', class: 'block text-[10px] font-bold text-pulse-forest mb-2 px-1 uppercase' %>
+        <%= f.text_field :nickname, placeholder: 'Ex: Ma Monstera', class: 'w-full rounded-2xl border-0 py-4 px-5 bg-pulse-mist/30 text-pulse-forest focus:ring-2 focus:ring-pulse-forest' %>
+      </div>
+
+      <div>
+        <%= f.label :location, 'Emplacement', class: 'block text-[10px] font-bold text-pulse-forest mb-2 px-1 uppercase' %>
+        <%= f.select :location, Sensor.locations.keys.map { |k| [k.humanize, k] }, {},
+            data: {
+              sensor_setup_threshold_target: 'locationSelect',
+              action: 'change->sensor-setup-threshold#locationChanged'
+            },
+            class: 'w-full rounded-2xl border-0 py-4 px-5 bg-pulse-mist/30 text-pulse-forest focus:ring-2 focus:ring-pulse-forest' %>
+      </div>
+
+      <div>
+        <div class="flex justify-between items-center mb-4 px-1 gap-2">
+          <span class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-sm font-bold text-pulse-forest">
+            Seuil minimum d'arrosage
+            <span data-sensor-setup-threshold-target="thresholdRecommendedLabel"
+                  class="hidden text-[10px] font-semibold font-palanquin normal-case text-pulse-moss">(recommandé)</span>
+          </span>
+          <span class="text-xl font-black text-pulse-forest font-alegreya shrink-0" data-sensor-setup-threshold-target="thresholdLabel">25%</span>
+        </div>
+        <%= f.range_field :moisture_threshold,
+            min: 0, max: 100, value: 25,
+            data: {
+              sensor_setup_threshold_target: 'thresholdInput',
+              action: 'input->sensor-setup-threshold#updateThreshold'
+            },
+            class: 'w-full h-2 bg-pulse-mist rounded-lg appearance-none cursor-pointer accent-pulse-forest' %>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <%= f.submit "Finaliser l'installation", class: 'w-full py-5 bg-pulse-forest text-white font-black rounded-full shadow-xl active:scale-95 transition-transform' %>
+      <button type="button" data-action="click->sensor-setup-wizard#previous" class="w-full py-2 text-pulse-moss text-xs font-bold uppercase">
+        Modifier la plante
+      </button>
+    </div>
+  </div>
+</div>

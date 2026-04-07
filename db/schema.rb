@@ -48,8 +48,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_03_173646) do
     t.uuid "user_id"
     t.index ["current_data"], name: "index_sensors_on_current_data", using: :gin
     t.index ["plant_id"], name: "index_sensors_on_plant_id"
-    t.index ["secret_key"], name: "index_sensors_on_secret_key", unique: true
-    t.index ["uid"], name: "index_sensors_on_uid", unique: true
+    t.index ["secret_key"], name: "index_sensors_on_secret_key", unique: true, where: "(secret_key IS NOT NULL)"
+    t.index ["uid"], name: "index_sensors_on_uid", unique: true, where: "(uid IS NOT NULL)"
     t.index ["user_id"], name: "index_sensors_on_user_id"
   end
 

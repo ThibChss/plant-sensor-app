@@ -1,0 +1,51 @@
+<div id="sensor-setup-root"
+     class="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-pulse-mist"
+     data-controller="sensor-setup-wizard sensor-setup-uid sensor-setup-plant-search sensor-setup-threshold"
+     data-action="sensor-setup:plant-prepared->sensor-setup-wizard#onPlantPrepared"
+     data-sensor-setup-wizard-sensor-setup-uid-outlet="#sensor-setup-root"
+     data-sensor-setup-wizard-sensor-setup-plant-search-outlet="#sensor-setup-root"
+     data-sensor-setup-wizard-sensor-setup-threshold-outlet="#sensor-setup-root"
+     data-sensor-setup-plant-search-sensor-setup-wizard-outlet="#sensor-setup-root"
+     data-sensor-setup-plant-search-prepare-url-value="<%= prepare_plants_path %>">
+
+  <!-- Header fixe (hors zone scroll) -->
+  <header class="shrink-0 bg-pulse-mist px-6 pb-6 pt-[max(1.5rem,env(safe-area-inset-top))]">
+    <div class="flex justify-between items-center mb-6">
+      <%= link_to root_path, class: 'w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-pulse-forest shadow-sm' do %>
+        <%= icon 'chevron-left', class: 'w-5 h-5' %>
+      <% end %>
+
+      <!-- Indicateurs de progression -->
+      <div class="flex gap-1">
+        <div class="w-8 h-1 rounded-full transition-all duration-500 bg-pulse-sage/20" data-sensor-setup-wizard-target="indicator"></div>
+        <div class="w-8 h-1 rounded-full transition-all duration-500 bg-pulse-sage/20" data-sensor-setup-wizard-target="indicator"></div>
+        <div class="w-8 h-1 rounded-full transition-all duration-500 bg-pulse-sage/20" data-sensor-setup-wizard-target="indicator"></div>
+      </div>
+    </div>
+    <h1 class="text-3xl font-black text-pulse-forest font-alegreya">Configuration</h1>
+  </header>
+
+  <div data-sensor-setup-wizard-target="growthLoader"
+       class="hidden absolute inset-0 z-30 flex flex-col items-center justify-center gap-5 bg-pulse-mist/85 backdrop-blur-sm px-6"
+       aria-live="polite">
+    <div class="sensor-setup-loader" role="status">
+      <span class="sensor-setup-loader__bar"></span>
+      <span class="sensor-setup-loader__bar sensor-setup-loader__bar--tall"></span>
+      <span class="sensor-setup-loader__bar sensor-setup-loader__bar--delay"></span>
+    </div>
+    <p class="text-center text-sm font-bold text-pulse-forest">Analyse des besoins de la plante…</p>
+  </div>
+
+  <main class="min-h-0 flex-1 overflow-y-auto overscroll-y-contain no-scrollbar pb-5">
+    <%= form_with model: @sensor, url: sensors_setup_path,
+                  data: {
+                    sensor_setup_wizard_target: 'form',
+                    action: 'submit->sensor-setup-wizard#clearWizardOnSubmit'
+                  },
+                  class: 'px-6 flex flex-col' do |f| %>
+      <%= render 'step_uid', f: f %>
+      <%= render 'step_plant_search' %>
+      <%= render 'step_personalization', f: f %>
+    <% end %>
+  </main>
+</div>

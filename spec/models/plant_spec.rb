@@ -104,4 +104,24 @@ RSpec.describe Plant, type: :model do
       expect(plant.translated_name_fr).to eq(fr_names)
     end
   end
+
+  describe 'instance methods' do
+    describe 'growth_data_complete?' do
+      context 'when growth_data is not enriched' do
+        let(:plant) { build(:plant) }
+
+        it 'returns false' do
+          expect(plant.growth_data_complete?).to be(false)
+        end
+      end
+
+      context 'when growth_data is enriched' do
+        let(:plant) { build(:plant, :enriched) }
+
+        it 'returns true' do
+          expect(plant.growth_data_complete?).to be(true)
+        end
+      end
+    end
+  end
 end

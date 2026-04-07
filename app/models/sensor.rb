@@ -19,8 +19,8 @@
 #
 #  index_sensors_on_current_data  (current_data) USING gin
 #  index_sensors_on_plant_id      (plant_id)
-#  index_sensors_on_secret_key    (secret_key) UNIQUE
-#  index_sensors_on_uid           (uid) UNIQUE
+#  index_sensors_on_secret_key    (secret_key) UNIQUE WHERE (secret_key IS NOT NULL)
+#  index_sensors_on_uid           (uid) UNIQUE WHERE (uid IS NOT NULL)
 #  index_sensors_on_user_id       (user_id)
 #
 # Foreign Keys
@@ -29,8 +29,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Sensor < ApplicationRecord
-  belongs_to :user
-  belongs_to :plant
+  belongs_to :user, optional: true
+  belongs_to :plant, optional: true
 
   enum :location, { indoor: 'indoor', outdoor: 'outdoor' }, default: :indoor, validate: true
 

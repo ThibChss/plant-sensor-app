@@ -12,7 +12,8 @@ module Components
 
         nav_tab_link(href: root_path, active: home_active?) { nav_icon('house', 'w-6 h-6') }
 
-        button(
+        a(
+          href: new_sensors_setup_path,
           class: 'group relative -mt-10 flex h-16 w-16 items-center justify-center rounded-full bg-pulse-forest text-white shadow-xl shadow-pulse-forest/30 transition-all hover:scale-105 active:scale-95'
         ) { nav_icon('plus', 'w-8 h-8 stroke-[3]') }
 

@@ -22,8 +22,8 @@ class CreateSensors < ActiveRecord::Migration[8.1]
       t.references :plant, foreign_key: true, type: :uuid
     end
 
-    add_index :sensors, :uid, unique: true
-    add_index :sensors, :secret_key, unique: true
+    add_index :sensors, :uid, unique: true, where: "uid IS NOT NULL"
+    add_index :sensors, :secret_key, unique: true, where: "secret_key IS NOT NULL"
 
     add_index :sensors, :current_data, using: :gin
   end

@@ -14,6 +14,17 @@
   --font-merriweather: 'Merriweather', ui-serif, Georgia, 'Times New Roman', serif;
 }
 
+@keyframes sensor-setup-loader-bar {
+  20% {
+    background-color: var(--color-pulse-forest);
+    transform: scaleY(1.5);
+  }
+
+  40% {
+    transform: scaleY(1);
+  }
+}
+
 @layer components {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -22,5 +33,30 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  .sensor-setup-loader {
+    display: flex;
+    align-items: center;
+  }
+
+  .sensor-setup-loader__bar {
+    display: inline-block;
+    width: 3px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: color-mix(in srgb, var(--color-pulse-forest) 40%, transparent);
+    animation: sensor-setup-loader-bar 1s linear infinite;
+  }
+
+  .sensor-setup-loader__bar--tall {
+    height: 35px;
+    margin-left: 5px;
+    margin-right: 5px;
+    animation-delay: 0.25s;
+  }
+
+  .sensor-setup-loader__bar--delay {
+    animation-delay: 0.5s;
   }
 }

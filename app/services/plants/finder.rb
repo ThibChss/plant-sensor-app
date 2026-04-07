@@ -35,16 +35,16 @@ module Plants
     def plant_matches?(plant)
       match?(plant, 'name') ||
         match?(plant, 'scientific_name') ||
-        array_match?(plant, ['translated_name', 'en']) ||
-        array_match?(plant, ['translated_name', 'fr'])
+        array_match?(plant, 'translated_name', 'en') ||
+        array_match?(plant, 'translated_name', 'fr')
     end
 
-    def match?(plant, param)
-      plant[param]&.downcase&.include?(@query)
+    def match?(plant, key)
+      plant[key]&.downcase&.include?(@query)
     end
 
-    def array_match?(plant, params)
-      plant.dig(*params)&.any? { it.downcase.include?(@query) }
+    def array_match?(plant, *keys)
+      plant.dig(*keys)&.any? { it.downcase.include?(@query) }
     end
 
     def plants

@@ -8,6 +8,18 @@ Rails.application.routes.draw do
   resource :session, only: %i[new create destroy]
   resources :passwords, only: %i[new create edit update], param: :token
   resources :registrations, only: %i[new create]
+  resources :plants, only: %i[] do
+    collection do
+      get :search
+      post :prepare
+    end
+  end
+
+  namespace :sensors do
+    resource :setup, controller: :setup, only: %i[new create] do
+      get :validate_uid, on: :member
+    end
+  end
 
   root 'pages#home'
 

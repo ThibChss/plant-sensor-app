@@ -5,8 +5,8 @@ RSpec.describe Sensor, type: :model do
   let_it_be(:plant) { create(:plant) }
 
   describe 'associations' do
-    it { should belong_to(:user) }
-    it { should belong_to(:plant) }
+    it { should belong_to(:user).optional }
+    it { should belong_to(:plant).optional }
   end
 
   describe 'validations' do

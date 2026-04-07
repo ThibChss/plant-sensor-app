@@ -46,6 +46,8 @@ class Plant < ApplicationRecord
 
   MONTHS = Date::MONTHNAMES.compact.map(&:downcase).freeze
 
+  GROWTH_PROFILE_ENRICHED_KEY = '_growth_profile_enriched'
+
   private_constant :ACCESSORS_KEYS
 
   store_accessor :growth_data, *ACCESSORS_KEYS
@@ -55,6 +57,10 @@ class Plant < ApplicationRecord
   validates :trefle_id, uniqueness: true
   validates :growth_data, presence: true, if: :valid_growth_data?
   validate :proper_months
+
+  def growth_data_complete?
+    ActiveModel::Type::Boolean.new.cast(growth_data[GROWTH_PROFILE_ENRICHED_KEY]) || false
+  end
 
   private
 
