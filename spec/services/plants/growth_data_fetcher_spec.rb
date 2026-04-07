@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Plants::GrowthDataFetcher do
   describe '#call' do
+    before do
+      allow(Rails.application.credentials).to receive(:gemini).and_return(
+        Struct.new(:api_key).new('test-api-key')
+      )
+    end
+
     let(:plant) { build(:plant, scientific_name: 'Quercus rotundifolia') }
 
     let(:result) do
