@@ -187,7 +187,6 @@ export default class extends Controller {
     }
   }
 
-  /** Reset search UI when leaving the setup flow (e.g. Turbo page cache). */
   resetSearchUi() {
     this.setSearchQuery("")
     this.#setResultsPlaceholder()
