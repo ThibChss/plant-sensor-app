@@ -1,5 +1,8 @@
 module Sensors
   class SetupController < ApplicationController
+    rate_limit to: 60, within: 1.minute, only: :validate_uid, name: 'setup-validate-uid',
+               by: -> { Current.user.id }
+
     def new
       @sensor = Sensor.new
     end
@@ -29,10 +32,6 @@ module Sensors
 
     def plant
       @plant ||= Plant.find(sensor_params[:plant_id])
-    end
-
-    def plant_params
-      params.require(:sensor).require(:plant).permit(:trefle_id, :name, :scientific_name, :image_url)
     end
 
     def sensor_params

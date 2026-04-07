@@ -1,6 +1,12 @@
 class PlantsController < ApplicationController
+  rate_limit to: 120, within: 1.minute, only: :search, name: 'plants-search',
+             by: -> { rate_limit_identity }
+
+  rate_limit to: 20, within: 10.minutes, only: :prepare, name: 'plants-prepare',
+             by: -> { rate_limit_identity }
+
   def search
-    @plants = Plants::Finder.call(query: params[:query])
+    @plants = Plants::Finder.call(query: search_params[:query])
 
     render json: @plants
   end
@@ -36,5 +42,9 @@ class PlantsController < ApplicationController
 
   def search_params
     params.permit(:query)
+  end
+
+  def rate_limit_identity
+    Current.user&.id || request.remote_ip
   end
 end

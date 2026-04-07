@@ -43,7 +43,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 # HTTP client for API requests
-gem "httparty"
+gem 'httparty', '>= 0.24.0'
 
 # Load environment variables from .env file
 gem "dotenv-rails"
