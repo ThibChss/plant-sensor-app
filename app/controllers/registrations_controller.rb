@@ -20,7 +20,7 @@ class RegistrationsController < ApplicationController
 
       redirect_to after_authentication_url
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

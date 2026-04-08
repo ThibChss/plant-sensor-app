@@ -23,7 +23,7 @@ module Sensors
         return
       end
 
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     rescue ActiveRecord::RecordNotFound
       redirect_to new_sensors_setup_path, alert: 'Sensor not found'
     end
