@@ -8,16 +8,16 @@ export default class extends Controller {
     "uidNextButton"
   ]
 
+  static values = {
+    blank: String,
+    invalid: String,
+    unavailable: String,
+    serverError: String
+  }
+
   UID_REGEXP = /^GP-[A-Z0-9]{5}-[A-Z0-9]{5}$/i
 
   VALIDATION_URL = "/sensors/setup/validate_uid"
-
-  errorMessages = {
-    blank: "Entrez l’identifiant du capteur.",
-    invalid: "Le format doit être GP-XXXXX-XXXXX (5 caractères entre chaque tiret).",
-    unavailable: "Aucun capteur disponible avec cet identifiant. Vérifiez l’UID ou qu’il n’est pas déjà lié à un compte.",
-    serverError: "Impossible de vérifier le capteur. Réessayez."
-  }
 
   getUid() {
     return this.hasUidInputTarget ? this.uidInputTarget.value.trim() : ""
@@ -59,8 +59,8 @@ export default class extends Controller {
     const uid                 = formatUidString(this.uidInputTarget.value)
     this.uidInputTarget.value = uid
 
-    if (uid.length === 0) return this.#displayErrorMessage(this.errorMessages.blank)
-    if (!this.UID_REGEXP.test(uid)) return this.#displayErrorMessage(this.errorMessages.invalid)
+    if (uid.length === 0) return this.#displayErrorMessage(this.#blankMessage())
+    if (!this.UID_REGEXP.test(uid)) return this.#displayErrorMessage(this.#invalidMessage())
 
     const url                 = this.VALIDATION_URL;
     const checkUrl            = `${url}?${new URLSearchParams({ uid })}`;
@@ -71,6 +71,30 @@ export default class extends Controller {
   }
 
   // PRIVATE METHODS
+
+  #blankMessage() {
+    if (this.hasBlankValue && this.blankValue !== "") return this.blankValue
+
+    return "Entrez l'identifiant du capteur."
+  }
+
+  #invalidMessage() {
+    if (this.hasInvalidValue && this.invalidValue !== "") return this.invalidValue
+
+    return "Le format doit être GP-XXXXX-XXXXX (5 caractères entre chaque tiret)."
+  }
+
+  #unavailableMessage() {
+    if (this.hasUnavailableValue && this.unavailableValue !== "") return this.unavailableValue
+
+    return "Aucun capteur disponible avec cet identifiant."
+  }
+
+  #serverErrorMessage() {
+    if (this.hasServerErrorValue && this.serverErrorValue !== "") return this.serverErrorValue
+
+    return "Impossible de vérifier le capteur. Réessayez."
+  }
 
   async #fetchValidationResponse(url) {
     try {
@@ -83,9 +107,9 @@ export default class extends Controller {
 
       if (response.ok) return true
 
-      return this.#displayErrorMessage(response.message || this.errorMessages.unavailable)
+      return this.#displayErrorMessage(response.message || this.#unavailableMessage())
     } catch {
-      return this.#displayErrorMessage(this.errorMessages.serverError)
+      return this.#displayErrorMessage(this.#serverErrorMessage())
     } finally {
       this.#disableNextButton(false)
     }

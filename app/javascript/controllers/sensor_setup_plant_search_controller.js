@@ -13,15 +13,17 @@ export default class extends Controller {
   ]
 
   static values = {
-    prepareUrl: String
+    prepareUrl: String,
+    emptyPlaceholder: String,
+    noResults: String,
+    prepareError: String,
+    associatedLabel: String
   }
 
   debounceMs = 300
 
   CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
   PREPARE_URL = "/plants/prepare"
-
-  ERROR_MESSAGE = "Impossible d’enregistrer la plante. Réessayez."
 
   connect() {
     this.lastPlantSnapshot  = null
@@ -100,7 +102,7 @@ export default class extends Controller {
       const data = await this.#fetchPlantResults(this.plant)
 
       if (!data.ok) {
-        this.#showPlantPrepareError(data.message || this.ERROR_MESSAGE)
+        this.#showPlantPrepareError(data.message || this.#prepareErrorMessage())
         await this.restoreSearchStep()
 
         return
@@ -131,7 +133,7 @@ export default class extends Controller {
         })
       )
     } catch {
-      this.#showPlantPrepareError(this.ERROR_MESSAGE)
+      this.#showPlantPrepareError(this.#prepareErrorMessage())
 
       await this.restoreSearchStep()
     } finally {
@@ -150,7 +152,7 @@ export default class extends Controller {
       <div class="flex items-center gap-5 p-6">
         <img src="${imgUrl}" alt="" class="h-24 w-24 shrink-0 rounded-2xl object-cover shadow-inner ring-2 ring-white/80">
         <div class="min-w-0 flex-1 text-left">
-          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-pulse-moss">Plante associée</p>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-pulse-moss">${this.#escapeHtml(this.#associatedPlantLabel())}</p>
           <p class="mt-1 font-alegreya text-xl font-black text-pulse-forest">${name}</p>
           <p class="mt-1 text-sm italic text-pulse-moss">${scientific}</p>
         </div>
@@ -241,13 +243,45 @@ export default class extends Controller {
 
     if (plants.length === 0) {
       this.resultsTarget.innerHTML = `
-        <p class="text-[10px] text-center text-pulse-moss/60 italic py-8">Aucune plante trouvée.</p>
+        <p class="text-[10px] text-center text-pulse-moss/60 italic py-8">${this.#escapeHtml(this.#noResultsMessage())}</p>
       `
 
       return
     }
 
     this.resultsTarget.innerHTML = plants.map((plant) => this.#plantResultButtonHtml(plant)).join("")
+  }
+
+  #emptyPlaceholderMessage() {
+    if (this.hasEmptyPlaceholderValue && this.emptyPlaceholderValue !== '') {
+      return this.emptyPlaceholderValue
+    }
+
+    return "Tapez le nom d'une plante pour commencer..."
+  }
+
+  #noResultsMessage() {
+    if (this.hasNoResultsValue && this.noResultsValue !== '') {
+      return this.noResultsValue
+    }
+
+    return 'Aucune plante trouvée.'
+  }
+
+  #prepareErrorMessage() {
+    if (this.hasPrepareErrorValue && this.prepareErrorValue !== '') {
+      return this.prepareErrorValue
+    }
+
+    return "Impossible d'enregistrer la plante. Réessayez."
+  }
+
+  #associatedPlantLabel() {
+    if (this.hasAssociatedLabelValue && this.associatedLabelValue !== '') {
+      return this.associatedLabelValue
+    }
+
+    return 'Plante associée'
   }
 
   #escapeHtml(str) {
@@ -266,7 +300,7 @@ export default class extends Controller {
 
   #setResultsPlaceholder() {
     this.resultsTarget.innerHTML = `
-      <p class="text-[10px] text-center text-pulse-moss/40 italic py-8">Tapez le nom d'une plante pour commencer...</p>
+      <p class="text-[10px] text-center text-pulse-moss/40 italic py-8">${this.#escapeHtml(this.#emptyPlaceholderMessage())}</p>
     `
   }
 

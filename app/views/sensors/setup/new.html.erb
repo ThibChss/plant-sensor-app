@@ -6,7 +6,15 @@
      data-sensor-setup-wizard-sensor-setup-plant-search-outlet="#sensor-setup-root"
      data-sensor-setup-wizard-sensor-setup-threshold-outlet="#sensor-setup-root"
      data-sensor-setup-plant-search-sensor-setup-wizard-outlet="#sensor-setup-root"
-     data-sensor-setup-plant-search-prepare-url-value="<%= prepare_plants_path %>">
+     data-sensor-setup-plant-search-prepare-url-value="<%= prepare_plants_path %>"
+     data-sensor-setup-plant-search-empty-placeholder-value="<%= h(t('sensors.setup.plant_search.js.empty_placeholder')) %>"
+     data-sensor-setup-plant-search-no-results-value="<%= h(t('sensors.setup.plant_search.js.no_results')) %>"
+     data-sensor-setup-plant-search-prepare-error-value="<%= h(t('sensors.setup.plant_search.js.prepare_error')) %>"
+     data-sensor-setup-plant-search-associated-label-value="<%= h(t('sensors.setup.plant_search.js.associated_label')) %>"
+     data-sensor-setup-uid-blank-value="<%= h(t('sensors.setup.uid_validation.blank')) %>"
+     data-sensor-setup-uid-invalid-value="<%= h(t('sensors.setup.uid_validation.invalid_format')) %>"
+     data-sensor-setup-uid-unavailable-value="<%= h(t('sensors.setup.uid_validation.unavailable')) %>"
+     data-sensor-setup-uid-server-error-value="<%= h(t('sensors.setup.uid_validation.server_error')) %>">
 
   <!-- Header fixe (hors zone scroll) -->
   <header class="shrink-0 bg-pulse-mist px-6 pb-6 pt-[max(1.5rem,env(safe-area-inset-top))]">
@@ -22,7 +30,7 @@
         <div class="w-8 h-1 rounded-full transition-all duration-500 bg-pulse-sage/20" data-sensor-setup-wizard-target="indicator"></div>
       </div>
     </div>
-    <h1 class="text-3xl font-black text-pulse-forest font-alegreya">Configuration</h1>
+    <h1 class="text-3xl font-black text-pulse-forest font-alegreya"><%= t('.title') %></h1>
   </header>
 
   <div data-sensor-setup-wizard-target="growthLoader"
@@ -33,7 +41,7 @@
       <span class="sensor-setup-loader__bar sensor-setup-loader__bar--tall"></span>
       <span class="sensor-setup-loader__bar sensor-setup-loader__bar--delay"></span>
     </div>
-    <p class="text-center text-sm font-bold text-pulse-forest">Analyse des besoins de la plante…</p>
+    <p class="text-center text-sm font-bold text-pulse-forest"><%= t('.growth_loader') %></p>
   </div>
 
   <main class="min-h-0 flex-1 overflow-y-auto overscroll-y-contain no-scrollbar pb-5">

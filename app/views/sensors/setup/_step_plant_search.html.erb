@@ -1,12 +1,12 @@
 <!-- ÉTAPE 2 : RECHERCHE DE LA PLANTE -->
 <div data-sensor-setup-wizard-target="step" class="hidden space-y-8 animate-in fade-in slide-in-from-right-4">
   <div class="space-y-4">
-    <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] px-2">Étape 2 : Botanique</h3>
+    <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] px-2"><%= t('.step_heading') %></h3>
     <div class="bg-white/60 backdrop-blur-md rounded-[2.5rem] p-6 border border-white/50 shadow-sm">
       <!-- Zone de recherche -->
       <div class="relative mb-4">
         <input type="text"
-               placeholder="Quelle est cette plante ?"
+               placeholder="<%= t('.search_placeholder') %>"
                data-sensor-setup-plant-search-target="plantSearchInput"
                data-action="input->sensor-setup-plant-search#searchPlants"
                class="w-full rounded-2xl border-0 py-4 px-5 bg-pulse-mist/50 text-pulse-forest focus:ring-2 focus:ring-pulse-forest font-palanquin">
@@ -19,12 +19,12 @@
       <div data-sensor-setup-plant-search-target="results"
            data-action="click->sensor-setup-plant-search#selectPlant"
            class="max-h-[350px] overflow-y-auto no-scrollbar space-y-2">
-        <p class="text-[10px] text-center text-pulse-moss/40 italic py-8">Tapez le nom d'une plante pour commencer...</p>
+        <p class="text-[10px] text-center text-pulse-moss/40 italic py-8"><%= t('.results_placeholder') %></p>
       </div>
     </div>
   </div>
 
   <button type="button" data-action="click->sensor-setup-wizard#previous" class="w-full py-4 text-pulse-forest font-bold">
-    Retour à l'étape 1
+    <%= t('.back_button') %>
   </button>
 </div>

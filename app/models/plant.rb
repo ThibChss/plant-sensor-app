@@ -62,6 +62,10 @@ class Plant < ApplicationRecord
     ActiveModel::Type::Boolean.new.cast(growth_data[GROWTH_PROFILE_ENRICHED_KEY]) || false
   end
 
+  # def display_name
+  #   (translated_name[I18n.locale.to_s].first || name).titleize
+  # end
+
   private
 
   def valid_growth_data?

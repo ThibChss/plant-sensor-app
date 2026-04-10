@@ -10,7 +10,7 @@ module Components
           class: 'group flex h-14 w-14 items-center justify-center rounded-full text-pulse-moss transition-all hover:bg-pulse-sage/10 active:scale-90'
         ) { nav_icon('chart-column', 'w-6 h-6') }
 
-        nav_tab_link(href: root_path, active: home_active?) { nav_icon('house', 'w-6 h-6') }
+        nav_tab_link(href: sensors_path, active: home_active?) { nav_icon('house', 'w-6 h-6') }
 
         a(
           href: new_sensors_setup_path,
@@ -28,7 +28,7 @@ module Components
     private
 
     def home_active?
-      view_context.current_page?(root_path)
+      view_context.current_page?(sensors_path)
     end
 
     def profile_active?

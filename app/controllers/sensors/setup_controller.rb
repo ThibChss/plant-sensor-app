@@ -19,13 +19,13 @@ module Sensors
           sensor_params.except(:uid, :plant_id).merge(plant:)
         )
 
-        redirect_to root_path, notice: 'Sensor setup successful'
+        redirect_to root_path, notice: I18n.t('controllers.sensors.setup.successful')
         return
       end
 
       render :new, status: :unprocessable_content
     rescue ActiveRecord::RecordNotFound
-      redirect_to new_sensors_setup_path, alert: 'Sensor not found'
+      redirect_to new_sensors_setup_path, alert: I18n.t('controllers.sensors.setup.sensor_not_found')
     end
 
     private
