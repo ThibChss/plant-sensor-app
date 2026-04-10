@@ -81,6 +81,12 @@ group :development, :test do
 
   # Faker to generate test data
   gem "faker"
+
+  # For N+1 queries detection
+  gem "prosopite"
+
+  # For PostgreSQL query analysis
+  gem "pg_query"
 end
 
 group :development do

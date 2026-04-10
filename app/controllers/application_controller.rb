@@ -15,15 +15,19 @@ class ApplicationController < ActionController::Base
     @browser = Browser.new(request.user_agent)
   end
 
-  def track_navigation
-    return unless request.format.html? && request.get?
+  def browser_locale_invalid?
+    !I18n.available_locales.include?(browser_locale)
+  end
 
-    if session[:current_page] != request.original_url
-      session[:previous_page] = session[:current_page]
-      session[:current_page] = request.original_url
+  unless Rails.env.production?
+    around_action :n_plus_one_detection
+
+    def n_plus_one_detection
+      Prosopite.scan
+
+      yield
+    ensure
+      Prosopite.finish
     end
-
-    Current.previous_page = session[:previous_page]
-    Current.page = session[:current_page]
   end
 end

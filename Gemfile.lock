@@ -177,6 +177,27 @@ GEM
       base64 (~> 0.2)
       faraday (>= 1.0, < 3.a)
     google-logging-utils (0.2.0)
+    google-protobuf (4.34.1)
+      bigdecimal
+      rake (~> 13.3)
+    google-protobuf (4.34.1-aarch64-linux-gnu)
+      bigdecimal
+      rake (~> 13.3)
+    google-protobuf (4.34.1-aarch64-linux-musl)
+      bigdecimal
+      rake (~> 13.3)
+    google-protobuf (4.34.1-arm64-darwin)
+      bigdecimal
+      rake (~> 13.3)
+    google-protobuf (4.34.1-x86_64-darwin)
+      bigdecimal
+      rake (~> 13.3)
+    google-protobuf (4.34.1-x86_64-linux-gnu)
+      bigdecimal
+      rake (~> 13.3)
+    google-protobuf (4.34.1-x86_64-linux-musl)
+      bigdecimal
+      rake (~> 13.3)
     googleauth (1.16.2)
       faraday (>= 1.0, < 3.a)
       google-cloud-env (~> 2.2)
@@ -297,6 +318,8 @@ GEM
     pg (1.6.3-x86_64-darwin)
     pg (1.6.3-x86_64-linux)
     pg (1.6.3-x86_64-linux-musl)
+    pg_query (6.2.2)
+      google-protobuf (>= 3.25.3)
     phlex (2.4.1)
       refract (~> 1.0)
       zeitwerk (~> 2.7)
@@ -312,6 +335,7 @@ GEM
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
+    prosopite (2.1.2)
     psych (5.3.1)
       date
       stringio
@@ -349,6 +373,9 @@ GEM
     rails-html-sanitizer (1.7.0)
       loofah (~> 2.25)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
+    rails-i18n (8.1.0)
+      i18n (>= 0.7, < 2)
+      railties (>= 8.0.0, < 9)
     rails_icons (1.8.0)
       icons (~> 0.8.1)
       rails (>= 7.0)
@@ -546,10 +573,13 @@ DEPENDENCIES
   kamal
   oj
   pg (~> 1.1)
+  pg_query
   phlex-rails
   propshaft
+  prosopite
   puma (>= 5.0)
   rails (~> 8.1.1)
+  rails-i18n (~> 8.0)
   rails_icons
   rspec-rails
   rubocop-rails-omakase
