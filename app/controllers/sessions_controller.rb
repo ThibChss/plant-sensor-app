@@ -4,7 +4,9 @@ class SessionsController < ApplicationController
   before_action :set_locale_if_unauthenticated, only: %i[new create]
 
   rate_limit to: 10, within: 3.minutes, only: :create, with: lambda {
-    redirect_to new_session_path, alert: I18n.t('controllers.sessions.try_again_later')
+    redirect_to new_session_path, alert: message {
+      t('controllers.sessions.try_again_later')
+    }
   }
 
   def new
@@ -19,7 +21,7 @@ class SessionsController < ApplicationController
 
       redirect_to after_authentication_url
     else
-      redirect_to new_session_path, alert: I18n.t('controllers.sessions.invalid_credentials')
+      redirect_to new_session_path, alert: message { t('controllers.sessions.invalid_credentials') }
     end
   end
 
@@ -33,5 +35,9 @@ class SessionsController < ApplicationController
 
   def user_params
     params.permit(:email_address, :password)
+  end
+
+  def message(&)
+    super(use_locale: browser_locale, &)
   end
 end

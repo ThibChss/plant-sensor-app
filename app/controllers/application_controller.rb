@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    I18n.locale = I18n.available_locales.include?(locale) ? locale : I18n.default_locale
+    I18n.locale = validate_locale(locale)
   end
 
   def set_locale_if_unauthenticated
@@ -31,12 +31,23 @@ class ApplicationController < ActionController::Base
   end
 
   def browser_locale
-    @browser_locale ||= request.env['HTTP_ACCEPT_LANGUAGE'].to_s.scan(/[a-z]{2}/).first&.to_sym&.strip.presence ||
-                        I18n.default_locale
+    @browser_locale ||=
+      validate_locale(request.env['HTTP_ACCEPT_LANGUAGE'].to_s.scan(/[a-z]{2}/).first&.strip&.to_sym.presence) ||
+      I18n.default_locale
   end
 
   def browser_locale_invalid?
     !I18n.available_locales.include?(browser_locale)
+  end
+
+  def message(use_locale: nil, &)
+    I18n.with_locale(validate_locale(use_locale || locale), &)
+  end
+
+  def validate_locale(use_locale)
+    return I18n.default_locale unless I18n.available_locales.include?(use_locale) || use_locale.blank?
+
+    use_locale
   end
 
   unless Rails.env.production?

@@ -57,6 +57,14 @@ RSpec.describe 'Pages', type: :request do
         expect(user.reload.locale).to eq('en')
       end
 
+      it 'stores the success flash in the newly selected language, not the previous one' do
+        patch profile_locale_path, params: { locale: 'en' }
+
+        follow_redirect!
+
+        expect(flash[:notice]).to eq(I18n.t('pages.profile.locale_updated_notice', locale: :en))
+      end
+
       it 'ignores an unsupported locale' do
         patch profile_locale_path, params: { locale: 'de' }
 
