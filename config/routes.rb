@@ -24,4 +24,5 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   get 'profile', to: 'pages#profile'
+  patch 'profile/locale', to: 'pages#update_locale', as: :profile_locale
 end

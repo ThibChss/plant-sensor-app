@@ -1,8 +1,12 @@
 class RegistrationsController < ApplicationController
   allow_unauthenticated_access only: %i[new create]
 
+  before_action :set_locale_if_unauthenticated, only: %i[new create]
+
   rate_limit to: 10, within: 3.minutes, only: :create,
-             with: -> { redirect_to new_registration_path, alert: 'Try again later.' }
+             with: lambda {
+               redirect_to new_registration_path, alert: I18n.t('controllers.registrations.try_again_later')
+             }
 
   def new
     if authenticated?
@@ -28,5 +32,6 @@ class RegistrationsController < ApplicationController
 
   def user_params
     params.permit(:first_name, :last_name, :email_address, :password, :password_confirmation)
+          .with_defaults(locale: browser_locale)
   end
 end

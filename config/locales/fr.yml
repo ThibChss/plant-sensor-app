@@ -1,0 +1,167 @@
+fr:
+  controllers:
+    sessions:
+      try_again_later: Réessayez plus tard.
+      invalid_credentials: Adresse e-mail ou mot de passe incorrect.
+    registrations:
+      try_again_later: Réessayez plus tard.
+    passwords:
+      try_again_later: Réessayez plus tard.
+      reset_instructions_sent: Instructions de réinitialisation envoyées (si un compte existe avec cette adresse).
+      password_reset_done: Votre mot de passe a été réinitialisé.
+      passwords_mismatch: Les mots de passe ne correspondent pas.
+      invalid_reset_link: Lien de réinitialisation invalide ou expiré.
+    sensors:
+      setup:
+        successful: Installation du capteur réussie.
+        sensor_not_found: Capteur introuvable.
+  passwords_mailer:
+    reset:
+      subject: Réinitialisation de votre mot de passe
+      body_intro: Vous pouvez réinitialiser votre mot de passe en suivant le lien ci-dessous.
+      cta: Réinitialiser le mot de passe
+      body_expiry: Ce lien expire dans %{time}.
+  flash:
+    toast:
+      success_title: Succès
+      alert_title: Attention
+  app:
+    title: Green Pulse
+  plants:
+    enrich_growth_data:
+      fetch_failure: Impossible de récupérer les données de culture.
+  sensor:
+    location:
+      indoor: Intérieur
+      outdoor: Extérieur
+  sensors:
+    index:
+      collection_kicker: Ma collection
+      dashboard_title: Tableau de bord
+      all_sensors_heading: Tous mes capteurs
+      active_count: "%{count} actifs"
+      empty_state: Aucun capteur configuré.
+      add_sensor: Ajouter un capteur
+    sensor_card:
+      meta: "%{location} · Il y a %{time}"
+      meta_never_seen: "%{location} · En attente du premier relevé"
+      plant_image_alt: Photo de %{name}
+    thirsty_alerts:
+      heading: Besoin d'eau urgent
+      threshold: Seuil %{value} %
+    setup:
+      new:
+        title: Configuration
+        growth_loader: Analyse des besoins de la plante…
+      plant_search:
+        js:
+          empty_placeholder: Tapez le nom d'une plante pour commencer...
+          no_results: Aucune plante trouvée.
+          prepare_error: Impossible d'enregistrer la plante. Réessayez.
+          associated_label: Plante associée
+      step_uid:
+        step_heading: 'Étape 1 : Connexion'
+        field_heading: Identifiant du capteur
+        verify_button: Vérifier le capteur
+      step_plant_search:
+        step_heading: 'Étape 2 : Botanique'
+        search_placeholder: Quelle est cette plante ?
+        results_placeholder: Tapez le nom d'une plante pour commencer...
+        back_button: Retour à l'étape 1
+      uid_validation:
+        blank: "Entrez l'identifiant du capteur."
+        invalid_format: Le format doit être GP-XXXXX-XXXXX (5 caractères entre chaque tiret).
+        unavailable: "Aucun capteur disponible avec cet identifiant. Vérifiez l'UID ou qu'il n'est pas déjà lié à un compte."
+        server_error: Impossible de vérifier le capteur. Réessayez.
+      step_personalization:
+        step_heading: 'Étape 3 : Personnalisation'
+        nickname_label: Surnom du capteur
+        nickname_placeholder: 'Ex : Ma Monstera'
+        location_label: Emplacement
+        threshold_heading: Seuil minimum d'arrosage
+        recommended_hint: (recommandé)
+        submit: Finaliser l'installation
+        change_plant: Modifier la plante
+  pages:
+    home:
+      sign_in: Se connecter
+      hero_title_html: Prenez le pouls <br>de votre jardin.
+      hero_subtitle: Vérifiez l'humidité du sol en temps réel.
+      stat_air: Air
+      stat_soil: Sol
+      stat_battery: Batterie
+      alert_title: Alerte sécheresse
+      alert_body: Le Ficus a besoin d'eau
+      sensors_heading: Mes capteurs
+      see_all: Voir tout
+      demo_meta_salon: Salon · Dernière synchro 2m
+      demo_meta_bureau: Bureau · Dernière synchro 15m
+      demo_plant_cactus: Cactus mexicain
+      demo_plant_monstera: Monstera deliciosa
+    profile:
+      edit_profile: Modifier le profil
+      notifications_switch_aria: Notifications push
+      language: Langue
+      language_modal_title: Langue de l'application
+      language_modal_hint: Choisissez la langue d'affichage, puis validez.
+      language_validate: Valider
+      language_cancel: Annuler
+      language_fr: Français
+      language_en: English
+      locale_updated_notice: Langue mise à jour.
+      locale_update_failed_alert: Impossible de mettre à jour la langue.
+      preferences_heading: Préférences
+      push_notifications: Notifications push
+      security_pin: Sécurité et PIN
+      account_heading: Compte
+      help_support: Aide et support
+      sign_out: Déconnexion
+      sign_out_modal_title: Déconnexion
+      sign_out_modal_hint: Vous devrez vous reconnecter pour accéder à vos capteurs.
+      sign_out_modal_confirm: Me déconnecter
+      sign_out_modal_cancel: Annuler
+  sessions:
+    new:
+      title: Connexion
+      email_label: Adresse e-mail
+      email_placeholder: votre@email.com
+      password_label: Mot de passe
+      forgot_password: Oublié ?
+      submit: Se connecter
+      sign_up_prompt: Pas encore membre ?
+      sign_up_link: Créer un compte
+  registrations:
+    new:
+      title: Rejoindre l'aventure
+      subtitle: Commencez à écouter vos plantes dès aujourd'hui.
+      first_name_label: Prénom
+      first_name_placeholder: Jean
+      last_name_label: Nom
+      last_name_placeholder: Dupont
+      email_label: Adresse e-mail
+      email_placeholder: votre@email.com
+      password_label: Mot de passe
+      password_confirmation_label: Confirmez le mot de passe
+      submit: Créer mon compte
+      sign_in_prompt: Déjà inscrit ?
+      sign_in_link: Se connecter
+  passwords:
+    new:
+      title: Mot de passe oublié ?
+      subtitle: Entrez votre e-mail pour recevoir les instructions de réinitialisation.
+      email_label: Votre adresse e-mail
+      email_placeholder: votre@email.com
+      submit: Envoyer les instructions
+      back_to_sign_in: Retour à la connexion
+    edit:
+      title: Mettre à jour le mot de passe
+      password_placeholder: Nouveau mot de passe
+      password_confirmation_placeholder: Confirmer le nouveau mot de passe
+      submit: Enregistrer
+  shared:
+    password_visibility_field:
+      show_password_aria: Afficher le mot de passe
+  pwa:
+    name: Green Pulse Monitoring
+    short_name: Green Pulse
+    description: Prenez le pouls de votre jardin — capteurs et plantes.

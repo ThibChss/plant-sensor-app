@@ -78,6 +78,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_07_120000) do
     t.string "email_address", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
+    t.string "locale", default: "fr", null: false
     t.string "password_digest", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true

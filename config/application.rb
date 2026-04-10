@@ -24,6 +24,11 @@ module GreenPulse
     config.time_zone = "Paris"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # Default locale is French (see rails-i18n for fr/*.yml; app strings stay in config/locales)
+    config.i18n.default_locale = :fr
+    config.i18n.available_locales = %i[fr en]
+    config.i18n.fallbacks = { fr: %i[en] }
+
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end
