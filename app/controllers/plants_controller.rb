@@ -37,7 +37,7 @@ class PlantsController < ApplicationController
   end
 
   def enrich_growth_result
-    @enrich_growth_result ||= Plants::EnrichGrowthData.call(@plant.id)
+    @enrich_growth_result ||= Plants::GrowthDataEnricher.call(@plant.id)
   end
 
   def search_params

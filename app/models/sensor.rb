@@ -101,7 +101,7 @@ class Sensor < ApplicationRecord
   end
 
   def location_matches_environment
-    return if location.blank? || !"Sensor::#{environment.upcase}_LOCATIONS".constantize.include?(location)
+    return if location.blank? || "Sensor::#{environment.upcase}_LOCATIONS".constantize.include?(location.to_sym)
 
     errors.add(:location, :invalid)
   end

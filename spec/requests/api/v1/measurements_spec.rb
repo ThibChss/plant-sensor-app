@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Api::V1::Measurements', type: :request do
   describe 'PATCH /api/v1/measurements' do
     let_it_be(:sensor, refind: true) do
-      create(:sensor,
+      create(:sensor, :with_uid_and_secret_key, :with_user_and_plant,
              current_data: {
                'moisture_level_percent' => 10,
                'moisture_level_raw' => 3500,

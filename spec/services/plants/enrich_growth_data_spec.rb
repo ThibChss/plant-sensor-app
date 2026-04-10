@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Plants::EnrichGrowthData do
+RSpec.describe Plants::GrowthDataEnricher do
   describe '#call' do
     let_it_be(:plant, refind: true) { create(:plant) }
 

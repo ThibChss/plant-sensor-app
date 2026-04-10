@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Sensors::MeasurementProcessor do
   describe '.call' do
-    let(:sensor) do
-      create(:sensor,
+    let_it_be(:sensor, refind: true) do
+      create(:sensor, :with_uid_and_secret_key, :with_user_and_plant,
              current_data: {
                moisture_level_percent: 10.0,
                moisture_level_raw: 3500.0,

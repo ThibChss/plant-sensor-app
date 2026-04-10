@@ -1,5 +1,5 @@
 module Plants
-  class EnrichGrowthData < ApplicationService
+  class GrowthDataEnricher < ApplicationService
     def initialize(plant_id)
       @plant = Plant.find(plant_id)
     end

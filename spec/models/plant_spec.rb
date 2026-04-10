@@ -125,14 +125,14 @@ RSpec.describe Plant, type: :model do
     end
 
     describe 'display_name' do
-      let(:default_name) { "quercus" }
+      let(:default_scientific_name) { "Quercus rotundifolia" }
 
       let(:fr_names) { ["Chêne vert"] }
       let(:en_names) { ["Evergreen Oak"] }
 
       let(:translated_name) { { "fr" => fr_names, "en" => en_names } }
 
-      let(:plant) { build(:plant, name: default_name, translated_name:) }
+      let(:plant) { build(:plant, scientific_name: default_scientific_name, translated_name:) }
 
       before do
         allow(I18n).to receive(:locale).and_return(:fr)
@@ -148,7 +148,7 @@ RSpec.describe Plant, type: :model do
         let(:translated_name) { { "fr" => [], "en" => nil } }
 
         it "falls back to the base name and titleizes it" do
-          expect(plant.display_name).to eq("Quercus")
+          expect(plant.display_name).to eq("Quercus Rotundifolia")
         end
       end
 
@@ -156,7 +156,7 @@ RSpec.describe Plant, type: :model do
         let(:translated_name) { { "fr" => nil, "en" => nil } }
 
         it "falls back to the base name and titleizes it" do
-          expect(plant.display_name).to eq("Quercus")
+          expect(plant.display_name).to eq("Quercus Rotundifolia")
         end
       end
 
@@ -172,7 +172,7 @@ RSpec.describe Plant, type: :model do
         let(:translated_name) { { "fr" => [""] } }
 
         it "falls back to the base name and titleizes it" do
-          expect(plant.display_name).to eq("Quercus")
+          expect(plant.display_name).to eq("Quercus Rotundifolia")
         end
       end
 
@@ -180,7 +180,7 @@ RSpec.describe Plant, type: :model do
         let(:translated_name) { { "en" => ["Evergreen Oak"] } }
 
         it "falls back to the base name and titleizes it" do
-          expect(plant.display_name).to eq("Quercus")
+          expect(plant.display_name).to eq("Quercus Rotundifolia")
         end
       end
 
@@ -188,7 +188,7 @@ RSpec.describe Plant, type: :model do
         let(:translated_name) { { "fr" => [nil] } }
 
         it "falls back to the base name and titleizes it" do
-          expect(plant.display_name).to eq "Quercus"
+          expect(plant.display_name).to eq "Quercus Rotundifolia"
         end
       end
     end
