@@ -95,7 +95,8 @@ RSpec.describe 'Sensors::Setup', type: :request do
           uid: unclaimed_uid,
           plant_id: plant.id,
           nickname: 'Balcony sensor',
-          location: 'indoor',
+          environment: 'indoor',
+          location: 'living_room',
           moisture_threshold: 30
         }
       }
@@ -149,9 +150,9 @@ RSpec.describe 'Sensors::Setup', type: :request do
         expect(flash[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found'))
       end
 
-      it 're-renders new with unprocessable content when the update is invalid' do
+      it 're-renders new with unprocessable content when the location does not match the environment' do
         post sensors_setup_path, params: {
-          sensor: params[:sensor].merge(location: 'invalid_location')
+          sensor: params[:sensor].merge(environment: 'indoor', location: 'garden')
         }
 
         expect(response).to have_http_status(:unprocessable_content)

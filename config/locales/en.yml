@@ -31,9 +31,25 @@ en:
     enrich_growth_data:
       fetch_failure: Could not fetch growth data.
   sensor:
-    location:
+    environment:
       indoor: Indoor
       outdoor: Outdoor
+    location:
+      living_room: Living room
+      kitchen: Kitchen
+      bedroom: Bedroom
+      bathroom: Bathroom
+      office: Office
+      dining_room: Dining room
+      entrance: Entrance
+      corridor: Corridor
+      garden: Garden
+      terrace: Terrace
+      balcony: Balcony
+      porch: Porch
+      patio: Patio
+      yard: Yard
+      greenhouse: Greenhouse
   sensors:
     index:
       collection_kicker: My collection
@@ -77,7 +93,8 @@ en:
         step_heading: 'Step 3: Personalize'
         nickname_label: Sensor nickname
         nickname_placeholder: 'e.g. My Monstera'
-        location_label: Location
+        environment_label: Environment
+        location_label: Room or zone
         threshold_heading: Minimum watering threshold
         recommended_hint: (recommended)
         submit: Finish setup

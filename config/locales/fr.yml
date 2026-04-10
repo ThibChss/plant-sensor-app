@@ -31,9 +31,25 @@ fr:
     enrich_growth_data:
       fetch_failure: Impossible de récupérer les données de culture.
   sensor:
-    location:
+    environment:
       indoor: Intérieur
       outdoor: Extérieur
+    location:
+      living_room: Salon
+      kitchen: Cuisine
+      bedroom: Chambre
+      bathroom: Salle de bain
+      office: Bureau
+      dining_room: Salle à manger
+      entrance: Entrée
+      corridor: Couloir
+      garden: Jardin
+      terrace: Terrasse
+      balcony: Balcon
+      porch: Porche
+      patio: Patio
+      yard: Cour
+      greenhouse: Serre
   sensors:
     index:
       collection_kicker: Ma collection
@@ -77,7 +93,8 @@ fr:
         step_heading: 'Étape 3 : Personnalisation'
         nickname_label: Surnom du capteur
         nickname_placeholder: 'Ex : Ma Monstera'
-        location_label: Emplacement
+        environment_label: Environnement
+        location_label: Pièce ou zone
         threshold_heading: Seuil minimum d'arrosage
         recommended_hint: (recommandé)
         submit: Finaliser l'installation

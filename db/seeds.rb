@@ -23,7 +23,8 @@ rooms_fr = ["Chambre", "Salle de bain", "Salon", "Cuisine"]
     nickname: rooms_fr.sample,
     user:,
     plant:,
-    location: :indoor,
+    environment: :indoor,
+    location: Sensor::INDOOR_LOCATIONS.sample,
     moisture_threshold: plant.min_soil_moisture['indoor'],
     last_seen_at: Time.current,
     current_data: {

@@ -17,12 +17,19 @@
       </div>
 
       <div>
-        <%= f.label :location, t('.location_label'), class: 'block text-[10px] font-bold text-pulse-forest mb-2 px-1 uppercase' %>
-        <%= f.select :location, Sensor.locations.keys.map { |k| [t("sensor.location.#{k}"), k] }, {},
+        <%= f.label :environment, t('.environment_label'), class: 'block text-[10px] font-bold text-pulse-forest mb-2 px-1 uppercase' %>
+        <%= f.select :environment, Sensor.environments.keys.map { |k| [t("sensor.environment.#{k}"), k] }, {},
             data: {
-              sensor_setup_threshold_target: 'locationSelect',
-              action: 'change->sensor-setup-threshold#locationChanged'
+              sensor_setup_threshold_target: 'environmentSelect',
+              action: 'change->sensor-setup-threshold#environmentChanged'
             },
+            class: 'w-full rounded-2xl border-0 py-4 px-5 bg-pulse-mist/30 text-pulse-forest focus:ring-2 focus:ring-pulse-forest' %>
+      </div>
+
+      <div>
+        <%= f.label :location, t('.location_label'), class: 'block text-[10px] font-bold text-pulse-forest mb-2 px-1 uppercase' %>
+        <%= f.select :location, [], {},
+            data: { sensor_setup_threshold_target: 'locationSelect' },
             class: 'w-full rounded-2xl border-0 py-4 px-5 bg-pulse-mist/30 text-pulse-forest focus:ring-2 focus:ring-pulse-forest' %>
       </div>
 
@@ -36,7 +43,7 @@
           <span class="text-xl font-black text-pulse-forest font-alegreya shrink-0" data-sensor-setup-threshold-target="thresholdLabel">25%</span>
         </div>
         <%= f.range_field :moisture_threshold,
-            min: 0, max: 100, value: 25,
+            min: 0, max: 100, value: Sensor::DEFAULT_MOISTURE_THRESHOLD,
             data: {
               sensor_setup_threshold_target: 'thresholdInput',
               action: 'input->sensor-setup-threshold#updateThreshold'

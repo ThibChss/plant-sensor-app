@@ -70,7 +70,7 @@ RSpec.describe Sensor, type: :model do
     let(:sensor) { build_stubbed(:sensor, user:, plant:) }
 
     it do
-      expect(sensor).to define_enum_for(:location)
+      expect(sensor).to define_enum_for(:environment)
         .with_values(indoor: 'indoor', outdoor: 'outdoor')
         .backed_by_column_of_type(:enum)
     end

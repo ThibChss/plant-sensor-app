@@ -6,9 +6,13 @@ FactoryBot.define do
     nickname { 'Living room plant' }
     moisture_threshold { 35 }
     last_seen_at { Time.current }
+    environment { :indoor }
+    location { 'living_room' }
 
-    traits_for_enum :location
-    indoor
+    trait :outdoor do
+      environment { :outdoor }
+      location { 'balcony' }
+    end
 
     current_data do
       {

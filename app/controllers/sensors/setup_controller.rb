@@ -36,7 +36,7 @@ module Sensors
 
     def sensor_params
       params.require(:sensor)
-            .permit(:uid, :plant_id, :nickname, :location, :moisture_threshold)
+            .permit(:uid, :plant_id, :nickname, :environment, :location, :moisture_threshold)
             .with_defaults(user: Current.user)
     end
   end
