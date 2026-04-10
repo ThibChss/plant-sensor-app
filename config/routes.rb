@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      resource :measurements, only: [:update]
+    end
+  end
+
   root 'pages#home'
 
   get 'profile', to: 'pages#profile'
