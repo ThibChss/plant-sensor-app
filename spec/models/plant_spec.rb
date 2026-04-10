@@ -123,5 +123,74 @@ RSpec.describe Plant, type: :model do
         end
       end
     end
+
+    describe 'display_name' do
+      let(:default_name) { "quercus" }
+
+      let(:fr_names) { ["Chêne vert"] }
+      let(:en_names) { ["Evergreen Oak"] }
+
+      let(:translated_name) { { "fr" => fr_names, "en" => en_names } }
+
+      let(:plant) { build(:plant, name: default_name, translated_name:) }
+
+      before do
+        allow(I18n).to receive(:locale).and_return(:fr)
+      end
+
+      context "when translated_name for the current locale exists and is non-empty" do
+        it "returns the first translated name, titleized" do
+          expect(plant.display_name).to eq("Chêne Vert")
+        end
+      end
+
+      context "when translated_name for the current locale is empty or nil" do
+        let(:translated_name) { { "fr" => [], "en" => nil } }
+
+        it "falls back to the base name and titleizes it" do
+          expect(plant.display_name).to eq("Quercus")
+        end
+      end
+
+      context "when translated_name for the current locale does not exist" do
+        let(:translated_name) { { "fr" => nil, "en" => nil } }
+
+        it "falls back to the base name and titleizes it" do
+          expect(plant.display_name).to eq("Quercus")
+        end
+      end
+
+      context "when translated_name contains multiple names for locale" do
+        let(:fr_names) { ["Chêne vert", "Chêne à feuillage persistant"] }
+
+        it "uses only the first translated name" do
+          expect(plant.display_name).to eq("Chêne Vert")
+        end
+      end
+
+      context "when a translated name is present but is an empty string" do
+        let(:translated_name) { { "fr" => [""] } }
+
+        it "falls back to the base name and titleizes it" do
+          expect(plant.display_name).to eq("Quercus")
+        end
+      end
+
+      context "when the translated name exists for other locale but not current" do
+        let(:translated_name) { { "en" => ["Evergreen Oak"] } }
+
+        it "falls back to the base name and titleizes it" do
+          expect(plant.display_name).to eq("Quercus")
+        end
+      end
+
+      context "when translated name contains nil values" do
+        let(:translated_name) { { "fr" => [nil] } }
+
+        it "falls back to the base name and titleizes it" do
+          expect(plant.display_name).to eq "Quercus"
+        end
+      end
+    end
   end
 end
