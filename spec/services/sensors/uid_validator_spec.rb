@@ -12,7 +12,7 @@ RSpec.describe Sensors::UidValidator do
           it 'returns not ok with the blank message' do
             expect(result).to eq(
               ok: false,
-              message: 'Entrez l’identifiant du capteur.'
+              message: I18n.t('sensors.setup.uid_validation.blank')
             )
           end
         end
@@ -25,7 +25,7 @@ RSpec.describe Sensors::UidValidator do
       it 'returns not ok with the format message' do
         expect(result).to eq(
           ok: false,
-          message: 'Le format doit être GP-XXXXX-XXXXX (5 caractères entre chaque tiret).'
+          message: I18n.t('sensors.setup.uid_validation.invalid_format')
         )
       end
     end
@@ -36,23 +36,23 @@ RSpec.describe Sensors::UidValidator do
       it 'returns not ok with the unavailable message' do
         expect(result).to eq(
           ok: false,
-          message: 'Aucun capteur disponible avec cet identifiant. Vérifiez l’UID ou qu’il n’est pas déjà lié à un compte.'
+          message: I18n.t('sensors.setup.uid_validation.unavailable')
         )
       end
     end
 
     context 'when uid matches a sensor already linked to a user' do
-      let!(:sensor) { create(:sensor, plant: nil) }
+      let!(:sensor) { create(:sensor, :with_uid_and_secret_key, :with_user, plant: nil) }
       let(:uid) { sensor.uid }
 
       it 'returns not ok with the unavailable message' do
         expect(result[:ok]).to be(false)
-        expect(result[:message]).to include('Aucun capteur disponible')
+        expect(result[:message]).to eq(I18n.t('sensors.setup.uid_validation.unavailable'))
       end
     end
 
     context 'when uid matches an unclaimed sensor (user_id nil)' do
-      let!(:sensor) { create(:sensor, user: nil, plant: nil) }
+      let!(:sensor) { create(:sensor, :with_uid_and_secret_key, user: nil, plant: nil) }
       let(:uid) { sensor.uid }
 
       it 'returns ok' do

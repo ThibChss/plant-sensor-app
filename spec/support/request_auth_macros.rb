@@ -11,14 +11,14 @@ module RequestAuthMacros
   end
 
   module GroupMethods
-    def with_user_signed_in(method = :persisted)
+    def with_user_signed_in(method = :persisted, user_override: nil)
       case method
       when :persisted
-        let(:user) { create(:user) }
+        let(:user) { user_override || create(:user) }
       when :build
-        let(:user) { build(:user) }
+        let(:user) { user_override || build(:user) }
       when :persisted_forced
-        let_it_be(:user) { create(:user) }
+        let_it_be(:user) { user_override || create(:user) }
       else
         raise ArgumentError, "Invalid method: #{method}"
       end

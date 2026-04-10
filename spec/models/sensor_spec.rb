@@ -14,10 +14,8 @@ RSpec.describe Sensor, type: :model do
       context 'when uid is nil' do
         let(:sensor) { build(:sensor, user:, plant:, uid: nil) }
 
-        around do |example|
-          Sensor.skip_callback(:validation, :before, :generate_uid, on: :create, raise: false)
-          example.run
-          Sensor.set_callback(:validation, :before, :generate_uid, on: :create)
+        before do
+          sensor.define_singleton_method(:generate_uid) { nil }
         end
 
         it 'is invalid and adds an error on uid' do
@@ -29,10 +27,8 @@ RSpec.describe Sensor, type: :model do
       context 'when secret_key is nil' do
         let(:sensor) { build(:sensor, user:, plant:, secret_key: nil) }
 
-        around do |example|
-          Sensor.skip_callback(:validation, :before, :generate_secret_key, on: :create, raise: false)
-          example.run
-          Sensor.set_callback(:validation, :before, :generate_secret_key, on: :create)
+        before do
+          sensor.define_singleton_method(:generate_secret_key) { nil }
         end
 
         it 'is invalid and adds an error on secret_key' do
@@ -48,14 +44,6 @@ RSpec.describe Sensor, type: :model do
         let!(:existing_sensor) { create(:sensor, :with_secret_key, :with_uid, user:, plant:, uid: shared_uid) }
         let(:duplicate) { build(:sensor, :with_secret_key, :with_uid, user:, plant:, uid: shared_uid) }
 
-        around do |example|
-          Sensor.skip_callback(:validation, :before, :generate_secret_key, on: :create, raise: false)
-          Sensor.skip_callback(:validation, :before, :generate_uid, on: :create, raise: false)
-          example.run
-          Sensor.set_callback(:validation, :before, :generate_secret_key, on: :create)
-          Sensor.set_callback(:validation, :before, :generate_uid, on: :create)
-        end
-
         context 'when another sensor on the same plant reuses the uid' do
           it 'is invalid and adds an error on uid' do
             expect(duplicate).not_to be_valid
@@ -69,14 +57,6 @@ RSpec.describe Sensor, type: :model do
         let(:shared_secret) { 'gpm_sk__sharedsecretforuniquenesstestsensorkey' }
         let!(:existing_sensor) { create(:sensor, :with_uid, user:, plant:, secret_key: shared_secret) }
         let(:duplicate) { build(:sensor, :with_uid, user:, plant:, secret_key: shared_secret) }
-
-        around do |example|
-          Sensor.skip_callback(:validation, :before, :generate_secret_key, on: :create, raise: false)
-          Sensor.skip_callback(:validation, :before, :generate_uid, on: :create, raise: false)
-          example.run
-          Sensor.set_callback(:validation, :before, :generate_secret_key, on: :create)
-          Sensor.set_callback(:validation, :before, :generate_uid, on: :create)
-        end
 
         it 'is invalid when secret_key matches an existing sensor' do
           expect(duplicate).not_to be_valid
@@ -98,18 +78,23 @@ RSpec.describe Sensor, type: :model do
 
   describe 'store accessors' do
     describe 'current_data' do
-      let(:moisture_level) { 55 }
+      let(:moisture_level_percent) { 55 }
+      let(:moisture_level_raw) { 3500 }
       let(:temperature) { 19.2 }
       let(:battery_level) { 72 }
+      let(:uptime_seconds) { 1000 }
       let(:sensor) do
         build_stubbed(:sensor, user:, plant:,
-                               current_data: { moisture_level:, temperature:, battery_level: })
+                               current_data: { moisture_level_percent:, moisture_level_raw:,
+                                               temperature:, battery_level:, uptime_seconds: })
       end
 
       it 'reads moisture_level, temperature, and battery_level from current_data' do
-        expect(sensor.moisture_level).to eq(moisture_level)
+        expect(sensor.moisture_level_percent).to eq(moisture_level_percent)
+        expect(sensor.moisture_level_raw).to eq(moisture_level_raw)
         expect(sensor.temperature).to eq(temperature)
         expect(sensor.battery_level).to eq(battery_level)
+        expect(sensor.uptime_seconds).to eq(uptime_seconds)
       end
     end
   end
@@ -129,7 +114,7 @@ RSpec.describe Sensor, type: :model do
   end
 
   describe 'readonly attributes' do
-    let(:sensor) { create(:sensor, user:, plant:) }
+    let(:sensor) { create(:sensor, :with_uid_and_secret_key) }
     let(:new_uid) { 'GP-NEWXX-NEWXX' }
     let(:new_secret) { 'gpm_sk__newreadonlysecretkeyfortestsensorreadonly' }
 
@@ -139,6 +124,18 @@ RSpec.describe Sensor, type: :model do
 
     it 'does not change secret_key after create' do
       expect { sensor.update!(secret_key: new_secret) }.to raise_error(ActiveRecord::ReadonlyAttributeError)
+    end
+  end
+
+  describe 'scope' do
+    describe 'thirsty' do
+      let(:thirsty_sensor) { create(:sensor, :with_user_and_plant, user:, moisture_threshold: 30, moisture_level_percent: 25) }
+      let(:not_thirsty_sensor) { create(:sensor, :with_user_and_plant, user:, moisture_threshold: 30, moisture_level_percent: 35) }
+
+      it 'returns sensors with a moisture level below the threshold' do
+        expect(Sensor.thirsty).to include(thirsty_sensor)
+        expect(Sensor.thirsty).not_to include(not_thirsty_sensor)
+      end
     end
   end
 end

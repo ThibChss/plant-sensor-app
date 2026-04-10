@@ -69,7 +69,7 @@ RSpec.describe Plants::EnrichGrowthData do
       let(:expected_result) do
         {
           ok: false,
-          message: 'Impossible de récupérer les données de culture.'
+          message: I18n.t('plants.enrich_growth_data.fetch_failure')
         }
       end
 
@@ -90,13 +90,6 @@ RSpec.describe Plants::EnrichGrowthData do
     end
 
     context 'when the plant is not valid' do
-      let(:expected_result) do
-        {
-          ok: false,
-          message: "Name can't be blank"
-        }
-      end
-
       before do
         allow(Plants::GrowthDataFetcher).to receive(:call).and_return(fetched)
 
@@ -104,8 +97,10 @@ RSpec.describe Plants::EnrichGrowthData do
       end
 
       it 'returns a failure message' do
-        expect(service).to eq(expected_result)
-        expect(plant).not_to be_valid
+        plant.reload.valid?
+
+        expect(service[:ok]).to be(false)
+        expect(service[:message]).to eq(plant.errors.full_messages.to_sentence)
       end
     end
   end

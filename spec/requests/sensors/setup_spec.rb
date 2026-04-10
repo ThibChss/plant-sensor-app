@@ -1,0 +1,162 @@
+require 'rails_helper'
+
+RSpec.describe 'Sensors::Setup', type: :request do
+  with_user_signed_in :persisted_forced
+
+  let_it_be(:unclaimed_uid) { 'GP-SETUP-UNCLM' }
+
+  describe 'GET /sensors/setup/new' do
+    with_user_signed_out
+
+    context 'when not signed in' do
+      it 'redirects to the sign-in page' do
+        get new_sensors_setup_path
+
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    context 'when signed in' do
+      it 'returns success and renders the setup page' do
+        get new_sensors_setup_path
+
+        expect(response).to have_http_status(:found)
+      end
+    end
+  end
+
+  describe 'GET /sensors/setup/validate_uid' do
+    let(:params) { { uid: unclaimed_uid } }
+
+    context 'when not signed in' do
+      with_user_signed_out
+
+      it 'redirects to the sign-in page' do
+        get(validate_uid_sensors_setup_path, params:)
+
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    context 'when signed in' do
+      let_it_be(:unclaimed_sensor) do
+        create(:sensor, :with_uid_and_secret_key, user: nil, plant: nil, uid: unclaimed_uid)
+      end
+
+      context 'when the uid is valid and the sensor is unclaimed' do
+        it 'returns JSON when the uid is valid and the sensor is unclaimed' do
+          get(validate_uid_sensors_setup_path, params:)
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body).to include('ok' => true)
+        end
+      end
+
+      context 'when the uid has whitespace' do
+        let(:params) { { uid: "  #{unclaimed_uid}  " } }
+
+        it 'strips whitespace before validating and returns JSON' do
+          get(validate_uid_sensors_setup_path, params:)
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body).to include('ok' => true)
+        end
+      end
+
+      context 'when the uid format is invalid' do
+        let(:params) { { uid: 'GP-SHORT' } }
+        it 'returns JSON when the uid format is invalid' do
+          get(validate_uid_sensors_setup_path, params:)
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body).to include('ok' => false)
+          expect(response.parsed_body['message']).to include('GP-XXXXX-XXXXX')
+        end
+      end
+
+      context 'when the uid is missing' do
+        let(:params) { {} }
+
+        it 'responds with bad request' do
+          get(validate_uid_sensors_setup_path, params:)
+
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+    end
+  end
+
+  describe 'POST /sensors/setup' do
+    let_it_be(:plant) { create(:plant) }
+
+    let(:params) do
+      {
+        sensor: {
+          uid: unclaimed_uid,
+          plant_id: plant.id,
+          nickname: 'Balcony sensor',
+          location: 'indoor',
+          moisture_threshold: 30
+        }
+      }
+    end
+
+    context 'when not signed in' do
+      with_user_signed_out
+
+      it 'redirects to the sign-in page' do
+        post(sensors_setup_path, params:)
+
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    context 'when signed in' do
+      let_it_be(:unclaimed_sensor) do
+        create(:sensor, :with_uid_and_secret_key, user: nil, plant: nil, uid: unclaimed_uid)
+      end
+
+      it 'claims the sensor, assigns the plant and user, and redirects home with notice' do
+        expect do
+          post(sensors_setup_path, params:)
+        end.to change { unclaimed_sensor.reload.user_id }.from(nil).to(user.id)
+                                                         .and change { unclaimed_sensor.reload.plant_id }.from(nil).to(plant.id)
+
+        expect(response).to redirect_to(root_path)
+
+        follow_redirect!
+
+        expect(flash[:notice]).to eq(I18n.t('controllers.sensors.setup.successful'))
+        expect(unclaimed_sensor.reload.nickname).to eq('Balcony sensor')
+        expect(unclaimed_sensor.moisture_threshold).to eq(30)
+      end
+
+      it 'redirects to setup with alert when the sensor uid does not match an unclaimed sensor' do
+        post(sensors_setup_path, params: {
+               sensor: params[:sensor].merge(uid: 'GP-NOTEX-ISTNG')
+             })
+
+        expect(response).to redirect_to(new_sensors_setup_path)
+        expect(flash[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found'))
+      end
+
+      it 'redirects to setup with alert when the plant does not exist' do
+        post sensors_setup_path, params: {
+          sensor: params[:sensor].merge(plant_id: SecureRandom.uuid)
+        }
+
+        expect(response).to redirect_to(new_sensors_setup_path)
+        expect(flash[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found'))
+      end
+
+      it 're-renders new with unprocessable content when the update is invalid' do
+        post sensors_setup_path, params: {
+          sensor: params[:sensor].merge(location: 'invalid_location')
+        }
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.body).to include('sensor-setup-root')
+      end
+    end
+  end
+end

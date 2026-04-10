@@ -47,7 +47,7 @@ module Plants
         },
         fetch_failure: {
           ok: false,
-          message: 'Impossible de récupérer les données de culture.'
+          message: I18n.t('plants.enrich_growth_data.fetch_failure')
         }
       }
     end
