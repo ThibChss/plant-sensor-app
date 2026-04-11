@@ -10,7 +10,7 @@ module Broadcaster
 
     def broadcast_sensor_card
       I18n.with_locale(broadcast_locale) do
-        broadcast_replace_to(
+        broadcast_replace_later_to(
           stream_name,
           target: dom_id,
           partial: 'sensors/sensor_card',

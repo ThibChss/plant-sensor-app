@@ -10,7 +10,7 @@
   light_level = plant.growth_data&.dig('light')
 %>
 
-<div id="sensor_<%= sensor.id %>"
+<div id="<%= sensor.dom_id %>"
      class="<%= container_classes %> block w-full overflow-hidden rounded-[2.5rem] border transition-all duration-700 group [&:not(:last-child)]:mb-6">
 
   <!-- Section Image (Haut de la carte) -->
