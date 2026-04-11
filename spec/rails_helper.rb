@@ -100,4 +100,12 @@ RSpec.configure do |config|
     config.configure_rspec_metadata!
     config.filter_sensitive_data('<GEMINI_API_KEY>') { Rails.application.credentials.gemini.api_key }
   end
+
+  config.before(:each) do
+    Prosopite.scan
+  end
+
+  config.after(:each) do
+    Prosopite.finish
+  end
 end

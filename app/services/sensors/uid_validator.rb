@@ -33,15 +33,15 @@ module Sensors
         },
         invalid: {
           ok: false,
-          message: 'Le format doit être GP-XXXXX-XXXXX (5 caractères entre chaque tiret).'
+          message: I18n.t('sensors.setup.uid_validation.invalid_format')
         },
         unavailable: {
           ok: false,
-          message: 'Aucun capteur disponible avec cet identifiant. Vérifiez l’UID ou qu’il n’est pas déjà lié à un compte.'
+          message: I18n.t('sensors.setup.uid_validation.unavailable')
         },
         blank: {
           ok: false,
-          message: 'Entrez l’identifiant du capteur.'
+          message: I18n.t('sensors.setup.uid_validation.blank')
         }
       }
     end

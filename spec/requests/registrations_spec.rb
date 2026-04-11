@@ -23,7 +23,7 @@ RSpec.describe 'Registrations', type: :request do
       it 'redirects to the post-auth URL' do
         get new_registration_path
 
-        expect(response).to redirect_to(root_url)
+        expect(response).to redirect_to(sensors_path)
       end
     end
   end
@@ -45,7 +45,7 @@ RSpec.describe 'Registrations', type: :request do
           post registrations_path, params: valid_params
         end.to change(User, :count).by(1)
 
-        expect(response).to redirect_to(root_url)
+        expect(response).to redirect_to(sensors_path)
 
         user = User.find_by!(email_address: 'jean.dupont@example.com')
         expect(user.sessions.count).to eq(1)

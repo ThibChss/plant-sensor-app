@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_07_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_10_160328) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "sensor_location", ["indoor", "outdoor"]
+  create_enum "sensor_environment", ["indoor", "outdoor"]
 
   create_table "plants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -36,9 +36,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_07_120000) do
 
   create_table "sensors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.jsonb "current_data", default: {"temperature" => nil, "battery_level" => nil, "moisture_level" => nil}
+    t.jsonb "current_data", default: {"temperature" => nil, "battery_level" => nil, "uptime_seconds" => nil, "moisture_level_raw" => nil, "moisture_level_percent" => nil}
+    t.enum "environment", default: "indoor", null: false, enum_type: "sensor_environment"
     t.datetime "last_seen_at"
-    t.enum "location", default: "indoor", null: false, enum_type: "sensor_location"
+    t.string "location"
     t.integer "moisture_threshold"
     t.string "nickname"
     t.uuid "plant_id"
@@ -78,6 +79,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_07_120000) do
     t.string "email_address", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
+    t.string "locale", default: "fr", null: false
     t.string "password_digest", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true

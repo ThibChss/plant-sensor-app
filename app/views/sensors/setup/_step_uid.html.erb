@@ -1,12 +1,12 @@
 <!-- ÉTAPE 1 : IDENTIFIANT (UID) -->
 <div data-sensor-setup-wizard-target="step" class="space-y-8 animate-in fade-in slide-in-from-right-4">
   <div class="space-y-4">
-    <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] px-2">Étape 1 : Connexion</h3>
+    <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] px-2"><%= t('.step_heading') %></h3>
     <div class="bg-white/60 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/50 shadow-sm text-center">
       <div class="w-20 h-20 bg-pulse-forest/10 rounded-[2rem] flex items-center justify-center mx-auto mb-6 text-pulse-forest">
         <%= icon 'qr-code', class: 'w-10 h-10' %>
       </div>
-      <p class="text-sm text-pulse-forest font-bold mb-6">Identifiant du capteur</p>
+      <p class="text-sm text-pulse-forest font-bold mb-6"><%= t('.field_heading') %></p>
       <%= f.text_field :uid,
           data: {
             sensor_setup_uid_target: 'uidInput',
@@ -22,6 +22,6 @@
           data-sensor-setup-uid-target="uidNextButton"
           data-action="click->sensor-setup-wizard#next"
           class="w-full py-5 bg-pulse-forest text-white font-black rounded-full shadow-xl active:scale-95 transition-transform disabled:opacity-50 disabled:pointer-events-none">
-    Vérifier le capteur
+    <%= t('.verify_button') %>
   </button>
 </div>

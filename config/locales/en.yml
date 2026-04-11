@@ -1,31 +1,184 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  controllers:
+    sessions:
+      try_again_later: Try again later.
+      invalid_credentials: Try another email address or password.
+    registrations:
+      try_again_later: Try again later.
+    passwords:
+      try_again_later: Try again later.
+      reset_instructions_sent: Password reset instructions sent (if an account exists with that email).
+      password_reset_done: Your password has been reset.
+      passwords_mismatch: Passwords did not match.
+      invalid_reset_link: Password reset link is invalid or has expired.
+    sensors:
+      setup:
+        successful: Sensor setup successful.
+        sensor_not_found: Sensor not found.
+  passwords_mailer:
+    reset:
+      subject: Reset your password
+      body_intro: You can reset your password using the link below.
+      cta: Reset password
+      body_expiry: This link expires in %{time}.
+  flash:
+    toast:
+      success_title: Success
+      alert_title: Heads up
+  app:
+    title: Green Pulse
+  plants:
+    enrich_growth_data:
+      fetch_failure: Could not fetch growth data.
+  sensor:
+    environment:
+      indoor: Indoor
+      outdoor: Outdoor
+    location:
+      living_room: Living room
+      kitchen: Kitchen
+      bedroom: Bedroom
+      bathroom: Bathroom
+      office: Office
+      dining_room: Dining room
+      entrance: Entrance
+      corridor: Corridor
+      garden: Garden
+      terrace: Terrace
+      balcony: Balcony
+      porch: Porch
+      patio: Patio
+      yard: Yard
+      greenhouse: Greenhouse
+  sensors:
+    index:
+      collection_kicker: My collection
+      dashboard_title: Dashboard
+      all_sensors_heading: All my sensors
+      active_count: "%{count} active"
+      empty_state: No sensor configured yet.
+      add_sensor: Add a sensor
+    sensor_card:
+      meta: "%{location} · %{time} ago"
+      meta_never_seen: "%{location} · Awaiting first reading"
+      plant_image_alt: Photo of %{name}
+    thirsty_alerts:
+      heading: Urgent watering needed
+      threshold: Threshold %{value}%
+    setup:
+      new:
+        title: Setup
+        growth_loader: Analyzing plant needs…
+      plant_search:
+        js:
+          empty_placeholder: Type a plant name to get started…
+          no_results: No plants found.
+          prepare_error: Could not save the plant. Please try again.
+          associated_label: Linked plant
+      step_uid:
+        step_heading: 'Step 1: Connection'
+        field_heading: Sensor ID
+        verify_button: Verify sensor
+      step_plant_search:
+        step_heading: 'Step 2: Plant'
+        search_placeholder: Which plant is this?
+        results_placeholder: Type a plant name to get started…
+        back_button: Back to step 1
+      uid_validation:
+        blank: Enter the sensor ID.
+        invalid_format: The format must be GP-XXXXX-XXXXX (5 characters between each hyphen).
+        unavailable: No sensor is available with this ID. Check the UID or that it is not already linked to an account.
+        server_error: Could not verify the sensor. Please try again.
+      step_personalization:
+        step_heading: 'Step 3: Personalize'
+        nickname_label: Sensor nickname
+        nickname_placeholder: 'e.g. My Monstera'
+        environment_label: Environment
+        location_label: Room or zone
+        threshold_heading: Minimum watering threshold
+        recommended_hint: (recommended)
+        submit: Finish setup
+        change_plant: Change plant
+  pages:
+    home:
+      sign_in: Sign in
+      hero_title_html: Take the pulse <br>of your garden.
+      hero_subtitle: Check soil moisture in real time.
+      stat_air: Air
+      stat_soil: Soil
+      stat_battery: Battery
+      alert_title: Drought alert
+      alert_body: The ficus needs water
+      sensors_heading: My sensors
+      see_all: See all
+      demo_meta_salon: Living room · Last sync 2m
+      demo_meta_bureau: Office · Last sync 15m
+      demo_plant_cactus: Mexican cactus
+      demo_plant_monstera: Monstera deliciosa
+    profile:
+      edit_profile: Edit profile
+      notifications_switch_aria: Push notifications
+      language: Language
+      language_modal_title: App language
+      language_modal_hint: Choose your display language, then confirm.
+      language_validate: Save
+      language_cancel: Cancel
+      language_fr: Français
+      language_en: English
+      locale_updated_notice: Language updated.
+      locale_update_failed_alert: Could not update language.
+      preferences_heading: Preferences
+      push_notifications: Push notifications
+      security_pin: Security & PIN
+      account_heading: Account
+      help_support: Help & support
+      sign_out: Sign out
+      sign_out_modal_title: Sign out
+      sign_out_modal_hint: You will need to sign in again to access your sensors.
+      sign_out_modal_confirm: Sign me out
+      sign_out_modal_cancel: Cancel
+  sessions:
+    new:
+      title: Sign in
+      email_label: Email address
+      email_placeholder: you@example.com
+      password_label: Password
+      forgot_password: Forgot?
+      submit: Sign in
+      sign_up_prompt: Not a member yet?
+      sign_up_link: Create an account
+  registrations:
+    new:
+      title: Join the adventure
+      subtitle: Start listening to your plants today.
+      first_name_label: First name
+      first_name_placeholder: Jane
+      last_name_label: Last name
+      last_name_placeholder: Doe
+      email_label: Email address
+      email_placeholder: you@example.com
+      password_label: Password
+      password_confirmation_label: Confirm password
+      submit: Create my account
+      sign_in_prompt: Already registered?
+      sign_in_link: Sign in
+  passwords:
+    new:
+      title: Forgot your password?
+      subtitle: Enter your email to receive reset instructions.
+      email_label: Your email address
+      email_placeholder: you@example.com
+      submit: Email reset instructions
+      back_to_sign_in: Back to sign in
+    edit:
+      title: Update your password
+      password_placeholder: New password
+      password_confirmation_placeholder: Confirm new password
+      submit: Save
+  shared:
+    password_visibility_field:
+      show_password_aria: Show password
+  pwa:
+    name: Green Pulse Monitoring
+    short_name: Green Pulse
+    description: Take the pulse of your garden — sensors and plants.

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       post :prepare
     end
   end
+  resources :sensors, only: %i[index]
 
   namespace :sensors do
     resource :setup, controller: :setup, only: %i[new create] do
@@ -21,7 +22,14 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      resource :measurements, only: [:update]
+    end
+  end
+
   root 'pages#home'
 
   get 'profile', to: 'pages#profile'
+  patch 'profile/locale', to: 'pages#update_locale', as: :profile_locale
 end

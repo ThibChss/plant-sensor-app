@@ -1,11 +1,12 @@
 module Seed
   class Initializer < ApplicationService
     class SeedInitializerError < StandardError; end
-
     TREFLE_TOKEN = ENV["TREFLE_API_TOKEN"]
     TREFLE_URL = ENV["TREFLE_API_URL"]
 
     PLANT_EMOJIS = ["🌱", "🌿", "🍃", "🍂", "🍁", "🌸", "🌷", "🌺", "🌻", "🌼", "🌹", "🌵", "🌴"].freeze
+
+    private_constant :TREFLE_TOKEN, :TREFLE_URL, :PLANT_EMOJIS
 
     alias_call :start
 
@@ -25,7 +26,13 @@ module Seed
       else
         generate_new_plants
       end
+
+      UserPlantsAssociator.call unless @env.production?
+
+      puts "Done ✅"
     end
+
+    private
 
     def get_all_plants
       @get_all_plants ||= @trefle_client.get_all_plants['data']

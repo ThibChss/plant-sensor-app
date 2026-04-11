@@ -132,7 +132,7 @@ export default class extends Controller {
     }
 
     if (this.currentStep === 2) {
-      this.sensorSetupThresholdOutlet.applyMoistureFromLocation()
+      this.sensorSetupThresholdOutlet.applyMoistureFromEnvironment()
     }
   }
 

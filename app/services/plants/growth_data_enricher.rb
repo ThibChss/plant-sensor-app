@@ -1,5 +1,5 @@
 module Plants
-  class EnrichGrowthData < ApplicationService
+  class GrowthDataEnricher < ApplicationService
     def initialize(plant_id)
       @plant = Plant.find(plant_id)
     end
@@ -23,6 +23,7 @@ module Plants
       @plant.min_temp = growth_data.delete('minimum_temperature')
       @plant.max_temp = growth_data.delete('maximum_temperature')
       @plant.ideal_humidity = growth_data.delete('soil_humidity')
+      @plant.translated_name_fr.push(growth_data.delete('french_name'))
       @plant.growth_data = growth_data.merge(Plant::GROWTH_PROFILE_ENRICHED_KEY => true)
     end
 
@@ -47,7 +48,7 @@ module Plants
         },
         fetch_failure: {
           ok: false,
-          message: 'Impossible de récupérer les données de culture.'
+          message: I18n.t('plants.enrich_growth_data.fetch_failure')
         }
       }
     end

@@ -97,7 +97,7 @@ RSpec.describe 'Plants', type: :request do
 
     context 'when signed in' do
       before do
-        allow(Plants::EnrichGrowthData).to receive(:call) do |plant_id|
+        allow(Plants::GrowthDataEnricher).to receive(:call) do |plant_id|
           enrich_result.merge(plant_id:)
         end
       end
@@ -113,7 +113,7 @@ RSpec.describe 'Plants', type: :request do
         expect(response.parsed_body['plant_id']).to eq(Plant.last.id)
         expect(response.parsed_body['min_soil_moisture']).to eq({ 'indoor' => 40, 'outdoor' => 35 })
 
-        expect(Plants::EnrichGrowthData).to have_received(:call).with(Plant.find_by!(trefle_id: 'tref-99').id)
+        expect(Plants::GrowthDataEnricher).to have_received(:call).with(Plant.find_by!(trefle_id: 'tref-99').id)
       end
 
       context 'when the plant already exists for that trefle_id' do
@@ -131,7 +131,7 @@ RSpec.describe 'Plants', type: :request do
           expect(response.parsed_body['ok']).to be(true)
           expect(response.parsed_body['plant_id']).to eq(plant.id.to_s)
 
-          expect(Plants::EnrichGrowthData).to have_received(:call).with(plant.id)
+          expect(Plants::GrowthDataEnricher).to have_received(:call).with(plant.id)
         end
       end
 

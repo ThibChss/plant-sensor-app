@@ -6,6 +6,7 @@
 #  email_address   :string           not null
 #  first_name      :string           not null
 #  last_name       :string           not null
+#  locale          :string           default("fr"), not null
 #  password_digest :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -20,11 +21,13 @@ class User < ApplicationRecord
   has_many :sensors, dependent: :destroy
   has_many :plants, through: :sensors
 
-  validates :first_name, :last_name, :password, presence: true
+  validates :first_name, :last_name, presence: true
+  validates :password, presence: true, if: -> { new_record? }
   validates :email_address, presence: true, uniqueness: true,
                             format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :locale, inclusion: { in: I18n.available_locales.map(&:to_s) }
 
-  normalizes :email_address, with: -> { it.strip.downcase }
+  normalizes :email_address, :locale, with: -> { it.to_s.strip.downcase }
 
   def full_name
     "#{first_name} #{last_name}"

@@ -78,4 +78,8 @@ Rails.application.configure do
 
   # Add ngrok host to allow local development
   config.hosts << "initially-striking-colt.ngrok-free.app"
+
+  config.after_initialize do
+    Prosopite.rails_logger = true
+  end
 end

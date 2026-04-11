@@ -25,7 +25,7 @@ class PlantsController < ApplicationController
     render json: enrich_growth_result
   rescue ActiveRecord::RecordInvalid => e
     render json: { ok: false, message: e.record.errors.full_messages.to_sentence },
-           status: :unprocessable_entity
+           status: :unprocessable_content
   end
 
   private
@@ -37,7 +37,7 @@ class PlantsController < ApplicationController
   end
 
   def enrich_growth_result
-    @enrich_growth_result ||= Plants::EnrichGrowthData.call(@plant.id)
+    @enrich_growth_result ||= Plants::GrowthDataEnricher.call(@plant.id)
   end
 
   def search_params

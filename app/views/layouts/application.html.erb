@@ -24,9 +24,15 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= tag.script src: 'https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1', type: 'module', nonce: content_security_policy_nonce %>
   </head>
 
   <%= render Components::Layout::Frame.new(browser: @browser) do %>
+    <%= render Components::FlashToast.new(
+          flash: flash,
+          position: @browser.device.mobile? ? :viewport : :device_frame
+        ) %>
+
     <%= yield %>
   <% end %>
 </html>

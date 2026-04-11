@@ -1,20 +1,26 @@
 FactoryBot.define do
   factory :sensor do
-    association :user
-    association :plant
+    user { nil }
+    plant { nil }
 
     nickname { 'Living room plant' }
     moisture_threshold { 35 }
     last_seen_at { Time.current }
+    environment { :indoor }
+    location { 'living_room' }
 
-    traits_for_enum :location
-    indoor
+    trait :outdoor do
+      environment { :outdoor }
+      location { 'balcony' }
+    end
 
     current_data do
       {
-        moisture_level: 42,
+        moisture_level_percent: 42,
+        moisture_level_raw: 2675,
         temperature: 22.5,
-        battery_level: 88
+        battery_level: 88,
+        uptime_seconds: 1000
       }
     end
 
@@ -29,6 +35,19 @@ FactoryBot.define do
     trait :with_uid_and_secret_key do
       with_uid
       with_secret_key
+    end
+
+    trait :with_user do
+      user { create(:user) }
+    end
+
+    trait :with_plant do
+      plant { create(:plant) }
+    end
+
+    trait :with_user_and_plant do
+      with_user
+      with_plant
     end
   end
 end
