@@ -3701,15 +3701,14 @@
     "id": "f3f4d418-a473-4d46-8bb9-28051f1cb7a9",
     "growth_data": {
       "light": 7,
-      "sowing": "Spring",
+      "sowing": null,
       "spread": {
-        "cm": 30
+        "cm": 25
       },
       "ph_maximum": 7.0,
       "ph_minimum": 6.0,
       "row_spacing": null,
       "bloom_months": [
-        "may",
         "june",
         "july",
         "august"
@@ -3722,11 +3721,12 @@
         "may",
         "june",
         "july",
-        "august"
+        "august",
+        "september"
       ],
       "soil_salinity": 2,
       "days_to_harvest": null,
-      "soil_nutriments": 5,
+      "soil_nutriments": 6,
       "max_soil_moisture": {
         "indoor": 70,
         "outdoor": 70
@@ -3743,9 +3743,9 @@
       "minimum_precipitation": null,
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 5,
+    "ideal_humidity": 6,
     "image_url": "https://bs.plantnet.org/image/o/21b7dab48594def004c2c7117fd614790ad196d6",
-    "max_temp": 30.0,
+    "max_temp": 28.0,
     "min_temp": 15.0,
     "name": "American rubberplant",
     "scientific_name": "Peperomia obtusifolia",
@@ -3756,7 +3756,9 @@
         "Oval-leaf peperomia",
         "Pepper-face"
       ],
-      "fr": []
+      "fr": [
+        "Peperomia à feuilles obtuses"
+      ]
     },
     "trefle_id": "126118"
   }

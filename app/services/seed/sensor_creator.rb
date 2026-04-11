@@ -72,7 +72,7 @@ module Seed
     end
 
     def location
-      special? ? 'bedroom' : "Sensor::#{environment.to_s.upcase}_LOCATIONS".constantize.sample
+      special? ? 'bedroom' : "Sensor::#{environment.to_s.upcase}_LOCATIONS".constantize.sample.to_s
     end
 
     def moisture_threshold

@@ -47,6 +47,7 @@ module Plants
 
         Voici la structure attendue :
         {
+          "french_name": string (Ex: 'Chêne vert' ou nil si inconnu),
           "sowing": string (Ex: 'Spring' ou 'Autumn'),
           "days_to_harvest": integer ou nil,
           "row_spacing": {"cm": integer},

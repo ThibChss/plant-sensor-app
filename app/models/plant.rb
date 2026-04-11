@@ -63,7 +63,7 @@ class Plant < ApplicationRecord
   end
 
   def display_name
-    (translated_name[I18n.locale.to_s]&.first&.presence || scientific_name).titleize
+    (translated_name[I18n.locale.to_s]&.first&.presence || name).titleize
   end
 
   private
@@ -75,7 +75,7 @@ class Plant < ApplicationRecord
   def proper_months
     %i[bloom_months fruit_months growth_months].each do
       next if public_send(it).is_a?(Array) &&
-              (public_send(it).empty? || public_send(it).all? { |month| MONTHS.include?(month) })
+              (public_send(it).empty? || public_send(it).all? { |month| MONTHS.include?(month.downcase) })
 
       errors.add(it, :invalid)
     end
