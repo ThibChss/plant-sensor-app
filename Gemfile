@@ -89,6 +89,9 @@ group :development, :test do
 
   # For PostgreSQL query analysis
   gem "pg_query"
+
+  # For QR code generation
+  gem 'rqrcode'
 end
 
 group :development do
