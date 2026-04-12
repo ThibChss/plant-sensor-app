@@ -4,11 +4,16 @@ import { formatUidString } from "sensor_setup/uid_format"
 export default class extends Controller {
   static targets = [
     "uidInput",
+    "secretInput",
     "uidFeedback",
     "uidNextButton"
   ]
 
   static values = {
+    validateUidUrl: {
+      type: String,
+      default: "/sensors/setup/validate_uid"
+    },
     blank: String,
     invalid: String,
     unavailable: String,
@@ -16,8 +21,6 @@ export default class extends Controller {
   }
 
   UID_REGEXP = /^GP-[A-Z0-9]{5}-[A-Z0-9]{5}$/i
-
-  VALIDATION_URL = "/sensors/setup/validate_uid"
 
   getUid() {
     return this.hasUidInputTarget ? this.uidInputTarget.value.trim() : ""
@@ -27,6 +30,16 @@ export default class extends Controller {
     if (!this.hasUidInputTarget || !value) return
 
     this.uidInputTarget.value = formatUidString(String(value))
+  }
+
+  setSecretKey(value) {
+    if (!this.hasSecretInputTarget) return
+
+    this.secretInputTarget.value = value ?? ""
+  }
+
+  getSecretKey() {
+    return this.hasSecretInputTarget ? this.secretInputTarget.value.trim() : ""
   }
 
   formatUid(event) {
@@ -51,6 +64,7 @@ export default class extends Controller {
   resetFormUid() {
     this.clearUidFeedback()
     this.#disableNextButton(false)
+    if (this.hasSecretInputTarget) this.secretInputTarget.value = ""
   }
 
   async validateUid() {
@@ -62,8 +76,8 @@ export default class extends Controller {
     if (uid.length === 0) return this.#displayErrorMessage(this.#blankMessage())
     if (!this.UID_REGEXP.test(uid)) return this.#displayErrorMessage(this.#invalidMessage())
 
-    const url                 = this.VALIDATION_URL;
-    const checkUrl            = `${url}?${new URLSearchParams({ uid })}`;
+    const url                 = this.validateUidUrlValue
+    const checkUrl            = `${url}?${new URLSearchParams({ uid })}`
 
     this.#disableNextButton()
 

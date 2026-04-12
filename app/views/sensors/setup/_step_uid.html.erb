@@ -7,6 +7,10 @@
         <%= icon 'qr-code', class: 'w-10 h-10' %>
       </div>
       <p class="text-sm text-pulse-forest font-bold mb-6"><%= t('.field_heading') %></p>
+      <%= f.hidden_field :secret_key,
+          value: '',
+          autocomplete: 'off',
+          data: { sensor_setup_uid_target: 'secretInput' } %>
       <%= f.text_field :uid,
           data: {
             sensor_setup_uid_target: 'uidInput',

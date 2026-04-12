@@ -25,10 +25,8 @@ module Sensors
 
     def create
       ActiveRecord::Base.transaction do
-        @sensor = Sensor.find_by!(uid: sensor_params[:uid], user_id: nil)
-
-        raise ActiveRecord::Rollback unless plant && @sensor.update(
-          sensor_params.except(:uid, :plant_id).merge(plant:)
+        raise ActiveRecord::Rollback unless plant && sensor.update(
+          sensor_params.except(:uid, :secret_key, :plant_id).merge(plant:)
         )
 
         redirect_to root_path, notice: I18n.t('controllers.sensors.setup.successful')
@@ -46,9 +44,14 @@ module Sensors
       @plant ||= Plant.find(sensor_params[:plant_id])
     end
 
+    def sensor
+      @sensor ||=
+        Sensor.find_by!(**sensor_params.slice(:uid, :secret_key).compact_blank, user_id: nil, plant_id: nil)
+    end
+
     def sensor_params
       params.require(:sensor)
-            .permit(:uid, :plant_id, :nickname, :environment, :location, :moisture_threshold)
+            .permit(:uid, :secret_key, :plant_id, :nickname, :environment, :location, :moisture_threshold)
             .with_defaults(user: Current.user)
     end
   end

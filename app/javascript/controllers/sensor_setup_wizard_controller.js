@@ -15,8 +15,19 @@ export default class extends Controller {
     "sensor-setup-threshold"
   ]
 
+  static values = {
+    prefilledUid: {
+      type: String,
+      default: ""
+    },
+    prefilledSecret: {
+      type: String,
+      default: ""
+    }
+  }
+
   WIZARD_STORAGE_KEY = "plantSensorSetupWizard"
-  WIZARD_STORAGE_VERSION = 1
+  WIZARD_STORAGE_VERSION = 2
 
   UUID_CHECK_REGEXP = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
   UID_CHECK_REGEXP = /^[A-Z0-9]{2}-[A-Z0-9]{5}-[A-Z0-9]{5}$/i
@@ -29,11 +40,18 @@ export default class extends Controller {
     this.#beforeCacheListener = this.#onBeforeTurboCache.bind(this)
     document.addEventListener("turbo:before-cache", this.#beforeCacheListener)
 
+    if (this.#shouldPrefillFromQr()) {
+      this.#clearWizardStorage()
+      queueMicrotask(() => this.#prefillFromQr())
+
+      return
+    }
+
     if (this.#isReloadNavigation()) {
-      const savedStep         = this.#readWizardState()
+      const savedStep = this.#readWizardState()
 
       if (savedStep && this.#validateWizardState(savedStep)) {
-        this.currentStep  = savedStep.step
+        this.currentStep = savedStep.step
 
         queueMicrotask(() => {
           this.#applyRestoredWizardFields(savedStep)
@@ -48,7 +66,7 @@ export default class extends Controller {
       this.#clearWizardStorage()
     }
 
-    this.currentStep      = 0
+    this.currentStep = 0
 
     queueMicrotask(() => this.#showStep())
   }
@@ -186,9 +204,10 @@ export default class extends Controller {
   }
 
   #applyRestoredWizardFields(saved) {
-    const { uid, plantSearchQuery, plantSnapshot, minSoilMoisture, plantId, step } = saved
+    const { uid, secretKey, plantSearchQuery, plantSnapshot, minSoilMoisture, plantId, step } = saved
 
     if (uid) this.sensorSetupUidOutlet.setUid(uid)
+    if (secretKey) this.sensorSetupUidOutlet.setSecretKey(secretKey)
     if (plantSearchQuery) this.sensorSetupPlantSearchOutlet.setSearchQuery(plantSearchQuery)
 
     this.sensorSetupPlantSearchOutlet.setLastPlantSnapshot(plantSnapshot ?? null)
@@ -204,6 +223,7 @@ export default class extends Controller {
   #persistWizardState() {
     try {
       const uid               = this.sensorSetupUidOutlet.getUid()
+      const secretKey         = this.sensorSetupUidOutlet.getSecretKey()
       const plantId           = this.formTarget.querySelector('input[name="sensor[plant_id]"]')?.value
       const searchQuery       = this.sensorSetupPlantSearchOutlet.getSearchQuery()
       const plantSnapshot     = this.sensorSetupPlantSearchOutlet.getLastPlantSnapshot()
@@ -213,6 +233,7 @@ export default class extends Controller {
         version: this.WIZARD_STORAGE_VERSION,
         step: this.currentStep,
         uid,
+        secretKey: secretKey || null,
         plantId: plantId || null,
         plantSnapshot,
         minSoilMoisture,
@@ -251,5 +272,34 @@ export default class extends Controller {
     this.hideGrowthLoader()
 
     this.#clearWizardStorage()
+  }
+
+  #shouldPrefillFromQr() {
+    const uid    = (this.prefilledUidValue || "").trim()
+    const secret = (this.prefilledSecretValue || "").trim()
+
+    return uid.length > 0 && secret.length > 0
+  }
+
+  #prefillFromQr() {
+    this.sensorSetupUidOutlet.setUid(this.prefilledUidValue)
+    this.sensorSetupUidOutlet.setSecretKey(this.prefilledSecretValue)
+    this.sensorSetupUidOutlet.clearUidFeedback()
+    this.#stripQrParamsFromUrl()
+    this.currentStep = 0
+    this.#showStep()
+  }
+
+  #stripQrParamsFromUrl() {
+    const url = new URL(window.location.href)
+
+    if (!url.searchParams.has("uid") && !url.searchParams.has("secret_key")) return
+
+    url.searchParams.delete("uid")
+    url.searchParams.delete("secret_key")
+
+    const next = `${url.pathname}${url.search}${url.hash}`
+
+    window.history.replaceState({}, "", next)
   }
 }

@@ -15,6 +15,7 @@ en:
       setup:
         successful: Sensor setup successful.
         sensor_not_found: Sensor not found.
+        sensor_not_found_or_paired: Sensor not found or already paired.
   passwords_mailer:
     reset:
       subject: Reset your password

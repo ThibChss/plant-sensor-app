@@ -15,6 +15,7 @@ fr:
       setup:
         successful: Installation du capteur réussie.
         sensor_not_found: Capteur introuvable.
+        sensor_not_found_or_paired: Capteur introuvable ou déjà lié à un compte.
   passwords_mailer:
     reset:
       subject: Réinitialisation de votre mot de passe

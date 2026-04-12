@@ -1,6 +1,5 @@
 <div class="relative h-full flex flex-col bg-pulse-mist overflow-hidden">
 
-  <%# Canal Turbo Stream pour recevoir les mises à jour du service ProcessMeasurement %>
   <%= turbo_stream_from Current.user, :sensors %>
 
   <header class="pt-14 px-6 pb-6 flex justify-between items-center">
@@ -39,6 +38,5 @@
     </section>
   </main>
 
-  <%# Barre de navigation avec le bouton "+" central %>
   <%= render Components::NavigationBar.new %>
 </div>
