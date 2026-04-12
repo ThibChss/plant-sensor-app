@@ -48,6 +48,20 @@ RSpec.describe Sensors::MeasurementProcessor do
       end
     end
 
+    context 'when the sensor is not yet linked to a user or plant' do
+      let_it_be(:unclaimed_sensor, refind: true) do
+        create(:sensor, :with_uid_and_secret_key, user: nil, plant: nil)
+      end
+
+      let(:sensor_id) { unclaimed_sensor.id }
+
+      it 'still accepts measurements (hardware may report before app setup)' do
+        expect(service.status).to eq(:ok)
+        expect(unclaimed_sensor.reload.moisture_level_raw.to_f).to eq(2675.0)
+        expect(unclaimed_sensor.uptime_seconds).to eq(2000)
+      end
+    end
+
     context 'when only moisture_level_raw is present' do
       let(:data) { { moisture_level_raw: 1515 } }
 

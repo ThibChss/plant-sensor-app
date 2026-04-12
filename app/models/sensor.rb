@@ -78,7 +78,7 @@ class Sensor < ApplicationRecord
   store_accessor :current_data, *CURRENT_DATA_KEYS
 
   validates :uid, :secret_key, presence: true, uniqueness: { case_sensitive: false }, if: -> { new_record? }
-  validates :user_id, :plant_id, presence: true, on: :update
+  validates :user_id, :plant_id, presence: true, on: :update, unless: :pairable?
   validate :location_matches_environment, on: :update
 
   scope :thirsty, lambda {
