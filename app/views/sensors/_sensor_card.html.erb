@@ -1,13 +1,10 @@
 <%
   # On ne calcule la "soif" que si on a une donnée
   has_data = sensor.moisture_level_percent.present?
-  is_thirsty = has_data && sensor.thirsty?
+  is_thirsty = sensor.moisture_level_percent.present? && sensor.thirsty?
 
   # Fond de carte : standard par défaut, rosé uniquement si soif confirmée
   container_classes = is_thirsty ? 'bg-rose-50/80 border-rose-200/60 shadow-sm' : 'bg-white border-white/50 shadow-sm'
-
-  plant = sensor.plant
-  light_level = plant.growth_data&.dig('light')
 %>
 
 <div id="<%= sensor.dom_id %>"
@@ -15,7 +12,7 @@
 
   <!-- Section Image (Haut de la carte) -->
   <div class="relative h-40 w-full overflow-hidden bg-pulse-mist">
-    <%= image_tag plant.image_url,
+    <%= image_tag sensor.plant.image_url,
         class: "h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110 #{'opacity-50 grayscale-[20%]' unless has_data}",
         alt: sensor.nickname %>
 
@@ -50,31 +47,36 @@
   <!-- Zone Contenu (Bas de la carte) -->
   <div class="p-6 text-center">
 
-    <!-- Ligne de Monitoring -->
-    <div class="flex items-center justify-between mb-5 px-1">
-      <div class="text-left">
-        <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-1 opacity-60 font-palanquin">
+    <!-- Ligne de Monitoring (CORRIGÉE POUR L'ALIGNEMENT) -->
+    <div class="flex items-start justify-between mb-5 px-1">
+      <!-- Côté Humidité -->
+      <div class="flex flex-col items-start">
+        <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-1.5 opacity-60 font-palanquin">
           Humidité • <%= t("sensor.environment.#{sensor.environment}") %>
         </p>
-        <div class="flex items-baseline gap-1">
+        <div class="flex items-baseline gap-0.5">
           <% if has_data %>
-            <span class="text-3xl font-black <%= is_thirsty ? 'text-rose-500/90' : 'text-pulse-forest' %> font-alegreya transition-colors">
-              <%= sensor.moisture_level_percent %>%
+            <span class="text-3xl font-black <%= is_thirsty ? 'text-rose-500/90' : 'text-pulse-forest' %> font-alegreya leading-none">
+              <%= sensor.moisture_level_percent %>
             </span>
+            <span class="text-sm font-bold <%= is_thirsty ? 'text-rose-500/60' : 'text-pulse-forest/60' %> font-alegreya">%</span>
           <% else %>
-            <span class="text-xl font-bold text-pulse-moss/30 font-alegreya italic tracking-tight">
-              Calcul en cours...
+            <span class="text-lg font-bold text-pulse-moss/30 font-alegreya italic tracking-tight">
+              Calcul...
             </span>
           <% end %>
         </div>
       </div>
 
-      <% if light_level.present? %>
-        <div class="text-right">
-          <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-1 opacity-60 font-palanquin">Lumière</p>
-          <div class="flex items-center justify-end gap-1.5">
-            <span class="text-lg font-black text-pulse-forest font-alegreya"><%= light_level %>/10</span>
-            <%= icon "sun", class: "w-4 h-4 text-pulse-sage" %>
+      <!-- Côté Lumière -->
+      <% if sensor.plant.light.present? %>
+        <div class="flex flex-col items-end">
+          <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-1.5 opacity-60 font-palanquin">Lumière</p>
+          <div class="flex items-baseline gap-1.5">
+            <span class="text-lg font-black text-pulse-forest font-alegreya leading-none"><%= sensor.plant.light %>/10</span>
+            <div class="translate-y-[1px]">
+               <%= icon "sun", class: "w-3.5 h-3.5 text-pulse-sage" %>
+            </div>
           </div>
         </div>
       <% end %>
@@ -106,11 +108,11 @@
 
     <!-- Informations Botaniques -->
     <div class="pt-4 border-t border-pulse-mist/50 flex flex-col gap-1">
-      <p class="text-xs font-bold text-pulse-forest italic font-merriweather opacity-80">
-        <%= plant.display_name %>
+      <p class="text-xs font-bold text-pulse-forest italic font-merriweather opacity-80 leading-snug px-4">
+        <%= sensor.plant.display_name %>
       </p>
       <p class="text-[9px] text-pulse-moss/40 font-medium uppercase tracking-[0.15em] font-palanquin">
-        <%= plant.scientific_name %>
+        <%= sensor.plant.scientific_name %>
       </p>
     </div>
 
