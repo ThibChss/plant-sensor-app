@@ -42,7 +42,7 @@
         <div class="mt-8 grid grid-cols-2 gap-4">
           <div class="bg-pulse-mist/40 rounded-[2rem] p-6 text-center border border-white/50 flex flex-col items-center">
             <div class="min-h-[24px] flex items-center justify-center mb-2">
-              <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.15em] opacity-50 font-palanquin leading-tight">Humidité Sol</p>
+              <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.15em] opacity-50 font-palanquin leading-tight"><%= t('.soil_moisture_label') %></p>
             </div>
             <div class="flex items-baseline gap-0.5">
               <span class="text-3xl font-black text-pulse-forest font-alegreya leading-none">
@@ -54,7 +54,7 @@
 
           <div class="bg-pulse-mist/40 rounded-[2rem] p-6 text-center border border-white/50 flex flex-col items-center">
             <div class="min-h-[24px] flex items-center justify-center mb-2">
-              <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.15em] opacity-50 font-palanquin leading-tight">Batterie</p>
+              <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.15em] opacity-50 font-palanquin leading-tight"><%= t('.battery_label') %></p>
             </div>
             <div class="flex items-baseline gap-0.5">
               <span class="text-3xl font-black text-pulse-forest font-alegreya leading-none">
@@ -68,7 +68,7 @@
 
       <!-- Fiche Technique Botanique (Fix Alignement Icônes/Texte et Symboles) -->
       <div class="space-y-4">
-        <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] px-4 opacity-50 font-merriweather">Besoins Idéaux</h3>
+        <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] px-4 opacity-50 font-merriweather"><%= t('.ideal_needs_heading') %></h3>
 
         <div class="grid grid-cols-2 gap-4">
           <!-- Lumière -->
@@ -77,11 +77,11 @@
               <%= icon "sun", class: "w-5 h-5" %>
             </div>
             <div class="flex flex-col justify-center">
-              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin">Lumière</span>
+              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin"><%= t('.light_label') %></span>
               <div class="flex items-baseline font-alegreya text-sm font-black text-pulse-forest leading-none">
                 <span><%= @plant.light %></span>
                 <span class="mx-0.5 text-pulse-forest/30 translate-y-[-0.5px]">/</span>
-                <span>10</span>
+                <span><%= t('.scale_max') %></span>
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@
               <%= icon "beaker", class: "w-5 h-5" %>
             </div>
             <div class="flex flex-col justify-center">
-              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin">pH Sol</span>
+              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin"><%= t('.soil_ph_label') %></span>
               <div class="flex items-baseline font-alegreya text-sm font-black text-pulse-forest leading-none">
                 <span><%= sprintf('%.1f', @plant.ph_minimum) %></span>
                 <span class="mx-1 text-pulse-forest/30 translate-y-[-1px] font-palanquin">-</span>
@@ -107,11 +107,11 @@
               <%= icon "wind", class: "w-5 h-5" %>
             </div>
             <div class="flex flex-col justify-center">
-              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin">Air</span>
+              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin"><%= t('.air_label') %></span>
               <div class="flex items-baseline font-alegreya text-sm font-black text-pulse-forest leading-none">
                 <span><%= @plant.atmospheric_humidity %></span>
                 <span class="mx-0.5 text-pulse-forest/30 translate-y-[-0.5px]">/</span>
-                <span>10</span>
+                <span><%= t('.scale_max') %></span>
               </div>
             </div>
           </div>
@@ -122,10 +122,10 @@
               <%= icon "arrow-left-right", class: "w-5 h-5" %>
             </div>
             <div class="flex flex-col justify-center">
-              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin">Taille</span>
+              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin"><%= t('.size_label') %></span>
               <div class="flex items-baseline font-alegreya text-sm font-black text-pulse-forest leading-none">
                 <span><%= @plant.spread['cm'] %></span>
-                <span class="ml-1 text-[10px] font-bold opacity-30">cm</span>
+                <span class="ml-1 text-[10px] font-bold opacity-30"><%= t('.cm_unit') %></span>
               </div>
             </div>
           </div>
@@ -134,7 +134,7 @@
 
       <!-- Période de Croissance -->
       <div class="bg-white/60 backdrop-blur-sm rounded-[2.5rem] p-8 border border-white shadow-sm">
-        <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-6 text-center opacity-40 font-merriweather">Période de Croissance</h3>
+        <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-6 text-center opacity-40 font-merriweather"><%= t('.growth_period_heading') %></h3>
         <div class="flex justify-between items-end h-8 gap-1.5 px-1">
           <% Plant::MONTHS.each do |month| %>
             <div class="flex-1 flex flex-col items-center gap-2">
@@ -152,10 +152,15 @@
         <div class="relative z-10">
           <div class="flex items-center gap-3 mb-4">
             <span class="text-xl">✨</span>
-            <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-pulse-light">Analyse du Botaniste</h3>
+            <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-pulse-light"><%= t('.botanist_analysis_heading') %></h3>
           </div>
           <p class="text-sm leading-relaxed font-merriweather italic opacity-90">
-            "Votre <%= @plant.display_name %> est dans d'excellentes conditions. Avec une humidité cible de <%= @plant.min_soil_moisture['indoor'] %>%, elle s'épanouira parfaitement dans votre <%= t("sensor.location.#{@sensor.location}").downcase %>."
+            <%= t(
+                  '.botanist_analysis',
+                  plant_name: @plant.display_name,
+                  moisture: @plant.min_soil_moisture['indoor'],
+                  location: t("sensor.location.#{@sensor.location}").downcase
+                ) %>
           </p>
         </div>
         <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">🌿</div>
@@ -164,9 +169,9 @@
       <!-- Bouton de suppression -->
       <div class="pt-4 flex justify-center">
         <%= button_to @sensor, method: :delete,
-            form: { data: { turbo_confirm: "Supprimer ce capteur ?" } },
+            form: { data: { turbo_confirm: t('.delete_confirm') } },
             class: "text-[10px] font-bold text-rose-500/40 uppercase tracking-widest hover:text-rose-500 transition-colors py-2 px-8" do %>
-          Dissocier ce capteur
+          <%= t('.unlink_sensor') %>
         <% end %>
       </div>
     </div>

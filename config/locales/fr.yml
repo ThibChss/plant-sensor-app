@@ -16,6 +16,8 @@ fr:
         successful: Installation du capteur réussie.
         sensor_not_found: Capteur introuvable.
         sensor_not_found_or_paired: Capteur introuvable ou déjà lié à un compte.
+      show:
+        sensor_not_found: Capteur introuvable.
   passwords_mailer:
     reset:
       subject: Réinitialisation de votre mot de passe
@@ -59,6 +61,21 @@ fr:
       active_count: "%{count} actifs"
       empty_state: Aucun capteur configuré.
       add_sensor: Ajouter un capteur
+    show:
+      soil_moisture_label: Humidité sol
+      battery_label: Batterie
+      ideal_needs_heading: Besoins idéaux
+      light_label: Lumière
+      soil_ph_label: pH sol
+      air_label: Air
+      size_label: Taille
+      cm_unit: cm
+      scale_max: '10'
+      growth_period_heading: Période de croissance
+      botanist_analysis_heading: Analyse du botaniste
+      botanist_analysis: "Votre %{plant_name} est dans d'excellentes conditions. Avec une humidité cible de %{moisture}%, elle s'épanouira parfaitement dans votre %{location}."
+      delete_confirm: Supprimer ce capteur ?
+      unlink_sensor: Dissocier ce capteur
     sensor_card:
       meta: "%{location} · Il y a %{time}"
       meta_never_seen: "%{location} · En attente du premier relevé"

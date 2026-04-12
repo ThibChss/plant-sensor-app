@@ -16,6 +16,8 @@ en:
         successful: Sensor setup successful.
         sensor_not_found: Sensor not found.
         sensor_not_found_or_paired: Sensor not found or already paired.
+      show:
+        sensor_not_found: Sensor not found.
   passwords_mailer:
     reset:
       subject: Reset your password
@@ -59,6 +61,21 @@ en:
       active_count: "%{count} active"
       empty_state: No sensor configured yet.
       add_sensor: Add a sensor
+    show:
+      soil_moisture_label: Soil moisture
+      battery_label: Battery
+      ideal_needs_heading: Ideal needs
+      light_label: Light
+      soil_ph_label: Soil pH
+      air_label: Air
+      size_label: Size
+      cm_unit: cm
+      scale_max: '10'
+      growth_period_heading: Growing season
+      botanist_analysis_heading: "Botanist's take"
+      botanist_analysis: Your %{plant_name} is in excellent conditions. With a target soil moisture of %{moisture}%, it will thrive in your %{location}.
+      delete_confirm: Remove this sensor?
+      unlink_sensor: Unlink this sensor
     sensor_card:
       meta: "%{location} · %{time} ago"
       meta_never_seen: "%{location} · Awaiting first reading"
