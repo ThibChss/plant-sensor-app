@@ -39,4 +39,38 @@ RSpec.describe 'Sensors', type: :request do
       end
     end
   end
+
+  describe 'GET /sensors/:id' do
+    let_it_be(:sensor) { create(:sensor, :with_uid_and_secret_key, user:, plant: create(:plant)) }
+
+    context 'when not signed in' do
+      with_user_signed_out
+
+      it 'redirects to sign in' do
+        get sensor_path(sensor)
+
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    context 'when signed in' do
+      context 'when the sensor is not found' do
+        it 'redirects to sensors index with alert' do
+          get sensor_path('invalid')
+
+          expect(response).to redirect_to(sensors_path)
+          expect(flash[:alert]).to eq(I18n.t('controllers.sensors.show.sensor_not_found'))
+        end
+      end
+
+      context 'when the sensor is found' do
+        it 'returns success' do
+          get sensor_path(sensor)
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include(sensor.nickname)
+        end
+      end
+    end
+  end
 end

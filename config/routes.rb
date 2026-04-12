@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       post :prepare
     end
   end
-  resources :sensors, only: %i[index]
+  resources :sensors, only: %i[index show]
 
   namespace :sensors do
     resource :setup, controller: :setup, only: %i[new create] do

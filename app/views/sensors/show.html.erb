@@ -1,0 +1,177 @@
+<div class="relative h-full w-full flex flex-col bg-pulse-mist">
+
+  <!-- Zone de contenu défilante (Correction du Scroll) -->
+  <main class="flex-1 overflow-y-auto no-scrollbar">
+
+    <!-- Header avec Image & Glassmorphism -->
+    <div class="relative h-80 w-full overflow-hidden shrink-0">
+      <%= image_tag @plant.image_url, class: "w-full h-full object-cover transition-transform duration-1000" %>
+
+      <!-- Gradients d'ombre -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-pulse-mist via-transparent to-transparent"></div>
+
+      <!-- Bouton Retour -->
+      <%= link_to sensors_path, class: "absolute top-14 left-6 z-10 w-10 h-10 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-white/20 active:scale-90 transition-all" do %>
+        <%= icon "chevron-left", class: "w-5 h-5" %>
+      <% end %>
+
+      <!-- Badge Localisation -->
+      <div class="absolute top-14 right-6 z-10 px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/20 flex items-center py-3">
+        <span class="text-[10px] font-black text-white uppercase tracking-widest">
+          <%= t("sensor.location.#{@sensor.location}") %>
+        </span>
+      </div>
+    </div>
+
+    <!-- Contenu Principal -->
+    <div class="-mt-14 relative px-6 space-y-6 pb-10">
+
+      <!-- Carte d'Identité -->
+      <div class="bg-white rounded-[2.5rem] p-8 shadow-xl shadow-pulse-forest/5 relative border border-white">
+        <div class="text-center space-y-1">
+          <h1 class="text-3xl font-black text-pulse-forest font-alegreya leading-tight">
+            <%= @sensor.nickname %>
+          </h1>
+          <p class="text-xs font-bold text-pulse-moss italic opacity-40 font-merriweather">
+            <%= @plant.display_name %>
+          </p>
+        </div>
+
+        <!-- Stats Temps Réel (Fix Alignement des Titres et Chiffres) -->
+        <div class="mt-8 grid grid-cols-2 gap-4">
+          <div class="bg-pulse-mist/40 rounded-[2rem] p-6 text-center border border-white/50 flex flex-col items-center">
+            <div class="min-h-[24px] flex items-center justify-center mb-2">
+              <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.15em] opacity-50 font-palanquin leading-tight">Humidité Sol</p>
+            </div>
+            <div class="flex items-baseline gap-0.5">
+              <span class="text-3xl font-black text-pulse-forest font-alegreya leading-none">
+                <%= @sensor.moisture_level_percent || "--" %>
+              </span>
+              <span class="text-sm font-bold text-pulse-forest/30 font-alegreya translate-y-[-1px]">%</span>
+            </div>
+          </div>
+
+          <div class="bg-pulse-mist/40 rounded-[2rem] p-6 text-center border border-white/50 flex flex-col items-center">
+            <div class="min-h-[24px] flex items-center justify-center mb-2">
+              <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.15em] opacity-50 font-palanquin leading-tight">Batterie</p>
+            </div>
+            <div class="flex items-baseline gap-0.5">
+              <span class="text-3xl font-black text-pulse-forest font-alegreya leading-none">
+                <%= @sensor.battery_level || "--" %>
+              </span>
+              <span class="text-sm font-bold text-pulse-forest/30 font-alegreya translate-y-[-1px]">%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fiche Technique Botanique (Fix Alignement Icônes/Texte et Symboles) -->
+      <div class="space-y-4">
+        <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] px-4 opacity-50 font-merriweather">Besoins Idéaux</h3>
+
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Lumière -->
+          <div class="bg-white/70 backdrop-blur-sm rounded-[2rem] p-5 border border-white flex items-center gap-3">
+            <div class="shrink-0 w-10 h-10 bg-orange-50/80 rounded-2xl flex items-center justify-center text-orange-500">
+              <%= icon "sun", class: "w-5 h-5" %>
+            </div>
+            <div class="flex flex-col justify-center">
+              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin">Lumière</span>
+              <div class="flex items-baseline font-alegreya text-sm font-black text-pulse-forest leading-none">
+                <span><%= @plant.light %></span>
+                <span class="mx-0.5 text-pulse-forest/30 translate-y-[-0.5px]">/</span>
+                <span>10</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- pH -->
+          <div class="bg-white/70 backdrop-blur-sm rounded-[2rem] p-5 border border-white flex items-center gap-3">
+            <div class="shrink-0 w-10 h-10 bg-purple-50/80 rounded-2xl flex items-center justify-center text-purple-500">
+              <%= icon "beaker", class: "w-5 h-5" %>
+            </div>
+            <div class="flex flex-col justify-center">
+              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin">pH Sol</span>
+              <div class="flex items-baseline font-alegreya text-sm font-black text-pulse-forest leading-none">
+                <span><%= sprintf('%.1f', @plant.ph_minimum) %></span>
+                <span class="mx-1 text-pulse-forest/30 translate-y-[-1px] font-palanquin">-</span>
+                <span><%= sprintf('%.1f', @plant.ph_maximum) %></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Humidité Air -->
+          <div class="bg-white/70 backdrop-blur-sm rounded-[2rem] p-5 border border-white flex items-center gap-3">
+            <div class="shrink-0 w-10 h-10 bg-blue-50/80 rounded-2xl flex items-center justify-center text-blue-500">
+              <%= icon "wind", class: "w-5 h-5" %>
+            </div>
+            <div class="flex flex-col justify-center">
+              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin">Air</span>
+              <div class="flex items-baseline font-alegreya text-sm font-black text-pulse-forest leading-none">
+                <span><%= @plant.atmospheric_humidity %></span>
+                <span class="mx-0.5 text-pulse-forest/30 translate-y-[-0.5px]">/</span>
+                <span>10</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Envergure -->
+          <div class="bg-white/70 backdrop-blur-sm rounded-[2rem] p-5 border border-white flex items-center gap-3">
+            <div class="shrink-0 w-10 h-10 bg-emerald-50/80 rounded-2xl flex items-center justify-center text-emerald-500">
+              <%= icon "arrow-left-right", class: "w-5 h-5" %>
+            </div>
+            <div class="flex flex-col justify-center">
+              <span class="text-[9px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 leading-none mb-1 font-palanquin">Taille</span>
+              <div class="flex items-baseline font-alegreya text-sm font-black text-pulse-forest leading-none">
+                <span><%= @plant.spread['cm'] %></span>
+                <span class="ml-1 text-[10px] font-bold opacity-30">cm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Période de Croissance -->
+      <div class="bg-white/60 backdrop-blur-sm rounded-[2.5rem] p-8 border border-white shadow-sm">
+        <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-6 text-center opacity-40 font-merriweather">Période de Croissance</h3>
+        <div class="flex justify-between items-end h-8 gap-1.5 px-1">
+          <% Plant::MONTHS.each do |month| %>
+            <div class="flex-1 flex flex-col items-center gap-2">
+              <div class="w-full rounded-full transition-all duration-700 <%= @plant.growth_period?(month) ? 'h-6 bg-pulse-forest shadow-sm' : 'h-2 bg-pulse-moss/10' %>"></div>
+              <span class="text-[7px] font-bold text-pulse-moss uppercase tracking-tighter <%= 'text-pulse-forest' if @plant.growth_period?(month) %>">
+                <%= month[0].upcase %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Section IA / Conseils -->
+      <div class="bg-pulse-forest rounded-[2.5rem] p-8 text-white shadow-xl shadow-pulse-forest/20 relative overflow-hidden">
+        <div class="relative z-10">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-xl">✨</span>
+            <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-pulse-light">Analyse du Botaniste</h3>
+          </div>
+          <p class="text-sm leading-relaxed font-merriweather italic opacity-90">
+            "Votre <%= @plant.display_name %> est dans d'excellentes conditions. Avec une humidité cible de <%= @plant.min_soil_moisture['indoor'] %>%, elle s'épanouira parfaitement dans votre <%= t("sensor.location.#{@sensor.location}").downcase %>."
+          </p>
+        </div>
+        <div class="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">🌿</div>
+      </div>
+
+      <!-- Bouton de suppression -->
+      <div class="pt-4 flex justify-center">
+        <%= button_to @sensor, method: :delete,
+            form: { data: { turbo_confirm: "Supprimer ce capteur ?" } },
+            class: "text-[10px] font-bold text-rose-500/40 uppercase tracking-widest hover:text-rose-500 transition-colors py-2 px-8" do %>
+          Dissocier ce capteur
+        <% end %>
+      </div>
+    </div>
+  </main>
+
+  <!-- Navigation Basse Fixe -->
+  <%= render Components::NavigationBar.new %>
+</div>

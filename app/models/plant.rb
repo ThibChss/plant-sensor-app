@@ -66,6 +66,10 @@ class Plant < ApplicationRecord
     (translated_name[I18n.locale.to_s]&.first&.presence || name).titleize
   end
 
+  def growth_period?(month = MONTHS[Date.current.month - 1])
+    growth_months.include?(month)
+  end
+
   private
 
   def valid_growth_data?

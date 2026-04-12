@@ -65,4 +65,8 @@ class ApplicationController < ActionController::Base
   def toast_now(toast_type, message)
     flash.now[toast_type] = message
   end
+
+  def toast_later(toast_type, message)
+    flash[toast_type] = message
+  end
 end

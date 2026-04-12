@@ -192,5 +192,55 @@ RSpec.describe Plant, type: :model do
         end
       end
     end
+
+    describe 'growth_period?' do
+      context 'when the month is in the growth_months' do
+        let(:plant) { build(:plant, growth_months: ['january']) }
+
+        it 'returns true' do
+          expect(plant.growth_period?('january')).to be(true)
+        end
+      end
+
+      context 'when the month is not in the growth_months' do
+        let(:plant) { build(:plant, growth_months: ['january']) }
+
+        it 'returns false' do
+          expect(plant.growth_period?('december')).to be(false)
+        end
+      end
+
+      context 'when the growth_months is empty' do
+        let(:plant) { build(:plant, growth_months: []) }
+
+        it 'returns false' do
+          expect(plant.growth_period?('january')).to be(false)
+        end
+      end
+
+      context 'when the current_month is in the growth_months' do
+        before do
+          allow(Date).to receive_message_chain(:current, :month).and_return(1)
+        end
+
+        let(:plant) { build(:plant, growth_months: ['january']) }
+
+        it 'returns true' do
+          expect(plant.growth_period?).to be(true)
+        end
+      end
+
+      context 'when the current_month is not in the growth_months' do
+        before do
+          allow(Date).to receive_message_chain(:current, :month).and_return(12)
+        end
+
+        let(:plant) { build(:plant, growth_months: ['january']) }
+
+        it 'returns false' do
+          expect(plant.growth_period?).to be(false)
+        end
+      end
+    end
   end
 end
