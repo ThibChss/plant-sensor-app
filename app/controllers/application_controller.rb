@@ -61,4 +61,8 @@ class ApplicationController < ActionController::Base
       Prosopite.finish
     end
   end
+
+  def toast_now(toast_type, message)
+    flash.now[toast_type] = message
+  end
 end
