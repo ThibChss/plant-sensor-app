@@ -138,4 +138,36 @@ RSpec.describe Sensor, type: :model do
       end
     end
   end
+
+  describe 'instance methods' do
+    describe 'pairable?' do
+      context 'when the sensor is unclaimed' do
+        let(:sensor) { build(:sensor, user: nil, plant: nil) }
+
+        it 'returns true' do
+          expect(sensor.pairable?).to be_truthy
+        end
+      end
+
+      context 'when the sensor is claimed' do
+        let(:sensor) { build(:sensor, user:, plant:) }
+        let(:sensor_with_user) { build(:sensor, user:, plant: nil) }
+        let(:sensor_with_plant) { build(:sensor, user: nil, plant:) }
+
+        it 'returns false' do
+          expect(sensor.pairable?).to be_falsey
+          expect(sensor_with_user.pairable?).to be_falsey
+          expect(sensor_with_plant.pairable?).to be_falsey
+        end
+      end
+    end
+
+    describe 'qr_code' do
+      let(:sensor) { create(:sensor, :with_uid_and_secret_key) }
+
+      it 'returns a QR code' do
+        expect(sensor.qr_code).to be_a(RQRCode::QRCode)
+      end
+    end
+  end
 end

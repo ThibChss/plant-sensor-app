@@ -90,6 +90,17 @@ class Sensor < ApplicationRecord
     moisture_level_percent.to_f < (moisture_threshold.presence || DEFAULT_MOISTURE_THRESHOLD)
   end
 
+  def pairable?
+    user_id.blank? && plant_id.blank?
+  end
+
+  def qr_code
+    RQRCode::QRCode.new(
+      Rails.application.routes.url_helpers.new_sensors_setup_url(uid:, secret_key:),
+      level: :m
+    )
+  end
+
   private
 
   def generate_secret_key
