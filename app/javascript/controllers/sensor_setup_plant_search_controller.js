@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { loadI18n } from "sensor_setup/i18n"
 
 export default class extends Controller {
   static targets = [
@@ -13,11 +14,7 @@ export default class extends Controller {
   ]
 
   static values = {
-    prepareUrl: String,
-    emptyPlaceholder: String,
-    noResults: String,
-    prepareError: String,
-    associatedLabel: String
+    prepareUrl: String
   }
 
   debounceMs = 300
@@ -28,6 +25,7 @@ export default class extends Controller {
   connect() {
     this.lastPlantSnapshot  = null
     this.searchTimer        = null
+    void loadI18n()
   }
 
   disconnect() {
@@ -62,7 +60,7 @@ export default class extends Controller {
     }
 
     if (query.length < 3) {
-      this.#setResultsPlaceholder()
+      void this.#setResultsPlaceholder()
 
       return
     }
@@ -82,7 +80,7 @@ export default class extends Controller {
     if (query.length >= 3) {
       await this.#loadPlantResults(query)
     } else {
-      this.#setResultsPlaceholder()
+      void this.#setResultsPlaceholder()
     }
   }
 
@@ -102,7 +100,8 @@ export default class extends Controller {
       const data = await this.#fetchPlantResults(this.plant)
 
       if (!data.ok) {
-        this.#showPlantPrepareError(data.message || this.#prepareErrorMessage())
+        const i18n = await loadI18n()
+        this.#showPlantPrepareError(data.message || i18n.t("sensors.setup.plant_search.js.prepare_error"))
         await this.restoreSearchStep()
 
         return
@@ -123,8 +122,8 @@ export default class extends Controller {
         image_url: this.plant.image_url
       }
 
-      this.renderPlantSummary(this.plant)
-      this.#setResultsPlaceholder()
+      await this.renderPlantSummary(this.plant)
+      void this.#setResultsPlaceholder()
 
       this.element.dispatchEvent(
         new CustomEvent("sensor-setup:plant-prepared", {
@@ -133,7 +132,8 @@ export default class extends Controller {
         })
       )
     } catch {
-      this.#showPlantPrepareError(this.#prepareErrorMessage())
+      const i18n = await loadI18n()
+      this.#showPlantPrepareError(i18n.t("sensors.setup.plant_search.js.prepare_error"))
 
       await this.restoreSearchStep()
     } finally {
@@ -141,18 +141,20 @@ export default class extends Controller {
     }
   }
 
-  renderPlantSummary(plant) {
+  async renderPlantSummary(plant) {
     if (!this.hasSelectedPlantSummaryTarget) return
 
+    const i18n        = await loadI18n()
     const imgUrl      = this.#escapeHtml(plant.image_url)
     const name        = this.#escapeHtml(plant.name)
     const scientific  = this.#escapeHtml(plant.scientific_name)
+    const label       = this.#escapeHtml(i18n.t("sensors.setup.plant_search.js.associated_label"))
 
     this.selectedPlantSummaryTarget.innerHTML = `
       <div class="flex items-center gap-5 p-6">
         <img src="${imgUrl}" alt="" class="h-24 w-24 shrink-0 rounded-2xl object-cover shadow-inner ring-2 ring-white/80">
         <div class="min-w-0 flex-1 text-left">
-          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-pulse-moss">${this.#escapeHtml(this.#associatedPlantLabel())}</p>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-pulse-moss">${label}</p>
           <p class="mt-1 font-alegreya text-xl font-black text-pulse-forest">${name}</p>
           <p class="mt-1 text-sm italic text-pulse-moss">${scientific}</p>
         </div>
@@ -191,7 +193,7 @@ export default class extends Controller {
 
   resetSearchUi() {
     this.setSearchQuery("")
-    this.#setResultsPlaceholder()
+    void this.#setResultsPlaceholder()
     this.clearPlantSelection()
   }
 
@@ -242,46 +244,15 @@ export default class extends Controller {
     const plants    = await response.json()
 
     if (plants.length === 0) {
+      const i18n = await loadI18n()
       this.resultsTarget.innerHTML = `
-        <p class="text-[10px] text-center text-pulse-moss/60 italic py-8">${this.#escapeHtml(this.#noResultsMessage())}</p>
+        <p class="text-[10px] text-center text-pulse-moss/60 italic py-8">${this.#escapeHtml(i18n.t("sensors.setup.plant_search.js.no_results"))}</p>
       `
 
       return
     }
 
     this.resultsTarget.innerHTML = plants.map((plant) => this.#plantResultButtonHtml(plant)).join("")
-  }
-
-  #emptyPlaceholderMessage() {
-    if (this.hasEmptyPlaceholderValue && this.emptyPlaceholderValue !== '') {
-      return this.emptyPlaceholderValue
-    }
-
-    return "Tapez le nom d'une plante pour commencer..."
-  }
-
-  #noResultsMessage() {
-    if (this.hasNoResultsValue && this.noResultsValue !== '') {
-      return this.noResultsValue
-    }
-
-    return 'Aucune plante trouvée.'
-  }
-
-  #prepareErrorMessage() {
-    if (this.hasPrepareErrorValue && this.prepareErrorValue !== '') {
-      return this.prepareErrorValue
-    }
-
-    return "Impossible d'enregistrer la plante. Réessayez."
-  }
-
-  #associatedPlantLabel() {
-    if (this.hasAssociatedLabelValue && this.associatedLabelValue !== '') {
-      return this.associatedLabelValue
-    }
-
-    return 'Plante associée'
   }
 
   #escapeHtml(str) {
@@ -298,9 +269,10 @@ export default class extends Controller {
     alert(message)
   }
 
-  #setResultsPlaceholder() {
+  async #setResultsPlaceholder() {
+    const i18n = await loadI18n()
     this.resultsTarget.innerHTML = `
-      <p class="text-[10px] text-center text-pulse-moss/40 italic py-8">${this.#escapeHtml(this.#emptyPlaceholderMessage())}</p>
+      <p class="text-[10px] text-center text-pulse-moss/40 italic py-8">${this.#escapeHtml(i18n.t("sensors.setup.plant_search.js.empty_placeholder"))}</p>
     `
   }
 

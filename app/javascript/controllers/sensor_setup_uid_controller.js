@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { formatUidString } from "sensor_setup/uid_format"
+import { loadI18n } from "sensor_setup/i18n"
 
 export default class extends Controller {
   static targets = [
@@ -9,18 +10,12 @@ export default class extends Controller {
     "uidNextButton"
   ]
 
-  static values = {
-    validateUidUrl: {
-      type: String,
-      default: "/sensors/setup/validate_uid"
-    },
-    blank: String,
-    invalid: String,
-    unavailable: String,
-    serverError: String
-  }
-
   UID_REGEXP = /^GP-[A-Z0-9]{5}-[A-Z0-9]{5}$/i
+  VALIDATE_UID_URL = "/sensors/setup/validate_uid"
+
+  connect() {
+    void loadI18n()
+  }
 
   getUid() {
     return this.hasUidInputTarget ? this.uidInputTarget.value.trim() : ""
@@ -68,6 +63,8 @@ export default class extends Controller {
   }
 
   async validateUid() {
+    this.i18n = await loadI18n()
+
     this.clearUidFeedback()
 
     const uid                 = formatUidString(this.uidInputTarget.value)
@@ -76,8 +73,7 @@ export default class extends Controller {
     if (uid.length === 0) return this.#displayErrorMessage(this.#blankMessage())
     if (!this.UID_REGEXP.test(uid)) return this.#displayErrorMessage(this.#invalidMessage())
 
-    const url                 = this.validateUidUrlValue
-    const checkUrl            = `${url}?${new URLSearchParams({ uid })}`
+    const checkUrl = `${this.VALIDATE_UID_URL}?${new URLSearchParams({ uid })}`
 
     this.#disableNextButton()
 
@@ -87,27 +83,19 @@ export default class extends Controller {
   // PRIVATE METHODS
 
   #blankMessage() {
-    if (this.hasBlankValue && this.blankValue !== "") return this.blankValue
-
-    return "Entrez l'identifiant du capteur."
+    return this.i18n.t("sensors.setup.uid_validation.blank")
   }
 
   #invalidMessage() {
-    if (this.hasInvalidValue && this.invalidValue !== "") return this.invalidValue
-
-    return "Le format doit être GP-XXXXX-XXXXX (5 caractères entre chaque tiret)."
+    return this.i18n.t("sensors.setup.uid_validation.invalid_format")
   }
 
   #unavailableMessage() {
-    if (this.hasUnavailableValue && this.unavailableValue !== "") return this.unavailableValue
-
-    return "Aucun capteur disponible avec cet identifiant."
+    return this.i18n.t("sensors.setup.uid_validation.unavailable")
   }
 
   #serverErrorMessage() {
-    if (this.hasServerErrorValue && this.serverErrorValue !== "") return this.serverErrorValue
-
-    return "Impossible de vérifier le capteur. Réessayez."
+    return this.i18n.t("sensors.setup.uid_validation.server_error")
   }
 
   async #fetchValidationResponse(url) {

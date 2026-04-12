@@ -1,25 +1,10 @@
 <div id="sensor-setup-root"
      class="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-pulse-mist"
-     data-controller="sensor-setup-wizard sensor-setup-uid sensor-setup-plant-search sensor-setup-threshold"
-     data-sensor-setup-wizard-prefilled-uid-value="<%= h(params[:uid].to_s) %>"
-     data-sensor-setup-wizard-prefilled-secret-value="<%= h(params[:secret_key].to_s) %>"
-     data-sensor-setup-threshold-env-locations-value="<%= h(sensor_env_locations.to_json) %>"
-     data-sensor-setup-threshold-location-labels-value="<%= h(sensor_location_labels.to_json) %>"
+     data-controller="sensor-setup-wizard"
      data-action="sensor-setup:plant-prepared->sensor-setup-wizard#onPlantPrepared"
-     data-sensor-setup-wizard-sensor-setup-uid-outlet="#sensor-setup-root"
-     data-sensor-setup-wizard-sensor-setup-plant-search-outlet="#sensor-setup-root"
-     data-sensor-setup-wizard-sensor-setup-threshold-outlet="#sensor-setup-root"
-     data-sensor-setup-plant-search-sensor-setup-wizard-outlet="#sensor-setup-root"
-     data-sensor-setup-plant-search-prepare-url-value="<%= prepare_plants_path %>"
-     data-sensor-setup-plant-search-empty-placeholder-value="<%= h(t('sensors.setup.plant_search.js.empty_placeholder')) %>"
-     data-sensor-setup-plant-search-no-results-value="<%= h(t('sensors.setup.plant_search.js.no_results')) %>"
-     data-sensor-setup-plant-search-prepare-error-value="<%= h(t('sensors.setup.plant_search.js.prepare_error')) %>"
-     data-sensor-setup-plant-search-associated-label-value="<%= h(t('sensors.setup.plant_search.js.associated_label')) %>"
-     data-sensor-setup-uid-validate-uid-url-value="<%= validate_uid_sensors_setup_path %>"
-     data-sensor-setup-uid-blank-value="<%= h(t('sensors.setup.uid_validation.blank')) %>"
-     data-sensor-setup-uid-invalid-value="<%= h(t('sensors.setup.uid_validation.invalid_format')) %>"
-     data-sensor-setup-uid-unavailable-value="<%= h(t('sensors.setup.uid_validation.unavailable')) %>"
-     data-sensor-setup-uid-server-error-value="<%= h(t('sensors.setup.uid_validation.server_error')) %>">
+     data-sensor-setup-wizard-sensor-setup-uid-outlet="#sensor-setup-outlets"
+     data-sensor-setup-wizard-sensor-setup-plant-search-outlet="#sensor-setup-outlets"
+     data-sensor-setup-wizard-sensor-setup-threshold-outlet="#sensor-setup-outlets">
 
   <!-- Header fixe (hors zone scroll) -->
   <header class="shrink-0 bg-pulse-mist px-6 pb-6 pt-[max(1.5rem,env(safe-area-inset-top))]">
@@ -49,16 +34,23 @@
     <p class="text-center text-sm font-bold text-pulse-forest"><%= t('.growth_loader') %></p>
   </div>
 
-  <main class="min-h-0 flex-1 overflow-y-auto overscroll-y-contain no-scrollbar pb-5">
-    <%= form_with model: @sensor, url: sensors_setup_path,
-                  data: {
-                    sensor_setup_wizard_target: 'form',
-                    action: 'submit->sensor-setup-wizard#clearWizardOnSubmit'
-                  },
-                  class: 'px-6 flex flex-col' do |f| %>
-      <%= render 'step_uid', f: f %>
-      <%= render 'step_plant_search' %>
-      <%= render 'step_personalization', f: f %>
-    <% end %>
-  </main>
+  <div id="sensor-setup-outlets"
+       class="min-h-0 flex flex-1 flex-col"
+       data-controller="sensor-setup-uid sensor-setup-plant-search sensor-setup-threshold"
+       data-sensor-setup-threshold-env-locations-value="<%= h(sensor_env_locations.to_json) %>"
+       data-sensor-setup-threshold-location-labels-value="<%= h(sensor_location_labels.to_json) %>"
+       data-sensor-setup-plant-search-sensor-setup-wizard-outlet="#sensor-setup-root">
+    <main class="min-h-0 flex-1 overflow-y-auto overscroll-y-contain no-scrollbar pb-5">
+      <%= form_with model: @sensor, url: sensors_setup_path,
+                    data: {
+                      sensor_setup_wizard_target: 'form',
+                      action: 'submit->sensor-setup-wizard#clearWizardOnSubmit'
+                    },
+                    class: 'px-6 flex flex-col' do |f| %>
+        <%= render 'step_uid', f: f %>
+        <%= render 'step_plant_search' %>
+        <%= render 'step_personalization', f: f %>
+      <% end %>
+    </main>
+  </div>
 </div>

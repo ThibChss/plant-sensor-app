@@ -15,17 +15,6 @@ export default class extends Controller {
     "sensor-setup-threshold"
   ]
 
-  static values = {
-    prefilledUid: {
-      type: String,
-      default: ""
-    },
-    prefilledSecret: {
-      type: String,
-      default: ""
-    }
-  }
-
   WIZARD_STORAGE_KEY = "plantSensorSetupWizard"
   WIZARD_STORAGE_VERSION = 2
 
@@ -42,7 +31,7 @@ export default class extends Controller {
 
     if (this.#shouldPrefillFromQr()) {
       this.#clearWizardStorage()
-      queueMicrotask(() => this.#prefillFromQr())
+      this.#scheduleDeferredSetup(() => this.#prefillFromQr())
 
       return
     }
@@ -53,7 +42,7 @@ export default class extends Controller {
       if (savedStep && this.#validateWizardState(savedStep)) {
         this.currentStep = savedStep.step
 
-        queueMicrotask(() => {
+        this.#scheduleDeferredSetup(() => {
           this.#applyRestoredWizardFields(savedStep)
           this.#showStep()
         })
@@ -68,7 +57,7 @@ export default class extends Controller {
 
     this.currentStep = 0
 
-    queueMicrotask(() => this.#showStep())
+    this.#scheduleDeferredSetup(() => this.#showStep())
   }
 
   disconnect() {
@@ -123,6 +112,11 @@ export default class extends Controller {
   }
 
   // PRIVATE METHODS
+
+  // Defer until outlet controllers have finished connecting (avoids connect-order races).
+  #scheduleDeferredSetup(callback) {
+    setTimeout(() => callback.call(this), 0)
+  }
 
   #updateCurrentStep(increment = true) {
     increment ? this.currentStep++ : this.currentStep--
@@ -216,7 +210,7 @@ export default class extends Controller {
     if (step >= 2 && plantId) {
       this.sensorSetupPlantSearchOutlet.injectPlantId(plantId)
 
-      if (plantSnapshot) this.sensorSetupPlantSearchOutlet.renderPlantSummary(plantSnapshot)
+      if (plantSnapshot) void this.sensorSetupPlantSearchOutlet.renderPlantSummary(plantSnapshot)
     }
   }
 
@@ -274,16 +268,26 @@ export default class extends Controller {
     this.#clearWizardStorage()
   }
 
+  #qrPrefillFromUrl() {
+    const params = new URL(window.location.href).searchParams
+
+    return {
+      uid: (params.get("uid") || "").trim(),
+      secret: (params.get("secret_key") || "").trim()
+    }
+  }
+
   #shouldPrefillFromQr() {
-    const uid    = (this.prefilledUidValue || "").trim()
-    const secret = (this.prefilledSecretValue || "").trim()
+    const { uid, secret } = this.#qrPrefillFromUrl()
 
     return uid.length > 0 && secret.length > 0
   }
 
   #prefillFromQr() {
-    this.sensorSetupUidOutlet.setUid(this.prefilledUidValue)
-    this.sensorSetupUidOutlet.setSecretKey(this.prefilledSecretValue)
+    const { uid, secret } = this.#qrPrefillFromUrl()
+
+    this.sensorSetupUidOutlet.setUid(uid)
+    this.sensorSetupUidOutlet.setSecretKey(secret)
     this.sensorSetupUidOutlet.clearUidFeedback()
     this.#stripQrParamsFromUrl()
     this.currentStep = 0

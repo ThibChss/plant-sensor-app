@@ -65,6 +65,12 @@ gem 'rails_icons'
 # Oj for faster JSON parsing
 gem 'oj'
 
+# I18n-js for internationalization in JavaScript
+gem "i18n-js"
+
+# For QR code generation
+gem 'rqrcode'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
@@ -89,9 +95,6 @@ group :development, :test do
 
   # For PostgreSQL query analysis
   gem "pg_query"
-
-  # For QR code generation
-  gem 'rqrcode'
 end
 
 group :development do
