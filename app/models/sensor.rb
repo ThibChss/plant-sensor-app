@@ -65,7 +65,7 @@ class Sensor < ApplicationRecord
 
   private_constant :CURRENT_DATA_KEYS
 
-  belongs_to :user, optional: true
+  belongs_to :user, optional: true, touch: true
   belongs_to :plant, optional: true, touch: true
 
   enum :environment, { indoor: 'indoor', outdoor: 'outdoor' }, default: :indoor, validate: true
