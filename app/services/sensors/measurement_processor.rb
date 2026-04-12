@@ -4,10 +4,10 @@ module Sensors
 
     REQUIRED_DATA = %i[moisture_level_raw uptime_seconds].freeze
 
-    DEFAULT_OPEN_AIR_VALUE = 3835
-    DEFAULT_WET_SOIL_VALUE = 1515
+    DRY_VALUE = 3835
+    WET_VALUE = 1340
 
-    private_constant :DEFAULT_OPEN_AIR_VALUE, :DEFAULT_WET_SOIL_VALUE, :REQUIRED_DATA
+    private_constant :DRY_VALUE, :WET_VALUE, :REQUIRED_DATA
 
     Response = Struct.new(:status, :message)
 
@@ -54,7 +54,7 @@ module Sensors
     end
 
     def calculate_moisture_level
-      ((DEFAULT_OPEN_AIR_VALUE - moisture_level_raw) / (DEFAULT_OPEN_AIR_VALUE - DEFAULT_WET_SOIL_VALUE) * 100)
+      ((DRY_VALUE - moisture_level_raw) / (DRY_VALUE - WET_VALUE).to_f * 100)
         .clamp(0, 100)
         .round(1)
     end
