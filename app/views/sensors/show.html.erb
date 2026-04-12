@@ -1,8 +1,8 @@
 <% cache @sensor do %>
-  <div class="relative h-full w-full flex flex-col bg-pulse-mist">
+  <div class="relative flex min-h-0 w-full flex-1 flex-col bg-pulse-mist">
 
     <!-- Zone de contenu défilante (Correction du Scroll) -->
-    <main class="flex-1 overflow-y-auto no-scrollbar">
+    <main class="min-h-0 flex-1 overflow-y-auto no-scrollbar">
 
       <!-- Header avec Image & Glassmorphism -->
       <div class="relative h-80 w-full overflow-hidden shrink-0">
@@ -178,7 +178,6 @@
       </div>
     </main>
 
-    <!-- Navigation Basse Fixe -->
     <%= render Components::NavigationBar.new %>
   </div>
 <% end %>
