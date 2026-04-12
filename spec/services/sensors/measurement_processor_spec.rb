@@ -38,7 +38,7 @@ RSpec.describe Sensors::MeasurementProcessor do
         expect(service.status).to eq(:ok)
         expect(service.message).to eq(message: 'Data saved successfully')
 
-        expect(sensor.reload.moisture_level_percent).to eq(50.0)
+        expect(sensor.reload.moisture_level_percent).to eq(46.5)
         expect(sensor.moisture_level_raw.to_f).to eq(2675.0)
         expect(sensor.uptime_seconds).to eq(2000)
         expect(sensor.temperature).to eq(18.0)

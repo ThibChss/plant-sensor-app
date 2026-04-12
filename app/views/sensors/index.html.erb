@@ -17,25 +17,27 @@
   </header>
 
   <main class="flex-1 overflow-y-auto px-6 pb-10 no-scrollbar">
-    <section>
-      <div class="flex justify-between items-center mb-5 px-2">
-        <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-widest"><%= t('.all_sensors_heading') %></h3>
-        <span class="text-[10px] font-bold text-pulse-sage"><%= t('.active_count', count: @sensors.size) %></span>
-      </div>
+    <% cache @sensors do %>
+      <section>
+        <div class="flex justify-between items-center mb-5 px-2">
+          <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-widest"><%= t('.all_sensors_heading') %></h3>
+          <span class="text-[10px] font-bold text-pulse-sage"><%= t('.active_count', count: @sensors.size) %></span>
+        </div>
 
-      <div id="sensors_list" class="space-y-4">
-        <% if @sensors.any? %>
-          <% @sensors.each do |sensor| %>
-            <%= render "sensors/sensor_card", sensor: sensor %>
+        <div id="sensors_list" class="space-y-4">
+          <% if @sensors.any? %>
+            <% @sensors.each do |sensor| %>
+              <%= render "sensors/sensor_card", sensor: sensor %>
+            <% end %>
+          <% else %>
+            <div class="bg-white/40 border border-dashed border-pulse-sage rounded-[2.5rem] p-10 text-center">
+              <p class="text-sm text-pulse-moss italic mb-6"><%= t('.empty_state') %></p>
+              <%= link_to t('.add_sensor'), new_sensors_setup_path, class: "inline-block px-8 py-4 bg-pulse-forest text-white rounded-full font-bold text-xs uppercase tracking-widest" %>
+            </div>
           <% end %>
-        <% else %>
-          <div class="bg-white/40 border border-dashed border-pulse-sage rounded-[2.5rem] p-10 text-center">
-            <p class="text-sm text-pulse-moss italic mb-6"><%= t('.empty_state') %></p>
-            <%= link_to t('.add_sensor'), new_sensors_setup_path, class: "inline-block px-8 py-4 bg-pulse-forest text-white rounded-full font-bold text-xs uppercase tracking-widest" %>
-          </div>
-        <% end %>
-      </div>
-    </section>
+        </div>
+      </section>
+    <% end %>
   </main>
 
   <%= render Components::NavigationBar.new %>

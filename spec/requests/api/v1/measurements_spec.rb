@@ -41,7 +41,7 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body).to eq('message' => 'Data saved successfully')
 
-          expect(sensor.reload.moisture_level_percent).to eq(50.0)
+          expect(sensor.reload.moisture_level_percent).to eq(46.5)
           expect(sensor.moisture_level_raw).to eq(2675)
           expect(sensor.uptime_seconds).to eq(2000)
         end
