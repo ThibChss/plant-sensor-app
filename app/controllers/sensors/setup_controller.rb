@@ -4,7 +4,19 @@ module Sensors
                by: -> { Current.user.id }
 
     def new
-      @sensor = Sensor.new
+      if params[:uid].present? && params[:secret_key].present?
+        @sensor = Sensor.find_by(uid: params[:uid], secret_key: params[:secret_key])
+
+        if @sensor&.pairable?
+          @sensor
+        else
+          toast_now :alert, I18n.t('controllers.sensors.setup.sensor_not_found_or_paired')
+
+          @sensor = Sensor.new
+        end
+      else
+        @sensor = Sensor.new
+      end
     end
 
     def validate_uid

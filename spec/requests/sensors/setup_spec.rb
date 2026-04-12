@@ -6,9 +6,9 @@ RSpec.describe 'Sensors::Setup', type: :request do
   let_it_be(:unclaimed_uid) { 'GP-SETUP-UNCLM' }
 
   describe 'GET /sensors/setup/new' do
-    with_user_signed_out
-
     context 'when not signed in' do
+      with_user_signed_out
+
       it 'redirects to the sign-in page' do
         get new_sensors_setup_path
 
@@ -17,10 +17,45 @@ RSpec.describe 'Sensors::Setup', type: :request do
     end
 
     context 'when signed in' do
-      it 'returns success and renders the setup page' do
-        get new_sensors_setup_path
+      context 'when accessing the setup from the navigation' do
+        it 'returns success and renders the setup page' do
+          get new_sensors_setup_path
 
-        expect(response).to have_http_status(:found)
+          expect(response).to have_http_status(:ok)
+        end
+      end
+
+      context 'when accessing the setup from a QR code' do
+        context 'when the sensor is unclaimed' do
+          let(:unclaimed_sensor) { create(:sensor, :with_uid_and_secret_key, user: nil, plant: nil, uid: unclaimed_uid) }
+
+          it 'returns success and renders the setup page' do
+            get new_sensors_setup_path, params: { uid: unclaimed_sensor.uid, secret_key: unclaimed_sensor.secret_key }
+
+            expect(response).to have_http_status(:ok)
+            expect(flash.now[:alert]).to be_nil
+          end
+        end
+
+        context 'when the sensor is claimed' do
+          let(:sensor) { create(:sensor, :with_uid_and_secret_key, user:, plant_id: '1234567890') }
+
+          it 'renders the setup page with an alert' do
+            get new_sensors_setup_path, params: { uid: sensor.uid, secret_key: sensor.secret_key }
+
+            expect(response).to have_http_status(:ok)
+            expect(flash.now[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found_or_paired'))
+          end
+        end
+
+        context 'when the sensor does not exist' do
+          it 'renders the setup page with an alert' do
+            get new_sensors_setup_path, params: { uid: 'GP-NOTEX-ISTNG', secret_key: '1234567890' }
+
+            expect(response).to have_http_status(:ok)
+            expect(flash.now[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found_or_paired'))
+          end
+        end
       end
     end
   end
