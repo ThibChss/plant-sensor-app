@@ -129,16 +129,17 @@ RSpec.describe Sensor, type: :model do
 
   describe 'scope' do
     describe 'thirsty' do
-      let(:thirsty_sensor) { create(:sensor, :with_user_and_plant, user:, moisture_threshold: 30, moisture_level_percent: 25) }
-      let(:not_thirsty_sensor) { create(:sensor, :with_user_and_plant, user:, moisture_threshold: 30, moisture_level_percent: 35) }
+      let(:thirsty_sensor) { create(:sensor, user:, moisture_threshold: 30, moisture_level_percent: 25) }
+      let(:not_thirsty_sensor) { create(:sensor, user:, moisture_threshold: 30, moisture_level_percent: 35) }
+      let(:no_moisture_level_sensor) { create(:sensor, user:, plant:, moisture_level_percent: nil) }
 
       it 'returns sensors with a moisture level below the threshold' do
         expect(Sensor.thirsty).to include(thirsty_sensor)
         expect(Sensor.thirsty).not_to include(not_thirsty_sensor)
+        expect(Sensor.thirsty).not_to include(no_moisture_level_sensor)
       end
     end
   end
-
   describe 'instance methods' do
     describe 'pairable?' do
       context 'when the sensor is unclaimed' do
@@ -167,6 +168,50 @@ RSpec.describe Sensor, type: :model do
 
       it 'returns a QR code' do
         expect(sensor.qr_code).to be_a(RQRCode::QRCode)
+      end
+    end
+
+    describe 'moisture_level_present?' do
+      context 'when the moisture level is present' do
+        let(:sensor) { build(:sensor, user:, plant:, moisture_level_percent: 50) }
+
+        it 'returns true' do
+          expect(sensor.moisture_level_present?).to be_truthy
+        end
+      end
+
+      context 'when the moisture level is not present' do
+        let(:sensor) { build(:sensor, user:, plant:, moisture_level_percent: nil) }
+
+        it 'returns false' do
+          expect(sensor.moisture_level_present?).to be_falsey
+        end
+      end
+    end
+
+    describe 'thirsty?' do
+      context 'when the moisture level is below the threshold' do
+        let(:sensor) { build(:sensor, user:, plant:, moisture_level_percent: 25) }
+
+        it 'returns true' do
+          expect(sensor.thirsty?).to be_truthy
+        end
+      end
+
+      context 'when the moisture level is not present' do
+        let(:sensor) { build(:sensor, user:, plant:, moisture_level_percent: nil) }
+
+        it 'returns false' do
+          expect(sensor.thirsty?).to be_falsey
+        end
+      end
+
+      context 'when the moisture level is above the threshold' do
+        let(:sensor) { build(:sensor, user:, plant:, moisture_level_percent: 35) }
+
+        it 'returns false' do
+          expect(sensor.thirsty?).to be_falsey
+        end
       end
     end
   end

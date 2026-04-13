@@ -87,7 +87,13 @@ class Sensor < ApplicationRecord
   }
 
   def thirsty?
+    return false unless moisture_level_present?
+
     moisture_level_percent.to_f < (moisture_threshold.presence || DEFAULT_MOISTURE_THRESHOLD)
+  end
+
+  def moisture_level_present?
+    moisture_level_percent.present?
   end
 
   def pairable?

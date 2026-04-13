@@ -25,23 +25,28 @@ class Plant < ApplicationRecord
   ACCESSORS_KEYS = %i[
     light
     sowing
+    days_to_harvest
+    row_spacing
     spread
     ph_maximum
     ph_minimum
-    row_spacing
-    bloom_months
-    fruit_months
-    soil_texture
-    growth_months
-    soil_salinity
-    days_to_harvest
-    soil_nutriments
-    minimum_root_depth
+    light
     atmospheric_humidity
-    maximum_precipitation
-    minimum_precipitation
-    max_soil_moisture
     min_soil_moisture
+    max_soil_moisture
+    growth_months
+    bloom_months
+    dormancy_months
+    fruit_months
+    minimum_precipitation
+    maximum_precipitation
+    minimum_root_depth
+    soil_nutriments
+    soil_salinity
+    soil_texture
+    soil_humidity
+    toxicity
+    watering_frequency
   ].freeze
 
   MONTHS = Date::MONTHNAMES.compact.map(&:downcase).freeze
@@ -57,6 +62,8 @@ class Plant < ApplicationRecord
   validates :trefle_id, uniqueness: true
   validates :growth_data, presence: true, if: :valid_growth_data?
   validate :proper_months
+
+  after_save :remove_duplicate_names
 
   def growth_data_complete?
     ActiveModel::Type::Boolean.new.cast(growth_data[GROWTH_PROFILE_ENRICHED_KEY]) || false
@@ -77,11 +84,20 @@ class Plant < ApplicationRecord
   end
 
   def proper_months
-    %i[bloom_months fruit_months growth_months].each do
+    %i[bloom_months fruit_months growth_months dormancy_months].each do
       next if public_send(it).is_a?(Array) &&
               (public_send(it).empty? || public_send(it).all? { |month| MONTHS.include?(month.downcase) })
 
       errors.add(it, :invalid)
     end
+  end
+
+  def remove_duplicate_names
+    update_columns(
+      translated_name: {
+        'fr' => translated_name_fr.uniq.compact_blank,
+        'en' => translated_name_en.uniq.compact_blank
+      }
+    )
   end
 end
