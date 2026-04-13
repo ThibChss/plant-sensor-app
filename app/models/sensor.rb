@@ -68,6 +68,8 @@ class Sensor < ApplicationRecord
   belongs_to :user, optional: true, touch: true
   belongs_to :plant, optional: true, touch: true
 
+  has_many :readings, class_name: :SensorReading, dependent: :destroy
+
   enum :environment, { indoor: 'indoor', outdoor: 'outdoor' }, default: :indoor, validate: true
 
   before_validation :generate_secret_key, :generate_uid, on: :create
@@ -80,6 +82,8 @@ class Sensor < ApplicationRecord
   validates :uid, :secret_key, presence: true, uniqueness: { case_sensitive: false }, if: -> { new_record? }
   validates :user_id, :plant_id, presence: true, on: :update, unless: :pairable?
   validate :location_matches_environment, on: :update
+
+  after_update :generate_reading, if: :saved_change_to_current_data?
 
   scope :thirsty, lambda {
     where("current_data ? 'moisture_level_percent'")
@@ -121,5 +125,11 @@ class Sensor < ApplicationRecord
     return if location.blank? || "Sensor::#{environment.upcase}_LOCATIONS".constantize.include?(location.to_sym)
 
     errors.add(:location, :invalid)
+  end
+
+  def generate_reading
+    return if current_data.values.compact_blank.empty?
+
+    readings.create!(current_data)
   end
 end

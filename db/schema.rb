@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_13_161136) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_13_164548) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -21,22 +21,34 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_13_161136) do
 
   create_table "plants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.jsonb "growth_data", default: {"light" => nil, "sowing" => nil, "spread" => {}, "toxicity" => {"pets" => nil, "humans" => nil}, "ph_maximum" => nil, "ph_minimum" => nil, "row_spacing" => {}, "bloom_months" => [], "fruit_months" => [], "soil_texture" => nil, "growth_months" => [], "soil_salinity" => nil, "days_to_harvest" => nil, "dormancy_months" => [], "soil_nutriments" => nil, "max_soil_moisture" => {"indoor" => nil, "outdoor" => nil}, "min_soil_moisture" => {"indoor" => nil, "outdoor" => nil}, "minimum_root_depth" => {}, "watering_frequency" => {"indoor" => {"max_days" => nil, "min_days" => nil}, "outdoor" => {"max_days" => nil, "min_days" => nil}}, "atmospheric_humidity" => nil, "maximum_precipitation" => {}, "minimum_precipitation" => {}}, comment: "Additional growth data"
+    t.jsonb "growth_data", default: { "light" => nil, "sowing" => nil, "spread" => {}, "toxicity" => { "pets" => nil, "humans" => nil }, "ph_maximum" => nil, "ph_minimum" => nil, "row_spacing" => {}, "bloom_months" => [], "fruit_months" => [], "soil_texture" => nil, "growth_months" => [], "soil_salinity" => nil, "days_to_harvest" => nil, "dormancy_months" => [], "soil_nutriments" => nil, "max_soil_moisture" => { "indoor" => nil, "outdoor" => nil }, "min_soil_moisture" => { "indoor" => nil, "outdoor" => nil }, "minimum_root_depth" => {}, "watering_frequency" => { "indoor" => { "max_days" => nil, "min_days" => nil }, "outdoor" => { "max_days" => nil, "min_days" => nil } }, "atmospheric_humidity" => nil, "maximum_precipitation" => {}, "minimum_precipitation" => {} }, comment: "Additional growth data"
     t.integer "ideal_humidity", comment: "Ideal humidity on a scale of 1 to 10, 1 being very dry, 10 being very humid"
     t.string "image_url"
     t.float "max_temp", comment: "Maximum temperature in Celsius"
     t.float "min_temp", comment: "Minimum temperature in Celsius"
     t.string "name"
     t.string "scientific_name"
-    t.jsonb "translated_name", default: {"en" => [], "fr" => []}
+    t.jsonb "translated_name", default: { "en" => [], "fr" => [] }
     t.string "trefle_id"
     t.datetime "updated_at", null: false
     t.index ["trefle_id"], name: "index_plants_on_trefle_id", unique: true
   end
 
+  create_table "sensor_readings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "battery_level"
+    t.datetime "created_at", null: false
+    t.float "moisture_level_percent"
+    t.integer "moisture_level_raw"
+    t.uuid "sensor_id"
+    t.float "temperature"
+    t.datetime "updated_at", null: false
+    t.integer "uptime_seconds"
+    t.index ["sensor_id"], name: "index_sensor_readings_on_sensor_id"
+  end
+
   create_table "sensors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.jsonb "current_data", default: {"temperature" => nil, "battery_level" => nil, "uptime_seconds" => nil, "moisture_level_raw" => nil, "moisture_level_percent" => nil}
+    t.jsonb "current_data", default: { "temperature" => nil, "battery_level" => nil, "uptime_seconds" => nil, "moisture_level_raw" => nil, "moisture_level_percent" => nil }
     t.enum "environment", default: "indoor", null: false, enum_type: "sensor_environment"
     t.datetime "last_seen_at"
     t.string "location"
@@ -85,6 +97,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_13_161136) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "sensor_readings", "sensors"
   add_foreign_key "sensors", "plants"
   add_foreign_key "sensors", "users"
   add_foreign_key "sessions", "users"

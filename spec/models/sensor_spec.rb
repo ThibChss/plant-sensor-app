@@ -111,6 +111,29 @@ RSpec.describe Sensor, type: :model do
         expect(sensor.secret_key).to match(/\Agpm_sk__[A-Za-z0-9]{36}\z/)
       end
     end
+
+    describe 'generate_reading' do
+      let_it_be(:sensor, refind: true) { create(:sensor, current_data: { moisture_level_percent: 42 }) }
+
+      context 'when current_data is changed' do
+        it 'generates a reading' do
+          expect { sensor.update!(current_data: { moisture_level_percent: 50 }) }.to change(SensorReading, :count).by(1)
+          expect(sensor.readings.last.moisture_level_percent).to eq(50)
+        end
+      end
+
+      context 'when current_data is not changed' do
+        it 'does not generate a reading' do
+          expect { sensor.update!(nickname: 'New nickname') }.not_to change(SensorReading, :count)
+        end
+      end
+
+      context 'when current_data is empty' do
+        it 'does not generate a reading' do
+          expect { sensor.update!(current_data: {}) }.not_to change(SensorReading, :count)
+        end
+      end
+    end
   end
 
   describe 'readonly attributes' do

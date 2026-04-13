@@ -44,6 +44,7 @@ module Seed
       puts "Creating sensor for #{@plant.name}"
 
       create_sensors!
+      create_sensor_readings! if special?
 
       puts "🛜 Sensor created for #{@plant.display_name}"
     end
@@ -51,7 +52,7 @@ module Seed
     private
 
     def create_sensors!
-      Sensor.create!(
+      @sensor = Sensor.create!(
         nickname:,
         uid:,
         secret_key:,
@@ -65,6 +66,10 @@ module Seed
           moisture_level_percent:
         }
       )
+    end
+
+    def create_sensor_readings!
+      SensorReadingsCreator.call(sensor: @sensor)
     end
 
     def environment
