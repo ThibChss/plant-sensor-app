@@ -76,10 +76,20 @@ fr:
       botanist_analysis: "Votre %{plant_name} est dans d'excellentes conditions. Avec une humidité cible de %{moisture}%, elle s'épanouira parfaitement dans votre %{location}."
       delete_confirm: Supprimer ce capteur ?
       unlink_sensor: Dissocier ce capteur
+      watering_frequency_label: Fréquence
+      days_unit: jours
     sensor_card:
       meta: "%{location} · Il y a %{time}"
       meta_never_seen: "%{location} · En attente du premier relevé"
       plant_image_alt: Photo de %{name}
+      thirsty_badge: Soif
+      offline_badge: Hors ligne
+      moisture_environment: "Humidité • %{environment}"
+      calculating: Calcul…
+      critical_threshold: "Seuil critique : %{value} %"
+      plug_bridge: Branchez votre bridge
+      last_sync: "Synchro il y a %{time}"
+      awaiting_sync: En attente
     thirsty_alerts:
       heading: Besoin d'eau urgent
       threshold: Seuil %{value} %

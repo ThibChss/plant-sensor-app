@@ -76,10 +76,20 @@ en:
       botanist_analysis: Your %{plant_name} is in excellent conditions. With a target soil moisture of %{moisture}%, it will thrive in your %{location}.
       delete_confirm: Remove this sensor?
       unlink_sensor: Unlink this sensor
+      watering_frequency_label: Frequency
+      days_unit: days
     sensor_card:
       meta: "%{location} · %{time} ago"
       meta_never_seen: "%{location} · Awaiting first reading"
       plant_image_alt: Photo of %{name}
+      thirsty_badge: Thirsty
+      offline_badge: Offline
+      moisture_environment: "Moisture • %{environment}"
+      calculating: Calculating…
+      critical_threshold: "Critical threshold: %{value}%"
+      plug_bridge: Connect your bridge
+      last_sync: "Last sync %{time}"
+      awaiting_sync: Awaiting sync
     thirsty_alerts:
       heading: Urgent watering needed
       threshold: Threshold %{value}%
