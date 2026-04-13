@@ -39,47 +39,101 @@ module Plants
 
     def prompt
       <<~PROMPT
-        Agis en tant qu'expert botaniste et base de données horticole.
-        Ta mission est de fournir les paramètres de culture précis pour la plante suivante : #{@plant.scientific_name}.
+        You are an expert botanist and horticultural database with deep knowledge of plant physiology,
+        cultivation requirements, and care guidelines.
+        Your task is to provide precise growing parameters for the following plant:
+        #{@plant.scientific_name} #{common_name_context}.
 
-        Tu dois impérativement répondre au format JSON pur, sans texte avant ou après.
-        Respecte scrupuleusement les types de données (integers pour les échelles, arrays pour les mois, floats pour le pH).
+        Base your response on established horticultural literature and scientific consensus.
+        Prioritize species-specific data over genus-level generalizations.
+        If the plant is a cultivated variety, base values on the species type unless the variety is well-documented.
 
-        Voici la structure attendue :
+        IMPORTANT — Climate context:
+        - If the plant is a tropical or subtropical species (e.g. Monstera, Peperomia, Ficus, Philodendron),
+          treat it as an INDOOR houseplant. growth_months must be all 12 months unless it has a documented
+          indoor dormancy. bloom_months should reflect typical indoor behaviour (often empty or unpredictable).
+        - Otherwise, provide values for temperate Northern Hemisphere climate conditions.
+
+        For soil moisture and watering frequency, assume:
+          - Standard potting mix for indoor
+          - Garden soil for outdoor
+        For toxicity, consider ingestion by mammals. Mark as true only if there is documented evidence of toxicity.
+        Do not confuse soil_humidity (natural habitat preference) with min/max_soil_moisture (irrigation thresholds).
+
+        You MUST respond with pure JSON only — no text before or after.
+        Strictly respect data types:
+          - Integers for scales
+          - Arrays for months
+          - Floats for pH
+        For unknown values, return null.
+        All month arrays must use lowercase English month names (e.g., "january", "february").
+        "sowing" must be one of: "Spring", "Autumn", "Winter", "Summer", or null.
+
+        Return this exact structure:
+
         {
-          "french_name": string (Ex: 'Chêne vert' ou nil si inconnu),
-          "sowing": string (Ex: 'Spring' ou 'Autumn'),
-          "days_to_harvest": integer ou nil,
-          "row_spacing": {"cm": integer},
-          "spread": {"cm": integer},
+          "french_name": string (Example: 'Chêne vert' or null if unknown),
+          "sowing": string (Example: 'Spring' or 'Autumn'),
+          "days_to_harvest": integer or null,
+          "row_spacing": {
+            "cm": integer
+          },
+          "spread": {
+            "cm": integer
+          },
           "ph_maximum": float,
           "ph_minimum": float,
-          "light": integer (échelle 1 à 10, 10 étant plein soleil),
-          "atmospheric_humidity": integer (échelle 1 à 10, 10 étant très humide),
+          "light": integer (scale 1 to 10, 10 being full sun),
+          "atmospheric_humidity": integer (scale 1 to 10, 10 being very humid),
           "min_soil_moisture": {
-            "indoor": integer (échelle 1 à 100),
-            "outdoor": integer (échelle 1 à 100)
+            "indoor": integer (scale 1 to 100),
+            "outdoor": integer (scale 1 to 100)
           },
           "max_soil_moisture": {
-            "indoor": integer (échelle 1 à 100),
-            "outdoor": integer (échelle 1 à 100)
+            "indoor": integer (scale 1 to 100),
+            "outdoor": integer (scale 1 to 100)
           },
-          "growth_months": [strings en anglais minuscules ou array vide si inconnue],
-          "bloom_months": [strings en anglais minuscules ou array vide si inconnue],
-          "fruit_months": [strings en anglais minuscules ou array vide si inconnue],
-          "minimum_precipitation": {"mm": integer},
-          "maximum_precipitation": {"mm": integer},
-          "minimum_root_depth": {"cm": integer},
+          "growth_months": [lowercase English month names or empty array if unknown],
+          "bloom_months": [lowercase English month names or empty array if unknown],
+          "dormancy_months": [lowercase English month names or empty array if unknown],
+          "fruit_months": [lowercase English month names or empty array if unknown],
+          "minimum_precipitation": {
+            "mm": integer
+          },
+          "maximum_precipitation": {
+            "mm": integer
+          },
+          "minimum_root_depth": {
+            "cm": integer
+          },
           "minimum_temperature": float,
           "maximum_temperature": float,
-          "soil_nutriments": integer (échelle 1 à 10),
-          "soil_salinity": integer (échelle 1 à 10),
-          "soil_texture": integer (échelle 1 à 10 : 1=Sableux, 10=Argileux),
-          "soil_humidity": integer (échelle 1 à 10, 1 étant très sec, 10 saturé d'eau)
+          "soil_nutriments": integer (scale 1 to 10),
+          "soil_salinity": integer (scale 1 to 10),
+          "soil_texture": integer (scale 1 to 10 : 1=Sandy, 10=Clayey),
+          "soil_humidity": integer (scale 1 to 10, 1 being very dry, 10 being saturated with water),
+          "toxicity": {
+            "pets": boolean,
+            "humans": boolean
+          },
+          "watering_frequency": {
+            "indoor": {
+              "min_days": integer,
+              "max_days": integer
+            },
+            "outdoor": {
+              "min_days": integer,
+              "max_days": integer
+            }
+          }
         }
-
-        Si une information est inconnue, renvoie nil pour cette clé.
       PROMPT
+    end
+
+    def common_name_context
+      return '' if @plant.name.blank?
+
+      "(Common name: #{@plant.name})"
     end
 
     def unparsed_response_with_retries
@@ -89,7 +143,7 @@ module Plants
         rescue Faraday::TooManyRequestsError => e
           raise e unless @retries < RETRY_DELAYS.size
 
-          Rails.logger.error("[Gemini] Limite atteinte ou erreur réseau. Nouvel essai dans #{RETRY_DELAYS[@retries]}s... (Tentative #{@retries + 1})")
+          Rails.logger.error("[Gemini] Rate limit exceeded or network error. Retrying in #{RETRY_DELAYS[@retries]}s... (Attempt #{@retries + 1})")
           sleep RETRY_DELAYS[@retries]
 
           @retries += 1

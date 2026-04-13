@@ -58,7 +58,7 @@ RSpec.describe Plants::GrowthDataFetcher do
         it 'retries and returns parsed JSON' do
           expect(result).to include('sowing' => 'spring', 'light' => 5)
           expect(fetcher).to have_received(:sleep).with(1)
-          expect(Rails.logger).to have_received(:error).with(/Gemini.*Nouvel essai/m)
+          expect(Rails.logger).to have_received(:error).with('[Gemini] Rate limit exceeded or network error. Retrying in 1s... (Attempt 1)')
         end
       end
     end

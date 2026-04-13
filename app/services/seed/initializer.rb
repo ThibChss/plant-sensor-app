@@ -78,8 +78,8 @@ module Seed
         scientific_name: plant["scientific_name"] || plant.dig("main_species", "scientific_name"),
         image_url: plant["image_url"] || plant.dig("main_species", "image_url"),
         translated_name: {
-          en: plant.dig("main_species", "common_names", "en") || [],
-          fr: plant.dig("main_species", "common_names", "fr") || []
+          en: (plant.dig("main_species", "common_names", "en") || []).uniq,
+          fr: (plant.dig("main_species", "common_names", "fr") || []).uniq
         }
       )
 

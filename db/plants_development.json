@@ -5,20 +5,26 @@
       "light": 10,
       "sowing": "Autumn",
       "spread": {
-        "cm": 800
+        "cm": 1200
       },
-      "ph_maximum": 8.5,
-      "ph_minimum": 5.5,
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
+      "ph_maximum": 8.0,
+      "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 800
+        "cm": 1200
       },
       "bloom_months": [
+        "march",
         "april",
         "may"
       ],
       "fruit_months": [
         "september",
-        "october"
+        "october",
+        "november"
       ],
       "soil_texture": 6,
       "growth_months": [
@@ -33,31 +39,42 @@
       ],
       "soil_salinity": 5,
       "days_to_harvest": null,
+      "dormancy_months": [],
       "soil_nutriments": 6,
       "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": 65
+        "indoor": 80,
+        "outdoor": 70
       },
       "min_soil_moisture": {
-        "indoor": null,
-        "outdoor": 25
+        "indoor": 40,
+        "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 100
+        "cm": 150
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 14,
+          "min_days": 7
+        },
+        "outdoor": {
+          "max_days": 30,
+          "min_days": 15
+        }
       },
       "atmospheric_humidity": 5,
       "maximum_precipitation": {
         "mm": 800
       },
       "minimum_precipitation": {
-        "mm": 300
+        "mm": 400
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 4,
+    "ideal_humidity": 3,
     "image_url": "https://d2seqvvyy3b8p2.cloudfront.net/40ab8e7cdddbe3e78a581b84efa4e893.jpg",
     "max_temp": 40.0,
-    "min_temp": -10.0,
+    "min_temp": -12.0,
     "name": "Evergreen oak",
     "scientific_name": "Quercus rotundifolia",
     "translated_name": {
@@ -68,7 +85,9 @@
         "Sweet Acorn Oak"
       ],
       "fr": [
-        "Chêne vert"
+        "Chêne vert",
+        "Chêne vert",
+        "Chêne à feuilles rondes"
       ]
     },
     "trefle_id": "77143"
@@ -76,15 +95,19 @@
   {
     "id": "79c8f26c-500b-4828-b844-c823cce5dc97",
     "growth_data": {
-      "light": 8,
-      "sowing": "spring",
+      "light": 7,
+      "sowing": "Spring",
       "spread": {
-        "cm": 80
+        "cm": 50
+      },
+      "toxicity": {
+        "pets": true,
+        "humans": true
       },
       "ph_maximum": 8.0,
-      "ph_minimum": 5.0,
+      "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 45
+        "cm": 30
       },
       "bloom_months": [
         "june",
@@ -110,22 +133,38 @@
         "october"
       ],
       "soil_salinity": 2,
-      "days_to_harvest": null,
-      "soil_nutriments": 9,
+      "days_to_harvest": 30,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
+      "soil_nutriments": 8,
       "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": 90
+        "indoor": 85,
+        "outdoor": 75
       },
       "min_soil_moisture": {
-        "indoor": null,
-        "outdoor": 60
+        "indoor": 60,
+        "outdoor": 50
       },
       "minimum_root_depth": {
-        "cm": 25
+        "cm": 20
       },
-      "atmospheric_humidity": 7,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 4,
+          "min_days": 2
+        },
+        "outdoor": {
+          "max_days": 7,
+          "min_days": 3
+        }
+      },
+      "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 1500
+        "mm": 1200
       },
       "minimum_precipitation": {
         "mm": 600
@@ -134,8 +173,8 @@
     },
     "ideal_humidity": 7,
     "image_url": "https://bs.plantnet.org/image/o/9db58cbb3538a6b77384f972971d51869228e545",
-    "max_temp": 30.0,
-    "min_temp": 5.0,
+    "max_temp": 35.0,
+    "min_temp": -25.0,
     "name": "Common nettle",
     "scientific_name": "Urtica dioica",
     "translated_name": {
@@ -161,7 +200,9 @@
         "Grande ortie",
         "Ortie",
         "Ortie dioïque",
-        "Grande ortie, ortie dioïque"
+        "Grande ortie, ortie dioïque",
+        "Ortie dioïque",
+        "Grande ortie"
       ]
     },
     "trefle_id": "109527"
@@ -169,12 +210,16 @@
   {
     "id": "251f343a-724d-45a8-85da-379ebf04c776",
     "growth_data": {
-      "light": 8,
+      "light": 9,
       "sowing": "Spring",
       "spread": {
         "cm": 45
       },
-      "ph_maximum": 8.0,
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 7.5,
       "ph_minimum": 5.5,
       "row_spacing": {
         "cm": 15
@@ -185,47 +230,61 @@
         "july"
       ],
       "fruit_months": [
-        "june",
         "july",
         "august"
       ],
-      "soil_texture": 5,
+      "soil_texture": 6,
       "growth_months": [
         "march",
         "april",
         "may",
         "june",
-        "july",
-        "august",
         "september",
         "october"
       ],
       "soil_salinity": 3,
       "days_to_harvest": null,
-      "soil_nutriments": 6,
+      "dormancy_months": [
+        "july",
+        "august",
+        "december",
+        "january",
+        "february"
+      ],
+      "soil_nutriments": 7,
       "max_soil_moisture": {
-        "indoor": null,
+        "indoor": 70,
         "outdoor": 70
       },
       "min_soil_moisture": {
-        "indoor": null,
+        "indoor": 30,
         "outdoor": 40
       },
       "minimum_root_depth": {
-        "cm": 30
+        "cm": 90
       },
-      "atmospheric_humidity": 5,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 5,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 1500
+        "mm": 1000
       },
       "minimum_precipitation": {
-        "mm": 400
+        "mm": 500
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": 7,
     "image_url": "https://bs.plantnet.org/image/o/f84a7d4fc2e627ccd451f568479b1932c2b2d900",
-    "max_temp": 35.0,
+    "max_temp": 30.0,
     "min_temp": -20.0,
     "name": "Barnyard grass",
     "scientific_name": "Dactylis glomerata",
@@ -250,7 +309,9 @@
         "Dactyle vulgaire",
         "Dactyle",
         "Chiendent à bossettes",
-        "Pied-de-poule"
+        "Pied-de-poule",
+        "Dactyle aggloméré",
+        "Dactyle aggloméré"
       ]
     },
     "trefle_id": "227322"
@@ -261,9 +322,13 @@
       "light": 8,
       "sowing": "Spring",
       "spread": {
-        "cm": 25
+        "cm": 30
       },
-      "ph_maximum": 8.0,
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 7.5,
       "ph_minimum": 6.0,
       "row_spacing": {
         "cm": 20
@@ -272,14 +337,17 @@
         "may",
         "june",
         "july",
-        "august"
-      ],
-      "fruit_months": [
-        "july",
         "august",
         "september"
       ],
-      "soil_texture": 5,
+      "fruit_months": [
+        "june",
+        "july",
+        "august",
+        "september",
+        "october"
+      ],
+      "soil_texture": 6,
       "growth_months": [
         "march",
         "april",
@@ -290,33 +358,49 @@
         "september",
         "october"
       ],
-      "soil_salinity": 3,
+      "soil_salinity": 5,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
       "soil_nutriments": 4,
       "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": 70
+        "indoor": 70,
+        "outdoor": 60
       },
       "min_soil_moisture": {
-        "indoor": null,
+        "indoor": 40,
         "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 15
+        "cm": 20
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
       },
       "atmospheric_humidity": 5,
       "maximum_precipitation": {
-        "mm": 1000
+        "mm": 1200
       },
       "minimum_precipitation": {
         "mm": 400
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": 5,
     "image_url": "https://bs.plantnet.org/image/o/f8d7d6fe52e36d04f5ad1fc03f46f604d5c3cc43",
-    "max_temp": 30.0,
-    "min_temp": -15.0,
+    "max_temp": 35.0,
+    "min_temp": -20.0,
     "name": "Narrow-leaf plantain",
     "scientific_name": "Plantago lanceolata",
     "translated_name": {
@@ -350,7 +434,9 @@
         "Plantain étroit",
         "Herbe aux cinq coutures",
         "Plantain intermédiaire",
-        "Plantain très élevé"
+        "Plantain très élevé",
+        "Plantain lancéolé",
+        "Plantain lancéolé"
       ]
     },
     "trefle_id": "128917"
@@ -363,7 +449,11 @@
       "spread": {
         "cm": 60
       },
-      "ph_maximum": 7.0,
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
+      "ph_maximum": 7.5,
       "ph_minimum": 5.5,
       "row_spacing": {
         "cm": 45
@@ -374,14 +464,9 @@
         "august",
         "september"
       ],
-      "fruit_months": [
-        "august",
-        "september",
-        "october"
-      ],
+      "fruit_months": [],
       "soil_texture": 4,
       "growth_months": [
-        "march",
         "april",
         "may",
         "june",
@@ -391,30 +476,48 @@
       ],
       "soil_salinity": 4,
       "days_to_harvest": null,
-      "soil_nutriments": 3,
+      "dormancy_months": [
+        "october",
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 4,
       "max_soil_moisture": {
-        "indoor": 50,
-        "outdoor": 50
+        "indoor": 70,
+        "outdoor": 60
       },
       "min_soil_moisture": {
         "indoor": 30,
         "outdoor": 20
       },
       "minimum_root_depth": {
-        "cm": 20
+        "cm": 25
       },
-      "atmospheric_humidity": 6,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 10,
+          "min_days": 5
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 5,
       "maximum_precipitation": {
-        "mm": 1200
+        "mm": 1000
       },
       "minimum_precipitation": {
-        "mm": 400
+        "mm": 500
       },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 3,
     "image_url": "https://bs.plantnet.org/image/o/d788a757cd8bac8c3b1378a970c078a7a937a174",
-    "max_temp": 38.0,
+    "max_temp": 35.0,
     "min_temp": -40.0,
     "name": "Milfoil",
     "scientific_name": "Achillea millefolium",
@@ -464,7 +567,9 @@
         "Sourcils-de-Vénus",
         "Achillée des monts Sudètes",
         "Herbe au charpentier",
-        "Achillée tomenteuse"
+        "Achillée tomenteuse",
+        "Achillée millefeuille",
+        "Achillée millefeuille"
       ]
     },
     "trefle_id": "11974"
@@ -477,21 +582,30 @@
       "spread": {
         "cm": 45
       },
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
       "ph_maximum": 7.5,
-      "ph_minimum": 6.0,
+      "ph_minimum": 5.5,
       "row_spacing": {
-        "cm": 15
+        "cm": null
       },
       "bloom_months": [
         "may",
         "june",
         "july",
-        "august"
+        "august",
+        "september"
       ],
-      "fruit_months": [],
+      "fruit_months": [
+        "july",
+        "august",
+        "september",
+        "october"
+      ],
       "soil_texture": 6,
       "growth_months": [
-        "march",
         "april",
         "may",
         "june",
@@ -500,33 +614,50 @@
         "september",
         "october"
       ],
-      "soil_salinity": 3,
+      "soil_salinity": 2,
       "days_to_harvest": null,
-      "soil_nutriments": 6,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 5,
       "max_soil_moisture": {
-        "indoor": 80,
-        "outdoor": 80
+        "indoor": 70,
+        "outdoor": 70
       },
       "min_soil_moisture": {
         "indoor": 40,
-        "outdoor": 40
+        "outdoor": 50
       },
       "minimum_root_depth": {
         "cm": 15
       },
-      "atmospheric_humidity": 7,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 7,
+          "min_days": 3
+        }
+      },
+      "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 1500
+        "mm": 1200
       },
       "minimum_precipitation": {
-        "mm": 600
+        "mm": 500
       },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 7,
     "image_url": "https://bs.plantnet.org/image/o/170ca6a6020d9e9f95f86112577aeabcb23f5b96",
-    "max_temp": 30.0,
-    "min_temp": -15.0,
+    "max_temp": 32.0,
+    "min_temp": -25.0,
     "name": "Dutch clover",
     "scientific_name": "Trifolium repens",
     "translated_name": {
@@ -549,7 +680,9 @@
         "Trèfle rampant",
         "Trefle Blanc",
         "Trèfle de Hollande",
-        "Coucou"
+        "Coucou",
+        "Trèfle blanc",
+        "Trèfle blanc"
       ]
     },
     "trefle_id": "51676"
@@ -560,12 +693,19 @@
       "light": 8,
       "sowing": "Spring",
       "spread": {
-        "cm": 50
+        "cm": 40
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
       },
       "ph_maximum": 7.5,
       "ph_minimum": 4.5,
-      "row_spacing": null,
+      "row_spacing": {
+        "cm": null
+      },
       "bloom_months": [
+        "may",
         "june",
         "july",
         "august"
@@ -577,7 +717,6 @@
       ],
       "soil_texture": 6,
       "growth_months": [
-        "march",
         "april",
         "may",
         "june",
@@ -586,32 +725,49 @@
         "september",
         "october"
       ],
-      "soil_salinity": 2,
+      "soil_salinity": 4,
       "days_to_harvest": null,
-      "soil_nutriments": 5,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 4,
       "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 80
+        "indoor": null,
+        "outdoor": 90
       },
       "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 40
+        "indoor": null,
+        "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 15
+        "cm": 20
       },
-      "atmospheric_humidity": 7,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": null,
+          "min_days": null
+        },
+        "outdoor": {
+          "max_days": 10,
+          "min_days": 5
+        }
+      },
+      "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 1800
+        "mm": 1500
       },
       "minimum_precipitation": {
         "mm": 500
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 8,
+    "ideal_humidity": 7,
     "image_url": "https://bs.plantnet.org/image/o/c0800816e2f56ed6e7702c31efd91afcdfddd68c",
-    "max_temp": 32.0,
+    "max_temp": 35.0,
     "min_temp": -20.0,
     "name": "Yorkshire-fog",
     "scientific_name": "Holcus lanatus",
@@ -640,7 +796,9 @@
         "Houlque laineuse",
         "Houque laineuse",
         "Blanchard",
-        "Petite Fenasse"
+        "Petite Fenasse",
+        "Houque laineuse",
+        "Houque laineuse"
       ]
     },
     "trefle_id": "230410"
@@ -648,30 +806,36 @@
   {
     "id": "780b285e-701d-495a-b224-f269cc8b5887",
     "growth_data": {
-      "light": 8,
+      "light": 7,
       "sowing": "Spring",
       "spread": {
-        "cm": 100
+        "cm": 60
       },
-      "ph_maximum": 8.0,
-      "ph_minimum": 4.5,
-      "row_spacing": {
-        "cm": 30
+      "toxicity": {
+        "pets": true,
+        "humans": true
       },
+      "ph_maximum": 7.5,
+      "ph_minimum": 5.5,
+      "row_spacing": null,
       "bloom_months": [
         "april",
         "may",
         "june",
         "july",
-        "august"
+        "august",
+        "september",
+        "october"
       ],
       "fruit_months": [
+        "may",
         "june",
         "july",
         "august",
-        "september"
+        "september",
+        "october"
       ],
-      "soil_texture": 8,
+      "soil_texture": 9,
       "growth_months": [
         "march",
         "april",
@@ -682,33 +846,49 @@
         "september",
         "october"
       ],
-      "soil_salinity": 2,
+      "soil_salinity": 3,
       "days_to_harvest": null,
-      "soil_nutriments": 6,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
+      "soil_nutriments": 8,
       "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": 95
+        "indoor": 90,
+        "outdoor": 100
       },
       "min_soil_moisture": {
-        "indoor": null,
-        "outdoor": 60
+        "indoor": 60,
+        "outdoor": 70
       },
       "minimum_root_depth": {
         "cm": 15
       },
-      "atmospheric_humidity": 6,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 4,
+          "min_days": 2
+        },
+        "outdoor": {
+          "max_days": 7,
+          "min_days": 3
+        }
+      },
+      "atmospheric_humidity": 7,
       "maximum_precipitation": {
-        "mm": 2000
+        "mm": 1500
       },
       "minimum_precipitation": {
-        "mm": 500
+        "mm": 600
       },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 9,
     "image_url": "https://bs.plantnet.org/image/o/90746f2a4592ed4dbc6a166234f488654565605e",
     "max_temp": 30.0,
-    "min_temp": -20.0,
+    "min_temp": -25.0,
     "name": "Creeping buttercup",
     "scientific_name": "Ranunculus repens",
     "translated_name": {
@@ -718,7 +898,9 @@
       ],
       "fr": [
         "Renoncule rampante",
-        "Bassinet"
+        "Bassinet",
+        "Renoncule rampante",
+        "Renoncule rampante"
       ]
     },
     "trefle_id": "122095"
@@ -727,11 +909,15 @@
     "id": "ba4546ab-dffb-4ae2-8241-0e317b9b4a33",
     "growth_data": {
       "light": 10,
-      "sowing": "autumn",
+      "sowing": "Autumn",
       "spread": {
-        "cm": 1500
+        "cm": 1250
       },
-      "ph_maximum": 7.5,
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
+      "ph_maximum": 8.0,
       "ph_minimum": 5.5,
       "row_spacing": {
         "cm": 1500
@@ -744,7 +930,7 @@
         "september",
         "october"
       ],
-      "soil_texture": 6,
+      "soil_texture": 7,
       "growth_months": [
         "april",
         "may",
@@ -755,19 +941,36 @@
       ],
       "soil_salinity": 3,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
       "soil_nutriments": 7,
       "max_soil_moisture": {
-        "indoor": null,
+        "indoor": 70,
         "outdoor": 80
       },
       "min_soil_moisture": {
-        "indoor": null,
+        "indoor": 50,
         "outdoor": 40
       },
       "minimum_root_depth": {
         "cm": 150
       },
-      "atmospheric_humidity": 6,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 21,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 7,
       "maximum_precipitation": {
         "mm": 1200
       },
@@ -799,7 +1002,9 @@
         "Chêne à grappes",
         "Chêne femelle",
         "Gravelin",
-        "Chêne rouvre"
+        "Chêne rouvre",
+        "Chêne pédonculé",
+        "Chêne pédonculé"
       ]
     },
     "trefle_id": "77134"
@@ -808,14 +1013,18 @@
     "id": "c9c924e1-2403-444c-a207-7f2e1ddd113f",
     "growth_data": {
       "light": 8,
-      "sowing": "Spring",
+      "sowing": "Autumn",
       "spread": {
-        "cm": 45
+        "cm": 30
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
       },
       "ph_maximum": 7.5,
       "ph_minimum": 5.5,
       "row_spacing": {
-        "cm": 5
+        "cm": null
       },
       "bloom_months": [
         "may",
@@ -823,23 +1032,29 @@
         "july"
       ],
       "fruit_months": [
-        "june",
         "july",
         "august"
       ],
       "soil_texture": 5,
       "growth_months": [
+        "march",
         "april",
         "may",
         "june",
+        "september",
+        "october",
+        "november"
+      ],
+      "soil_salinity": 6,
+      "days_to_harvest": null,
+      "dormancy_months": [
         "july",
         "august",
-        "september",
-        "october"
+        "december",
+        "january",
+        "february"
       ],
-      "soil_salinity": 4,
-      "days_to_harvest": null,
-      "soil_nutriments": 6,
+      "soil_nutriments": 4,
       "max_soil_moisture": {
         "indoor": null,
         "outdoor": 70
@@ -849,21 +1064,31 @@
         "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 15
+        "cm": 20
       },
-      "atmospheric_humidity": 6,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": null,
+          "min_days": null
+        },
+        "outdoor": {
+          "max_days": 7,
+          "min_days": 3
+        }
+      },
+      "atmospheric_humidity": 5,
       "maximum_precipitation": {
         "mm": 1200
       },
       "minimum_precipitation": {
-        "mm": 500
+        "mm": 600
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": 5,
     "image_url": "https://bs.plantnet.org/image/o/fb1967942b880fb7c978ff76741d348a22611b88",
     "max_temp": 30.0,
-    "min_temp": -20.0,
+    "min_temp": -30.0,
     "name": "Red fescue",
     "scientific_name": "Festuca rubra",
     "translated_name": {
@@ -874,7 +1099,9 @@
       ],
       "fr": [
         "Fétuque rouge",
-        "Fétuque traçante"
+        "Fétuque traçante",
+        "Fétuque rouge",
+        "Fétuque rouge"
       ]
     },
     "trefle_id": "229796"
@@ -882,10 +1109,14 @@
   {
     "id": "2130faae-f789-46d9-9a27-2e93bb6a6916",
     "growth_data": {
-      "light": 9,
+      "light": 8,
       "sowing": "Autumn",
       "spread": {
-        "cm": 1000
+        "cm": 1200
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
       },
       "ph_maximum": 8.0,
       "ph_minimum": 5.5,
@@ -893,13 +1124,17 @@
         "cm": 1000
       },
       "bloom_months": [
-        "april",
-        "may"
+        "march",
+        "april"
       ],
       "fruit_months": [
         "august",
         "september",
-        "october"
+        "october",
+        "november",
+        "december",
+        "january",
+        "february"
       ],
       "soil_texture": 6,
       "growth_months": [
@@ -911,19 +1146,36 @@
         "september",
         "october"
       ],
-      "soil_salinity": 3,
+      "soil_salinity": 2,
       "days_to_harvest": null,
-      "soil_nutriments": 8,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 7,
       "max_soil_moisture": {
         "indoor": null,
-        "outdoor": 80
+        "outdoor": 70
       },
       "min_soil_moisture": {
         "indoor": null,
         "outdoor": 40
       },
       "minimum_root_depth": {
-        "cm": 100
+        "cm": 90
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": null,
+          "min_days": null
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
@@ -952,7 +1204,9 @@
         "Frêne commun",
         "Frêne élevé",
         "Frêne",
-        "Frêne d'Europe"
+        "Frêne d'Europe",
+        "Frêne commun",
+        "Frêne commun"
       ]
     },
     "trefle_id": "221551"
@@ -963,11 +1217,17 @@
       "light": 9,
       "sowing": "Spring",
       "spread": {
-        "cm": 150
+        "cm": 100
       },
-      "ph_maximum": 8.5,
-      "ph_minimum": 5.5,
-      "row_spacing": null,
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 8.0,
+      "ph_minimum": 5.0,
+      "row_spacing": {
+        "cm": null
+      },
       "bloom_months": [
         "june",
         "july",
@@ -975,45 +1235,65 @@
         "september"
       ],
       "fruit_months": [
+        "july",
         "august",
         "september",
         "october"
       ],
       "soil_texture": 6,
       "growth_months": [
-        "april",
         "may",
         "june",
         "july",
-        "august"
+        "august",
+        "september"
       ],
-      "soil_salinity": 3,
+      "soil_salinity": 4,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "october",
+        "november",
+        "december",
+        "january",
+        "february",
+        "march",
+        "april"
+      ],
       "soil_nutriments": 7,
       "max_soil_moisture": {
         "indoor": 70,
-        "outdoor": 70
+        "outdoor": 80
       },
       "min_soil_moisture": {
-        "indoor": 30,
+        "indoor": 40,
         "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 30
+        "cm": 100
       },
-      "atmospheric_humidity": 5,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 1000
+        "mm": 1200
       },
       "minimum_precipitation": {
-        "mm": 400
+        "mm": 350
       },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 6,
     "image_url": "https://d2seqvvyy3b8p2.cloudfront.net/c7d6d18dfbd69cbf043001fb3204517c.jpg",
     "max_temp": 38.0,
-    "min_temp": -25.0,
+    "min_temp": -35.0,
     "name": "California thistle",
     "scientific_name": "Cirsium arvense",
     "translated_name": {
@@ -1036,7 +1316,9 @@
         "Circe des champs",
         "Chardon des vignes",
         "Herbe aux varices",
-        "Sarette"
+        "Sarette",
+        "Chardon des champs",
+        "Chardon des champs"
       ]
     },
     "trefle_id": "1999"
@@ -1049,10 +1331,14 @@
       "spread": {
         "cm": 45
       },
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
       "ph_maximum": 7.5,
-      "ph_minimum": 6.0,
+      "ph_minimum": 5.5,
       "row_spacing": {
-        "cm": 20
+        "cm": 15
       },
       "bloom_months": [
         "may",
@@ -1068,7 +1354,7 @@
         "september",
         "october"
       ],
-      "soil_texture": 5,
+      "soil_texture": 6,
       "growth_months": [
         "april",
         "may",
@@ -1078,33 +1364,50 @@
         "september",
         "october"
       ],
-      "soil_salinity": 3,
-      "days_to_harvest": null,
+      "soil_salinity": 2,
+      "days_to_harvest": 65,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
       "soil_nutriments": 6,
       "max_soil_moisture": {
-        "indoor": null,
+        "indoor": 80,
         "outdoor": 75
       },
       "min_soil_moisture": {
-        "indoor": null,
-        "outdoor": 50
+        "indoor": 50,
+        "outdoor": 40
       },
       "minimum_root_depth": {
-        "cm": 45
+        "cm": 60
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 5,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 10,
+          "min_days": 7
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1200
       },
       "minimum_precipitation": {
-        "mm": 500
+        "mm": 600
       },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 7,
     "image_url": "https://bs.plantnet.org/image/o/3bb52539dcca8b6bf19b9bf752631def901ba64c",
     "max_temp": 30.0,
-    "min_temp": -15.0,
+    "min_temp": -30.0,
     "name": "Cowgrass clover",
     "scientific_name": "Trifolium pratense",
     "translated_name": {
@@ -1128,7 +1431,9 @@
         "Trèfle rouge",
         "Trèfle violet",
         "Trefle des pres",
-        "Trèfle commun"
+        "Trèfle commun",
+        "Trèfle des prés",
+        "Trèfle des prés"
       ]
     },
     "trefle_id": "51671"
@@ -1136,15 +1441,19 @@
   {
     "id": "207fd525-5633-4e7e-b017-f5ae85309b7d",
     "growth_data": {
-      "light": 8,
+      "light": 7,
       "sowing": "Autumn",
       "spread": {
-        "cm": 1200
+        "cm": 2000
+      },
+      "toxicity": {
+        "pets": true,
+        "humans": true
       },
       "ph_maximum": 8.0,
       "ph_minimum": 5.5,
       "row_spacing": {
-        "cm": 800
+        "cm": 1000
       },
       "bloom_months": [
         "april",
@@ -1156,7 +1465,6 @@
       ],
       "soil_texture": 6,
       "growth_months": [
-        "march",
         "april",
         "may",
         "june",
@@ -1166,21 +1474,38 @@
       ],
       "soil_salinity": 2,
       "days_to_harvest": null,
-      "soil_nutriments": 8,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 7,
       "max_soil_moisture": {
         "indoor": null,
-        "outdoor": 75
+        "outdoor": 70
       },
       "min_soil_moisture": {
         "indoor": null,
-        "outdoor": 50
+        "outdoor": 40
       },
       "minimum_root_depth": {
         "cm": 100
       },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": null,
+          "min_days": null
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
+      },
       "atmospheric_humidity": 7,
       "maximum_precipitation": {
-        "mm": 1500
+        "mm": 1000
       },
       "minimum_precipitation": {
         "mm": 600
@@ -1207,7 +1532,9 @@
         "Hêtre",
         "Fayard",
         "Hêtre européen",
-        "Fouteau"
+        "Fouteau",
+        "Hêtre commun",
+        "Hêtre commun"
       ]
     },
     "trefle_id": "257554"
@@ -1218,9 +1545,13 @@
       "light": 8,
       "sowing": "Spring",
       "spread": {
-        "cm": 60
+        "cm": 75
       },
-      "ph_maximum": 8.0,
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 7.5,
       "ph_minimum": 4.5,
       "row_spacing": {
         "cm": 45
@@ -1231,14 +1562,12 @@
         "august"
       ],
       "fruit_months": [
-        "july",
         "august",
         "september",
         "october"
       ],
-      "soil_texture": 7,
+      "soil_texture": 8,
       "growth_months": [
-        "april",
         "may",
         "june",
         "july",
@@ -1246,9 +1575,17 @@
         "september",
         "october"
       ],
-      "soil_salinity": 1,
+      "soil_salinity": 3,
       "days_to_harvest": null,
-      "soil_nutriments": 4,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march",
+        "april"
+      ],
+      "soil_nutriments": 5,
       "max_soil_moisture": {
         "indoor": 100,
         "outdoor": 100
@@ -1260,7 +1597,17 @@
       "minimum_root_depth": {
         "cm": 20
       },
-      "atmospheric_humidity": 9,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 2,
+          "min_days": 1
+        },
+        "outdoor": {
+          "max_days": 1,
+          "min_days": 1
+        }
+      },
+      "atmospheric_humidity": 10,
       "maximum_precipitation": {
         "mm": 2000
       },
@@ -1271,7 +1618,7 @@
     },
     "ideal_humidity": 10,
     "image_url": "https://d2seqvvyy3b8p2.cloudfront.net/31545c7b5c65236a5d7f28ca040ee058.jpg",
-    "max_temp": 35.0,
+    "max_temp": 38.0,
     "min_temp": -30.0,
     "name": "Soft rush",
     "scientific_name": "Juncus effusus",
@@ -1294,7 +1641,9 @@
         "Jonc à lier",
         "Jonc épars",
         "Jonc diffus",
-        "Jonc"
+        "Jonc",
+        "Jonc épars",
+        "Jonc diffus"
       ]
     },
     "trefle_id": "208842"
@@ -1307,15 +1656,22 @@
       "spread": {
         "cm": 30
       },
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
       "ph_maximum": 7.5,
-      "ph_minimum": 5.5,
-      "row_spacing": null,
+      "ph_minimum": 4.5,
+      "row_spacing": {
+        "cm": 30
+      },
       "bloom_months": [
         "may",
         "june",
         "july"
       ],
       "fruit_months": [
+        "june",
         "july",
         "august"
       ],
@@ -1326,21 +1682,39 @@
         "may",
         "june",
         "july",
-        "august"
+        "august",
+        "september"
       ],
-      "soil_salinity": 2,
+      "soil_salinity": 3,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "october",
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
       "soil_nutriments": 6,
       "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": 85
+        "indoor": 90,
+        "outdoor": 90
       },
       "min_soil_moisture": {
-        "indoor": null,
+        "indoor": 60,
         "outdoor": 60
       },
       "minimum_root_depth": {
         "cm": 15
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 4,
+          "min_days": 2
+        },
+        "outdoor": {
+          "max_days": 7,
+          "min_days": 3
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
@@ -1351,10 +1725,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": 8,
     "image_url": "https://bs.plantnet.org/image/o/43c58aa2ef3d5a11ac1dd83d9b465e639338a3da",
     "max_temp": 30.0,
-    "min_temp": -20.0,
+    "min_temp": -30.0,
     "name": "Meadow buttercup",
     "scientific_name": "Ranunculus acris",
     "translated_name": {
@@ -1378,7 +1752,9 @@
         "Bassinet",
         "Bouton-d'or",
         "Fleur de beurre",
-        "Pied-de-coq"
+        "Pied-de-coq",
+        "Renoncule âcre",
+        "Renoncule âcre"
       ]
     },
     "trefle_id": "121308"
@@ -1387,14 +1763,18 @@
     "id": "2c79bfd0-61f7-4692-a18f-4e983ce978e7",
     "growth_data": {
       "light": 9,
-      "sowing": "autumn",
+      "sowing": "Autumn",
       "spread": {
-        "cm": 400
+        "cm": 500
       },
-      "ph_maximum": 8.5,
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
+      "ph_maximum": 8.0,
       "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 40
+        "cm": 300
       },
       "bloom_months": [
         "may",
@@ -1405,7 +1785,7 @@
         "september",
         "october"
       ],
-      "soil_texture": 7,
+      "soil_texture": 6,
       "growth_months": [
         "april",
         "may",
@@ -1414,23 +1794,40 @@
         "august",
         "september"
       ],
-      "soil_salinity": 3,
+      "soil_salinity": 2,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
       "soil_nutriments": 6,
       "max_soil_moisture": {
-        "indoor": null,
+        "indoor": 70,
         "outdoor": 70
       },
       "min_soil_moisture": {
-        "indoor": null,
+        "indoor": 40,
         "outdoor": 30
       },
       "minimum_root_depth": {
         "cm": 60
       },
-      "atmospheric_humidity": 5,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 21,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 1200
+        "mm": 1500
       },
       "minimum_precipitation": {
         "mm": 500
@@ -1439,7 +1836,7 @@
     },
     "ideal_humidity": 6,
     "image_url": "https://bs.plantnet.org/image/o/9a428f47e57e087f677d58967659592f8232c737",
-    "max_temp": 38.0,
+    "max_temp": 35.0,
     "min_temp": -25.0,
     "name": "Hawthorn",
     "scientific_name": "Crataegus monogyna",
@@ -1466,7 +1863,9 @@
         "Noble Épine",
         "Poire d'oiseau",
         "Senellier",
-        "Épine noire"
+        "Épine noire",
+        "Aubépine monogyne",
+        "Aubépine monogyne"
       ]
     },
     "trefle_id": "265588"
@@ -1474,15 +1873,19 @@
   {
     "id": "49866c9e-0f18-4f05-ae5b-4bc72dc999e6",
     "growth_data": {
-      "light": 8,
+      "light": 7,
       "sowing": "Spring",
       "spread": {
         "cm": 30
       },
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
       "ph_maximum": 7.0,
       "ph_minimum": 5.5,
       "row_spacing": {
-        "cm": 30
+        "cm": 20
       },
       "bloom_months": [
         "may",
@@ -1490,43 +1893,60 @@
         "july"
       ],
       "fruit_months": [
-        "june",
         "july",
         "august"
       ],
       "soil_texture": 6,
       "growth_months": [
+        "march",
         "april",
         "may",
         "june",
         "july",
         "august",
-        "september"
+        "september",
+        "october"
       ],
-      "soil_salinity": 2,
-      "days_to_harvest": 60,
-      "soil_nutriments": 7,
+      "soil_salinity": 3,
+      "days_to_harvest": 40,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
+      "soil_nutriments": 8,
       "max_soil_moisture": {
-        "indoor": 80,
-        "outdoor": 70
+        "indoor": 70,
+        "outdoor": 60
       },
       "min_soil_moisture": {
-        "indoor": 60,
-        "outdoor": 50
+        "indoor": 40,
+        "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 15
+        "cm": 20
       },
-      "atmospheric_humidity": 6,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 4,
+          "min_days": 2
+        },
+        "outdoor": {
+          "max_days": 7,
+          "min_days": 3
+        }
+      },
+      "atmospheric_humidity": 5,
       "maximum_precipitation": {
         "mm": 1200
       },
       "minimum_precipitation": {
-        "mm": 600
+        "mm": 500
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": 8,
     "image_url": "https://bs.plantnet.org/image/o/b07ad83adb571370a40982de0ec45248871486d6",
     "max_temp": 28.0,
     "min_temp": -5.0,
@@ -1559,7 +1979,9 @@
         "Oseille aigre",
         "Surette",
         "Rumex alpestre",
-        "Rumex rugueux"
+        "Rumex rugueux",
+        "Oseille commune",
+        "Oseille commune"
       ]
     },
     "trefle_id": "106776"
@@ -1567,62 +1989,83 @@
   {
     "id": "dc5fcd05-571a-43ca-bb9d-07f545c75ff5",
     "growth_data": {
-      "light": 9,
+      "light": 8,
       "sowing": "Spring",
       "spread": {
-        "cm": 60
+        "cm": 45
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
       },
       "ph_maximum": 6.0,
       "ph_minimum": 4.5,
       "row_spacing": {
-        "cm": 40
+        "cm": 30
       },
       "bloom_months": [
         "august",
         "september",
-        "october"
-      ],
-      "fruit_months": [
-        "september",
         "october",
         "november"
       ],
-      "soil_texture": 2,
+      "fruit_months": [
+        "october",
+        "november",
+        "december"
+      ],
+      "soil_texture": 3,
       "growth_months": [
-        "march",
         "april",
         "may",
         "june",
         "july",
-        "august"
+        "august",
+        "september"
       ],
-      "soil_salinity": 1,
+      "soil_salinity": 2,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
       "soil_nutriments": 3,
       "max_soil_moisture": {
-        "indoor": 80,
-        "outdoor": 70
+        "indoor": 70,
+        "outdoor": 60
       },
       "min_soil_moisture": {
-        "indoor": 60,
-        "outdoor": 50
+        "indoor": 40,
+        "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 15
+        "cm": 25
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 5,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 150
+        "mm": 1500
       },
       "minimum_precipitation": {
-        "mm": 50
+        "mm": 600
       },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 6,
     "image_url": "https://d2seqvvyy3b8p2.cloudfront.net/04a6d1e14c82502b58222574e2a99cde.jpg",
     "max_temp": 30.0,
-    "min_temp": -20.0,
+    "min_temp": -25.0,
     "name": "Heather",
     "scientific_name": "Calluna vulgaris",
     "translated_name": {
@@ -1649,7 +2092,9 @@
         "Fausse Bruyère",
         "Grosse Brande",
         "Péterolle",
-        "Callune vulgaire"
+        "Callune vulgaire",
+        "Bruyère commune",
+        "Bruyère commune"
       ]
     },
     "trefle_id": "155829"
@@ -1660,12 +2105,16 @@
       "light": 7,
       "sowing": "Spring",
       "spread": {
-        "cm": 60
+        "cm": 90
+      },
+      "toxicity": {
+        "pets": true,
+        "humans": true
       },
       "ph_maximum": 7.5,
-      "ph_minimum": 5.5,
+      "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 45
+        "cm": 60
       },
       "bloom_months": [
         "june",
@@ -1674,29 +2123,49 @@
       ],
       "fruit_months": [
         "august",
-        "september"
+        "september",
+        "october"
       ],
-      "soil_texture": 7,
+      "soil_texture": 8,
       "growth_months": [
         "april",
         "may",
         "june",
         "july",
-        "august"
+        "august",
+        "september",
+        "october"
       ],
-      "soil_salinity": 1,
+      "soil_salinity": 3,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
       "soil_nutriments": 7,
       "max_soil_moisture": {
-        "indoor": null,
+        "indoor": 95,
         "outdoor": 100
       },
       "min_soil_moisture": {
-        "indoor": null,
-        "outdoor": 70
+        "indoor": 70,
+        "outdoor": 75
       },
       "minimum_root_depth": {
-        "cm": 20
+        "cm": 25
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 3,
+          "min_days": 2
+        },
+        "outdoor": {
+          "max_days": 3,
+          "min_days": 1
+        }
       },
       "atmospheric_humidity": 8,
       "maximum_precipitation": {
@@ -1709,8 +2178,8 @@
     },
     "ideal_humidity": 9,
     "image_url": "https://bs.plantnet.org/image/o/53c73903dc455a3d734b193dad7d9d8c4ec0e324",
-    "max_temp": 28.0,
-    "min_temp": -25.0,
+    "max_temp": 30.0,
+    "min_temp": -20.0,
     "name": "Meadowsweet",
     "scientific_name": "Filipendula ulmaria",
     "translated_name": {
@@ -1732,6 +2201,8 @@
         "Fausse Spirée",
         "Filipendule ulmaire",
         "Spirée ulmaire",
+        "Reine des prés",
+        "Reine-des-prés",
         "Reine des prés"
       ]
     },
@@ -1743,92 +2214,29 @@
       "light": 10,
       "sowing": "Spring",
       "spread": {
-        "cm": 200
+        "cm": 450
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
       },
       "ph_maximum": 8.5,
       "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 250
+        "cm": 300
       },
       "bloom_months": [
+        "march",
         "april",
         "may",
         "june"
       ],
       "fruit_months": [
+        "may",
         "june",
-        "july",
-        "august"
+        "july"
       ],
       "soil_texture": 2,
-      "growth_months": [
-        "march",
-        "april",
-        "may",
-        "august",
-        "september"
-      ],
-      "soil_salinity": 5,
-      "days_to_harvest": null,
-      "soil_nutriments": 3,
-      "max_soil_moisture": {
-        "indoor": 35,
-        "outdoor": 25
-      },
-      "min_soil_moisture": {
-        "indoor": 15,
-        "outdoor": 5
-      },
-      "minimum_root_depth": {
-        "cm": 150
-      },
-      "atmospheric_humidity": 2,
-      "maximum_precipitation": {
-        "mm": 600
-      },
-      "minimum_precipitation": {
-        "mm": 150
-      },
-      "_growth_profile_enriched": true
-    },
-    "ideal_humidity": 1,
-    "image_url": "https://bs.plantnet.org/image/o/1e5ff376c926e779246dec56d8e4d041735a4069",
-    "max_temp": 48.0,
-    "min_temp": -5.0,
-    "name": "Vine-cactus",
-    "scientific_name": "Fouquieria splendens",
-    "translated_name": {
-      "en": [],
-      "fr": []
-    },
-    "trefle_id": "186137"
-  },
-  {
-    "id": "8bc8f60a-0524-4c1e-99dc-e28cfdaed1f1",
-    "growth_data": {
-      "light": 9,
-      "sowing": "spring",
-      "spread": {
-        "cm": 800
-      },
-      "ph_maximum": 8.0,
-      "ph_minimum": 6.5,
-      "row_spacing": {
-        "cm": 600
-      },
-      "bloom_months": [
-        "april",
-        "may"
-      ],
-      "fruit_months": [
-        "june",
-        "july",
-        "august",
-        "september",
-        "october",
-        "november"
-      ],
-      "soil_texture": 5,
       "growth_months": [
         "april",
         "may",
@@ -1839,36 +2247,149 @@
       ],
       "soil_salinity": 3,
       "days_to_harvest": null,
-      "soil_nutriments": 6,
+      "dormancy_months": [
+        "october",
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
+      "soil_nutriments": 2,
+      "max_soil_moisture": {
+        "indoor": 30,
+        "outdoor": 20
+      },
+      "min_soil_moisture": {
+        "indoor": 10,
+        "outdoor": 10
+      },
+      "minimum_root_depth": {
+        "cm": 100
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 30,
+          "min_days": 14
+        },
+        "outdoor": {
+          "max_days": 60,
+          "min_days": 30
+        }
+      },
+      "atmospheric_humidity": 2,
+      "maximum_precipitation": {
+        "mm": 500
+      },
+      "minimum_precipitation": {
+        "mm": 150
+      },
+      "_growth_profile_enriched": true
+    },
+    "ideal_humidity": 2,
+    "image_url": "https://bs.plantnet.org/image/o/1e5ff376c926e779246dec56d8e4d041735a4069",
+    "max_temp": 45.0,
+    "min_temp": -9.0,
+    "name": "Vine-cactus",
+    "scientific_name": "Fouquieria splendens",
+    "translated_name": {
+      "en": [],
+      "fr": [
+        "Ocotillo",
+        null
+      ]
+    },
+    "trefle_id": "186137"
+  },
+  {
+    "id": "8bc8f60a-0524-4c1e-99dc-e28cfdaed1f1",
+    "growth_data": {
+      "light": 8,
+      "sowing": "Spring",
+      "spread": {
+        "cm": 600
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 8.5,
+      "ph_minimum": 6.0,
+      "row_spacing": {
+        "cm": 600
+      },
+      "bloom_months": [
+        "march",
+        "april",
+        "may"
+      ],
+      "fruit_months": [
+        "june",
+        "july",
+        "august",
+        "september",
+        "october"
+      ],
+      "soil_texture": 6,
+      "growth_months": [
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october"
+      ],
+      "soil_salinity": 3,
+      "days_to_harvest": null,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
+      "soil_nutriments": 5,
       "max_soil_moisture": {
         "indoor": null,
         "outdoor": 70
       },
       "min_soil_moisture": {
         "indoor": null,
-        "outdoor": 40
+        "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 80
+        "cm": 60
       },
-      "atmospheric_humidity": 6,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": null,
+          "min_days": null
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 5,
       "maximum_precipitation": {
-        "mm": 1200
+        "mm": 1500
       },
       "minimum_precipitation": {
         "mm": 500
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": 5,
     "image_url": "https://bs.plantnet.org/image/o/8741d256dfbbae374cf5d80084c52110309173cb",
     "max_temp": 38.0,
-    "min_temp": -18.0,
+    "min_temp": -20.0,
     "name": "Judastree",
     "scientific_name": "Cercis siliquastrum",
     "translated_name": {
       "en": [],
-      "fr": []
+      "fr": [
+        "Arbre de Judée",
+        "Arbre de Judée"
+      ]
     },
     "trefle_id": "51982"
   },
@@ -1880,15 +2401,19 @@
       "spread": {
         "cm": 300
       },
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
       "ph_maximum": 8.5,
-      "ph_minimum": 5.0,
+      "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 300
+        "cm": 200
       },
       "bloom_months": [
-        "april",
         "may",
-        "june"
+        "june",
+        "july"
       ],
       "fruit_months": [
         "july",
@@ -1907,23 +2432,39 @@
         "september",
         "october"
       ],
-      "soil_salinity": 7,
+      "soil_salinity": 6,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
       "soil_nutriments": 3,
       "max_soil_moisture": {
         "indoor": 40,
-        "outdoor": 40
+        "outdoor": 35
       },
       "min_soil_moisture": {
-        "indoor": 10,
+        "indoor": 15,
         "outdoor": 10
       },
       "minimum_root_depth": {
-        "cm": 30
+        "cm": 40
       },
-      "atmospheric_humidity": 3,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 42,
+          "min_days": 21
+        },
+        "outdoor": {
+          "max_days": 30,
+          "min_days": 14
+        }
+      },
+      "atmospheric_humidity": 2,
       "maximum_precipitation": {
-        "mm": 800
+        "mm": 900
       },
       "minimum_precipitation": {
         "mm": 200
@@ -1938,7 +2479,10 @@
     "scientific_name": "Opuntia ficus-indica",
     "translated_name": {
       "en": [],
-      "fr": []
+      "fr": [
+        "Figuier de Barbarie",
+        "Figuier de Barbarie"
+      ]
     },
     "trefle_id": "102701"
   },
@@ -1948,12 +2492,16 @@
       "light": 10,
       "sowing": "Spring",
       "spread": {
-        "cm": 600
+        "cm": 800
       },
-      "ph_maximum": 7.5,
-      "ph_minimum": 5.5,
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 8.0,
+      "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 600
+        "cm": 800
       },
       "bloom_months": [
         "january",
@@ -1963,9 +2511,10 @@
       "fruit_months": [
         "april",
         "may",
-        "june"
+        "june",
+        "july"
       ],
-      "soil_texture": 5,
+      "soil_texture": 4,
       "growth_months": [
         "march",
         "april",
@@ -1975,33 +2524,48 @@
         "august",
         "september"
       ],
-      "soil_salinity": 3,
+      "soil_salinity": 5,
       "days_to_harvest": null,
-      "soil_nutriments": 5,
+      "dormancy_months": [
+        "december",
+        "january",
+        "february"
+      ],
+      "soil_nutriments": 6,
       "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 60
+        "indoor": 80,
+        "outdoor": 70
       },
       "min_soil_moisture": {
         "indoor": 40,
         "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 100
+        "cm": 80
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 10,
+          "min_days": 5
+        },
+        "outdoor": {
+          "max_days": 21,
+          "min_days": 7
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1500
       },
       "minimum_precipitation": {
-        "mm": 400
+        "mm": 600
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 5,
+    "ideal_humidity": 6,
     "image_url": "https://bs.plantnet.org/image/o/a2b911fc3378735b04a5079d4ee111101eee0ed9",
-    "max_temp": 40.0,
-    "min_temp": -5.0,
+    "max_temp": 38.0,
+    "min_temp": -7.0,
     "name": "Mimosa",
     "scientific_name": "Acacia dealbata",
     "translated_name": {
@@ -2019,7 +2583,9 @@
         "Mimosa d'hiver",
         "Mimosa des fleuristes",
         "Mimosa blanchissant",
-        "Mimosa de Bormes"
+        "Mimosa de Bormes",
+        "Mimosa d'hiver",
+        "Mimosa d'hiver"
       ]
     },
     "trefle_id": "44585"
@@ -2028,32 +2594,34 @@
     "id": "42cca412-eb4b-4cb1-bb5a-7c7962001b4c",
     "growth_data": {
       "light": 8,
-      "sowing": "spring",
+      "sowing": "Spring",
       "spread": {
         "cm": 30
       },
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
       "ph_maximum": 8.0,
-      "ph_minimum": 5.5,
+      "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 20
+        "cm": 15
       },
       "bloom_months": [
         "may",
         "june",
         "july",
         "august",
-        "september",
-        "october"
+        "september"
       ],
       "fruit_months": [
         "june",
         "july",
         "august",
         "september",
-        "october",
-        "november"
+        "october"
       ],
-      "soil_texture": 6,
+      "soil_texture": 4,
       "growth_months": [
         "april",
         "may",
@@ -2063,33 +2631,44 @@
         "september",
         "october"
       ],
-      "soil_salinity": 3,
-      "days_to_harvest": 45,
-      "soil_nutriments": 6,
+      "soil_salinity": 7,
+      "days_to_harvest": 35,
+      "dormancy_months": [],
+      "soil_nutriments": 5,
       "max_soil_moisture": {
-        "indoor": null,
+        "indoor": 70,
         "outdoor": 70
       },
       "min_soil_moisture": {
-        "indoor": null,
+        "indoor": 40,
         "outdoor": 40
       },
       "minimum_root_depth": {
-        "cm": 15
+        "cm": 20
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 5,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 7,
+          "min_days": 5
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 1200
+        "mm": 1000
       },
       "minimum_precipitation": {
         "mm": 500
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": 6,
     "image_url": "https://bs.plantnet.org/image/o/bb2510f4e5667f12a907771b11721928fef0fa5d",
     "max_temp": 30.0,
-    "min_temp": 5.0,
+    "min_temp": -5.0,
     "name": "Sea radish",
     "scientific_name": "Raphanus raphanistrum",
     "translated_name": {
@@ -2110,7 +2689,8 @@
         "Radis sauvage",
         "Radis ravenelle",
         "Raifort sauvage",
-        "Raveluche"
+        "Raveluche",
+        "Ravenelle"
       ]
     },
     "trefle_id": "106599"
@@ -2121,21 +2701,25 @@
       "light": 8,
       "sowing": "Autumn",
       "spread": {
-        "cm": 300
+        "cm": 400
+      },
+      "toxicity": {
+        "pets": true,
+        "humans": true
       },
       "ph_maximum": 8.0,
       "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 75
+        "cm": null
       },
       "bloom_months": [
         "april",
         "may"
       ],
       "fruit_months": [
-        "june",
         "july",
-        "august"
+        "august",
+        "september"
       ],
       "soil_texture": 6,
       "growth_months": [
@@ -2145,21 +2729,38 @@
         "june",
         "july",
         "august",
-        "september"
+        "september",
+        "october"
       ],
-      "soil_salinity": 3,
+      "soil_salinity": 4,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
       "soil_nutriments": 7,
       "max_soil_moisture": {
         "indoor": 70,
-        "outdoor": 70
+        "outdoor": 60
       },
       "min_soil_moisture": {
-        "indoor": 50,
-        "outdoor": 40
+        "indoor": 40,
+        "outdoor": 30
       },
       "minimum_root_depth": {
         "cm": 50
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 4
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
@@ -2170,10 +2771,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": 7,
     "image_url": "https://bs.plantnet.org/image/o/08bdf8d6415162b600fba4e14fbd06abe3ba974d",
     "max_temp": 35.0,
-    "min_temp": -20.0,
+    "min_temp": -15.0,
     "name": "Cherry-laurel",
     "scientific_name": "Prunus laurocerasus",
     "translated_name": {
@@ -2190,7 +2791,8 @@
         "Laurier cerise",
         "Laurier de Trébizonde",
         "Laurier-amandier",
-        "Laurier-palme"
+        "Laurier-palme",
+        "Laurier-cerise"
       ]
     },
     "trefle_id": "266596"
@@ -2201,17 +2803,21 @@
       "light": 7,
       "sowing": null,
       "spread": {
-        "cm": 150
+        "cm": 80
+      },
+      "toxicity": {
+        "pets": true,
+        "humans": true
       },
       "ph_maximum": 7.0,
       "ph_minimum": 5.5,
-      "row_spacing": null,
+      "row_spacing": {
+        "cm": null
+      },
       "bloom_months": [],
       "fruit_months": [],
-      "soil_texture": 4,
+      "soil_texture": 5,
       "growth_months": [
-        "january",
-        "february",
         "march",
         "april",
         "may",
@@ -2219,16 +2825,19 @@
         "july",
         "august",
         "september",
-        "october",
-        "november",
-        "december"
+        "october"
       ],
       "soil_salinity": 2,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "december",
+        "january",
+        "february"
+      ],
       "soil_nutriments": 7,
       "max_soil_moisture": {
-        "indoor": 80,
-        "outdoor": 80
+        "indoor": 70,
+        "outdoor": 70
       },
       "min_soil_moisture": {
         "indoor": 40,
@@ -2237,19 +2846,29 @@
       "minimum_root_depth": {
         "cm": 25
       },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 10,
+          "min_days": 5
+        },
+        "outdoor": {
+          "max_days": 7,
+          "min_days": 3
+        }
+      },
       "atmospheric_humidity": 9,
       "maximum_precipitation": {
-        "mm": 3000
+        "mm": 2500
       },
       "minimum_precipitation": {
-        "mm": 1000
+        "mm": 1500
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": 8,
     "image_url": "https://bs.plantnet.org/image/o/38d4346034e89f4e5917357f2bc62cdcd150a3af",
-    "max_temp": 35.0,
-    "min_temp": 15.0,
+    "max_temp": 30.0,
+    "min_temp": 18.0,
     "name": "Tarovine",
     "scientific_name": "Monstera adansonii",
     "translated_name": {
@@ -2261,7 +2880,8 @@
       ],
       "fr": [
         "Séguine",
-        "Siguine"
+        "Siguine",
+        "Monstera perforée"
       ]
     },
     "trefle_id": "62438"
@@ -2272,10 +2892,14 @@
       "light": 8,
       "sowing": "Spring",
       "spread": {
-        "cm": 45
+        "cm": 60
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
       },
       "ph_maximum": 8.5,
-      "ph_minimum": 5.5,
+      "ph_minimum": 6.0,
       "row_spacing": {
         "cm": 30
       },
@@ -2295,35 +2919,53 @@
         "june",
         "july",
         "august",
-        "september"
+        "september",
+        "october"
       ],
-      "soil_salinity": 2,
+      "soil_salinity": 3,
       "days_to_harvest": null,
-      "soil_nutriments": 3,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 4,
       "max_soil_moisture": {
         "indoor": 70,
-        "outdoor": 70
+        "outdoor": 85
       },
       "min_soil_moisture": {
         "indoor": 30,
-        "outdoor": 30
+        "outdoor": 20
       },
       "minimum_root_depth": {
         "cm": 30
       },
-      "atmospheric_humidity": 6,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 14,
+          "min_days": 7
+        },
+        "outdoor": {
+          "max_days": 30,
+          "min_days": 14
+        }
+      },
+      "atmospheric_humidity": 5,
       "maximum_precipitation": {
-        "mm": 1000
+        "mm": 1200
       },
       "minimum_precipitation": {
-        "mm": 400
+        "mm": 500
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 5,
+    "ideal_humidity": 4,
     "image_url": "https://bs.plantnet.org/image/o/e87561544555422fbb7d46d50404fd1062be72fb",
-    "max_temp": 35.0,
-    "min_temp": -20.0,
+    "max_temp": 38.0,
+    "min_temp": -30.0,
     "name": "Heath false brome",
     "scientific_name": "Brachypodium pinnatum",
     "translated_name": {
@@ -2338,7 +2980,8 @@
       ],
       "fr": [
         "Brachypode penné",
-        "Palène"
+        "Palène",
+        "Brachypode penné"
       ]
     },
     "trefle_id": "226075"
@@ -2346,57 +2989,86 @@
   {
     "id": "4475749d-8384-4540-8882-be2ecf827c2d",
     "growth_data": {
-      "light": 7,
-      "sowing": "Spring",
+      "light": 8,
+      "sowing": null,
       "spread": {
-        "cm": 150
+        "cm": 250
+      },
+      "toxicity": {
+        "pets": true,
+        "humans": true
       },
       "ph_maximum": 7.0,
       "ph_minimum": 5.5,
-      "row_spacing": null,
+      "row_spacing": {
+        "cm": 150
+      },
       "bloom_months": [
-        "may",
         "june",
-        "july"
+        "july",
+        "august"
       ],
       "fruit_months": [
         "august",
         "september",
-        "october"
+        "october",
+        "november",
+        "december",
+        "january"
       ],
-      "soil_texture": 5,
+      "soil_texture": 4,
       "growth_months": [
-        "march",
         "april",
         "may",
         "june",
         "july",
         "august",
-        "september"
+        "september",
+        "october"
       ],
       "soil_salinity": 2,
       "days_to_harvest": null,
-      "soil_nutriments": 7,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
+      "soil_nutriments": 8,
       "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 70
+        "indoor": 75,
+        "outdoor": 75
       },
       "min_soil_moisture": {
         "indoor": 40,
         "outdoor": 40
       },
       "minimum_root_depth": {
-        "cm": 30
+        "cm": 40
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 14,
+          "min_days": 7
+        },
+        "outdoor": {
+          "max_days": 7,
+          "min_days": 3
+        }
       },
       "atmospheric_humidity": 9,
-      "maximum_precipitation": null,
-      "minimum_precipitation": null,
+      "maximum_precipitation": {
+        "mm": 3000
+      },
+      "minimum_precipitation": {
+        "mm": 1500
+      },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 7,
     "image_url": "https://bs.plantnet.org/image/o/a3a043c163463e4cf1941e473a134700ed327d84",
     "max_temp": 30.0,
-    "min_temp": 13.0,
+    "min_temp": 18.0,
     "name": "Fruit-salad-plant",
     "scientific_name": "Monstera deliciosa",
     "translated_name": {
@@ -2429,7 +3101,8 @@
         "Anana du pauvre",
         "Ananas de Mexico",
         "Monstère délicieux",
-        "Ananas du pauvre"
+        "Ananas du pauvre",
+        "Monstera délicieux"
       ]
     },
     "trefle_id": "62442"
@@ -2438,22 +3111,29 @@
     "id": "17dc8ec3-9a78-4af5-b50f-1873a15d6de0",
     "growth_data": {
       "light": 10,
-      "sowing": "spring",
+      "sowing": "Spring",
       "spread": {
         "cm": 60
       },
-      "ph_maximum": 7.5,
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 8.0,
       "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 50
+        "cm": 60
       },
       "bloom_months": [
+        "april",
         "may",
         "june",
         "july",
         "august"
       ],
       "fruit_months": [
+        "june",
+        "july",
         "august",
         "september",
         "october"
@@ -2469,6 +3149,14 @@
       ],
       "soil_salinity": 4,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "october",
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
       "soil_nutriments": 3,
       "max_soil_moisture": {
         "indoor": 30,
@@ -2481,9 +3169,19 @@
       "minimum_root_depth": {
         "cm": 20
       },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 30,
+          "min_days": 14
+        },
+        "outdoor": {
+          "max_days": 45,
+          "min_days": 21
+        }
+      },
       "atmospheric_humidity": 2,
       "maximum_precipitation": {
-        "mm": 300
+        "mm": 500
       },
       "minimum_precipitation": {
         "mm": 100
@@ -2493,7 +3191,7 @@
     "ideal_humidity": 1,
     "image_url": "https://bs.plantnet.org/image/o/e5daa60eb0aa1da15302dd6700bb758dc6563c29",
     "max_temp": 45.0,
-    "min_temp": 5.0,
+    "min_temp": -7.0,
     "name": "Le conte barrel cactus",
     "scientific_name": "Ferocactus cylindraceus",
     "translated_name": {
@@ -2510,7 +3208,9 @@
         "Miner's compass",
         "Eastwood's Barrel Cactus"
       ],
-      "fr": []
+      "fr": [
+        null
+      ]
     },
     "trefle_id": "184684"
   },
@@ -2518,61 +3218,80 @@
     "id": "79df5206-c490-4966-8753-c721552343d1",
     "growth_data": {
       "light": 8,
-      "sowing": "Spring",
+      "sowing": "Autumn",
       "spread": {
         "cm": 10
       },
-      "ph_maximum": 8.0,
-      "ph_minimum": 6.5,
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 7.5,
+      "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 10
+        "cm": 15
       },
       "bloom_months": [
-        "april",
         "may",
-        "june"
+        "june",
+        "july"
       ],
       "fruit_months": [
-        "june",
         "july",
         "august"
       ],
       "soil_texture": 2,
       "growth_months": [
-        "march",
         "april",
         "may",
         "june",
         "july",
         "august"
       ],
-      "soil_salinity": 1,
+      "soil_salinity": 2,
       "days_to_harvest": null,
-      "soil_nutriments": 3,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 4,
       "max_soil_moisture": {
         "indoor": 60,
         "outdoor": 60
       },
       "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 40
+        "indoor": 30,
+        "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 10
+        "cm": 15
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 10,
+          "min_days": 5
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
       },
       "atmospheric_humidity": 5,
       "maximum_precipitation": {
-        "mm": 800
+        "mm": 1000
       },
       "minimum_precipitation": {
-        "mm": 350
+        "mm": 400
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 4,
+    "ideal_humidity": 5,
     "image_url": "https://bs.plantnet.org/image/o/f2beba6c03e5f2c98e7a6de110080a04a96054df",
     "max_temp": 28.0,
-    "min_temp": -25.0,
+    "min_temp": -35.0,
     "name": "Pygmyflower rockjasmine",
     "scientific_name": "Androsace septentrionalis",
     "translated_name": {
@@ -2592,7 +3311,8 @@
       "fr": [
         "Androsace septentrionale",
         "Androsace du Nord",
-        "Androsace septentrional"
+        "Androsace septentrional",
+        "Androsace septentrionale"
       ]
     },
     "trefle_id": "143358"
@@ -2601,53 +3321,74 @@
     "id": "218f767f-f4c2-415a-b657-2310eaf2ecc6",
     "growth_data": {
       "light": 8,
-      "sowing": "Autumn",
+      "sowing": "Spring",
       "spread": {
-        "cm": 12
+        "cm": 10
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
       },
       "ph_maximum": 7.5,
-      "ph_minimum": 6.5,
+      "ph_minimum": 6.0,
       "row_spacing": {
         "cm": 15
       },
       "bloom_months": [
+        "march",
         "april",
-        "may"
-      ],
-      "fruit_months": [
         "may",
         "june"
+      ],
+      "fruit_months": [
+        "april",
+        "may",
+        "june",
+        "july"
       ],
       "soil_texture": 4,
       "growth_months": [
         "march",
         "april",
-        "may"
+        "may",
+        "june",
+        "july"
       ],
-      "soil_salinity": 2,
+      "soil_salinity": 3,
       "days_to_harvest": null,
-      "soil_nutriments": 4,
+      "dormancy_months": [],
+      "soil_nutriments": 5,
       "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 70
+        "indoor": 65,
+        "outdoor": 60
       },
       "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 40
+        "indoor": 35,
+        "outdoor": 25
       },
       "minimum_root_depth": {
         "cm": 10
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 6,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 10,
+          "min_days": 5
+        }
       },
       "atmospheric_humidity": 5,
       "maximum_precipitation": {
         "mm": 800
       },
       "minimum_precipitation": {
-        "mm": 400
+        "mm": 300
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 5,
+    "ideal_humidity": 4,
     "image_url": "https://bs.plantnet.org/image/o/6a043b2e8a6ad613b0cb003c7b1da14a9630722e",
     "max_temp": 28.0,
     "min_temp": -5.0,
@@ -2661,7 +3402,8 @@
       ],
       "fr": [
         "Androsace des champs",
-        "Grande Androsace"
+        "Grande Androsace",
+        "Androsace à grandes fleurs"
       ]
     },
     "trefle_id": "143319"
@@ -2669,37 +3411,96 @@
   {
     "id": "d55b6e69-d690-4349-a04f-0677f6612973",
     "growth_data": {
-      "light": null,
-      "sowing": null,
-      "spread": {},
-      "ph_maximum": null,
-      "ph_minimum": null,
-      "row_spacing": {},
-      "bloom_months": [],
-      "fruit_months": [],
-      "soil_texture": null,
-      "growth_months": [],
-      "soil_salinity": null,
+      "light": 8,
+      "sowing": "Spring",
+      "spread": {
+        "cm": 200
+      },
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
+      "ph_maximum": 7.0,
+      "ph_minimum": 5.5,
+      "row_spacing": {
+        "cm": 150
+      },
+      "bloom_months": [
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november"
+      ],
+      "fruit_months": [
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
+      "soil_texture": 4,
+      "growth_months": [
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december"
+      ],
+      "soil_salinity": 5,
       "days_to_harvest": null,
-      "soil_nutriments": null,
+      "dormancy_months": [],
+      "soil_nutriments": 6,
       "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": null
+        "indoor": 70,
+        "outdoor": 60
       },
       "min_soil_moisture": {
-        "indoor": null,
-        "outdoor": null
+        "indoor": 40,
+        "outdoor": 30
       },
-      "minimum_root_depth": {},
-      "atmospheric_humidity": null,
-      "maximum_precipitation": {},
-      "minimum_precipitation": {},
+      "minimum_root_depth": {
+        "cm": 45
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 9,
+      "maximum_precipitation": {
+        "mm": 2000
+      },
+      "minimum_precipitation": {
+        "mm": 1000
+      },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": null,
+    "ideal_humidity": 6,
     "image_url": "https://bs.plantnet.org/image/o/9c2aa63544ae9555eea7ecacb54c2e2d8e6ffd22",
-    "max_temp": null,
-    "min_temp": null,
+    "max_temp": 38.0,
+    "min_temp": -1.0,
     "name": "Milkberry",
     "scientific_name": "Chiococca alba",
     "translated_name": {
@@ -2720,7 +3521,8 @@
       ],
       "fr": [
         "Liane des sorciers",
-        "Jasmin-bois"
+        "Jasmin-bois",
+        null
       ]
     },
     "trefle_id": "224504"
@@ -2728,37 +3530,83 @@
   {
     "id": "1bdf666b-df50-4e5e-9b07-9a94cf1fddc4",
     "growth_data": {
-      "light": null,
-      "sowing": null,
-      "spread": {},
-      "ph_maximum": null,
-      "ph_minimum": null,
-      "row_spacing": {},
-      "bloom_months": [],
-      "fruit_months": [],
-      "soil_texture": null,
-      "growth_months": [],
-      "soil_salinity": null,
-      "days_to_harvest": null,
-      "soil_nutriments": null,
+      "light": 6,
+      "sowing": "Spring",
+      "spread": {
+        "cm": 30
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 7.5,
+      "ph_minimum": 5.5,
+      "row_spacing": {
+        "cm": 20
+      },
+      "bloom_months": [
+        "april",
+        "may",
+        "june"
+      ],
+      "fruit_months": [
+        "june",
+        "july"
+      ],
+      "soil_texture": 7,
+      "growth_months": [
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october"
+      ],
+      "soil_salinity": 2,
+      "days_to_harvest": 60,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
+      "soil_nutriments": 7,
       "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": null
+        "indoor": 90,
+        "outdoor": 100
       },
       "min_soil_moisture": {
-        "indoor": null,
-        "outdoor": null
+        "indoor": 70,
+        "outdoor": 80
       },
-      "minimum_root_depth": {},
-      "atmospheric_humidity": null,
-      "maximum_precipitation": {},
-      "minimum_precipitation": {},
+      "minimum_root_depth": {
+        "cm": 15
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 2,
+          "min_days": 1
+        },
+        "outdoor": {
+          "max_days": 3,
+          "min_days": 1
+        }
+      },
+      "atmospheric_humidity": 8,
+      "maximum_precipitation": {
+        "mm": 1500
+      },
+      "minimum_precipitation": {
+        "mm": 600
+      },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": null,
+    "ideal_humidity": 9,
     "image_url": "https://bs.plantnet.org/image/o/14beb4902fb3e6ecf26640e7c8d330bf91877f02",
-    "max_temp": null,
-    "min_temp": null,
+    "max_temp": 28.0,
+    "min_temp": -25.0,
     "name": "Meadow cress",
     "scientific_name": "Cardamine pratensis",
     "translated_name": {
@@ -2785,7 +3633,8 @@
         "Cresson sauvage",
         "Faux Cresson",
         "Passerage sauvage",
-        "Petite Dentaire"
+        "Petite Dentaire",
+        "Cardamine des prés"
       ]
     },
     "trefle_id": "157199"
@@ -2796,7 +3645,11 @@
       "light": 8,
       "sowing": "Spring",
       "spread": {
-        "cm": 35
+        "cm": 40
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
       },
       "ph_maximum": 8.0,
       "ph_minimum": 6.0,
@@ -2807,19 +3660,16 @@
         "june",
         "july",
         "august",
-        "september",
-        "october"
+        "september"
       ],
       "fruit_months": [
         "july",
         "august",
         "september",
-        "october",
-        "november"
+        "october"
       ],
-      "soil_texture": 5,
+      "soil_texture": 6,
       "growth_months": [
-        "march",
         "april",
         "may",
         "june",
@@ -2828,33 +3678,50 @@
         "september",
         "october"
       ],
-      "soil_salinity": 4,
-      "days_to_harvest": null,
+      "soil_salinity": 5,
+      "days_to_harvest": 30,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
       "soil_nutriments": 7,
       "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": 70
+        "indoor": 70,
+        "outdoor": 80
       },
       "min_soil_moisture": {
-        "indoor": null,
+        "indoor": 40,
         "outdoor": 30
       },
       "minimum_root_depth": {
         "cm": 20
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 5,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 7,
+          "min_days": 3
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1200
       },
       "minimum_precipitation": {
-        "mm": 300
+        "mm": 450
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": 7,
     "image_url": "https://bs.plantnet.org/image/o/0ee43b6ecd92ace0cecbb5ad0356167b0786f802",
-    "max_temp": 35.0,
-    "min_temp": 5.0,
+    "max_temp": 38.0,
+    "min_temp": -5.0,
     "name": "Rough milk thistle",
     "scientific_name": "Sonchus asper",
     "translated_name": {
@@ -2895,7 +3762,8 @@
         "Laiteron âpre",
         "Brède lastron",
         "Laiteron potager",
-        "Laiteron lisse"
+        "Laiteron lisse",
+        "Laiteron rude"
       ]
     },
     "trefle_id": "8927"
@@ -2908,13 +3776,16 @@
       "spread": {
         "cm": 40
       },
-      "ph_maximum": 7.8,
-      "ph_minimum": 5.5,
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 7.5,
+      "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 25
+        "cm": 20
       },
       "bloom_months": [
-        "april",
         "may",
         "june",
         "july",
@@ -2923,7 +3794,6 @@
         "october"
       ],
       "fruit_months": [
-        "may",
         "june",
         "july",
         "august",
@@ -2931,7 +3801,7 @@
         "october",
         "november"
       ],
-      "soil_texture": 5,
+      "soil_texture": 6,
       "growth_months": [
         "march",
         "april",
@@ -2942,33 +3812,44 @@
         "september",
         "october"
       ],
-      "soil_salinity": 3,
+      "soil_salinity": 5,
       "days_to_harvest": 45,
-      "soil_nutriments": 6,
+      "dormancy_months": [],
+      "soil_nutriments": 7,
       "max_soil_moisture": {
-        "indoor": 80,
-        "outdoor": 75
+        "indoor": 70,
+        "outdoor": 80
       },
       "min_soil_moisture": {
-        "indoor": 60,
-        "outdoor": 50
+        "indoor": 40,
+        "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 15
+        "cm": 20
       },
-      "atmospheric_humidity": 6,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 5,
       "maximum_precipitation": {
-        "mm": 1500
+        "mm": 1200
       },
       "minimum_precipitation": {
-        "mm": 300
+        "mm": 400
       },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 6,
     "image_url": "https://bs.plantnet.org/image/o/d4ae781c9048ff38e879d0eb0fe5f3bbdc5a7b83",
-    "max_temp": 38.0,
-    "min_temp": 5.0,
+    "max_temp": 35.0,
+    "min_temp": -5.0,
     "name": "Common sowthistle",
     "scientific_name": "Sonchus oleraceus",
     "translated_name": {
@@ -3004,7 +3885,8 @@
         "Laiteron",
         "Laiteron commun",
         "Laiteron des champs",
-        "Laiteron piquant"
+        "Laiteron piquant",
+        "Laiteron maraîcher"
       ]
     },
     "trefle_id": "17007"
@@ -3012,13 +3894,17 @@
   {
     "id": "06fede49-a095-4575-9287-a9dea9ea73c5",
     "growth_data": {
-      "light": 3,
+      "light": 4,
       "sowing": null,
       "spread": {
-        "cm": 60
+        "cm": 50
       },
-      "ph_maximum": 6.0,
-      "ph_minimum": 4.0,
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
+      "ph_maximum": 6.5,
+      "ph_minimum": 4.5,
       "row_spacing": {
         "cm": null
       },
@@ -3028,9 +3914,8 @@
         "october"
       ],
       "fruit_months": [],
-      "soil_texture": 3,
+      "soil_texture": 4,
       "growth_months": [
-        "march",
         "april",
         "may",
         "june",
@@ -3038,33 +3923,50 @@
         "august",
         "september"
       ],
-      "soil_salinity": 1,
+      "soil_salinity": 2,
       "days_to_harvest": null,
-      "soil_nutriments": 3,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 4,
       "max_soil_moisture": {
-        "indoor": 90,
-        "outdoor": 90
+        "indoor": 80,
+        "outdoor": 80
       },
       "min_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 70
+        "indoor": 60,
+        "outdoor": 60
       },
       "minimum_root_depth": {
-        "cm": 10
+        "cm": 15
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 5
+        }
       },
       "atmospheric_humidity": 8,
       "maximum_precipitation": {
-        "mm": 2500
+        "mm": 1500
       },
       "minimum_precipitation": {
-        "mm": 800
+        "mm": 700
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": 8,
     "image_url": "https://bs.plantnet.org/image/o/64b3f875629ff87900b8e79c31f9d22f8054855e",
-    "max_temp": 25.0,
-    "min_temp": -15.0,
+    "max_temp": 28.0,
+    "min_temp": -35.0,
     "name": "Ground-pine",
     "scientific_name": "Lycopodium clavatum",
     "translated_name": {
@@ -3094,7 +3996,8 @@
         "Lycopode officinal",
         "Éguaire",
         "Selaginelle fausse sélaginelle",
-        "Sélaginelle épineuse"
+        "Sélaginelle épineuse",
+        "Lycopode en massue"
       ]
     },
     "trefle_id": "291178"
@@ -3103,14 +4006,18 @@
     "id": "4082d5ad-0e1a-4b8f-89e6-e9980a5e4626",
     "growth_data": {
       "light": 10,
-      "sowing": "spring",
+      "sowing": "Autumn",
       "spread": {
-        "cm": 600
+        "cm": 1000
       },
-      "ph_maximum": 7.0,
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 7.5,
       "ph_minimum": 4.5,
       "row_spacing": {
-        "cm": 400
+        "cm": 600
       },
       "bloom_months": [
         "april",
@@ -3119,7 +4026,11 @@
       "fruit_months": [
         "september",
         "october",
-        "november"
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
       ],
       "soil_texture": 4,
       "growth_months": [
@@ -3132,31 +4043,48 @@
       ],
       "soil_salinity": 3,
       "days_to_harvest": null,
-      "soil_nutriments": 4,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 5,
       "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": 70
+        "indoor": 70,
+        "outdoor": 60
       },
       "min_soil_moisture": {
-        "indoor": null,
+        "indoor": 40,
         "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 100
+        "cm": 150
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 21,
+          "min_days": 7
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 1200
+        "mm": 2000
       },
       "minimum_precipitation": {
         "mm": 500
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 5,
+    "ideal_humidity": 6,
     "image_url": "https://bs.plantnet.org/image/o/33d84b84c09347d360afa0d610e220664cfb6d93",
     "max_temp": 35.0,
-    "min_temp": -40.0,
+    "min_temp": -35.0,
     "name": "Scotch pine",
     "scientific_name": "Pinus sylvestris",
     "translated_name": {
@@ -3177,7 +4105,8 @@
       "fr": [
         "Pin sylvestre",
         "Pin de Riga",
-        "Pin du Nord"
+        "Pin du Nord",
+        "Pin sylvestre"
       ]
     },
     "trefle_id": "127357"
@@ -3188,12 +4117,16 @@
       "light": 8,
       "sowing": "Autumn",
       "spread": {
-        "cm": 150
+        "cm": 100
       },
-      "ph_maximum": 7.8,
-      "ph_minimum": 5.5,
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
+      "ph_maximum": 8.0,
+      "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 120
+        "cm": 90
       },
       "bloom_months": [
         "june",
@@ -3205,8 +4138,9 @@
         "september",
         "october"
       ],
-      "soil_texture": 6,
+      "soil_texture": 7,
       "growth_months": [
+        "march",
         "april",
         "may",
         "june",
@@ -3215,33 +4149,49 @@
         "september",
         "october"
       ],
-      "soil_salinity": 2,
+      "soil_salinity": 3,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
       "soil_nutriments": 7,
       "max_soil_moisture": {
         "indoor": null,
-        "outdoor": 80
+        "outdoor": 70
       },
       "min_soil_moisture": {
         "indoor": null,
         "outdoor": 40
       },
       "minimum_root_depth": {
-        "cm": 40
+        "cm": 30
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": null,
+          "min_days": null
+        },
+        "outdoor": {
+          "max_days": 10,
+          "min_days": 7
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1200
       },
       "minimum_precipitation": {
-        "mm": 600
+        "mm": 700
       },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 7,
     "image_url": "https://bs.plantnet.org/image/o/1fad0152c47cba9be23c69f7a14eacf55246a39e",
-    "max_temp": 32.0,
-    "min_temp": -20.0,
+    "max_temp": 35.0,
+    "min_temp": -25.0,
     "name": "Danewort",
     "scientific_name": "Sambucus ebulus",
     "translated_name": {
@@ -3267,7 +4217,8 @@
         "Petit Sureau",
         "Herbe à l'aveugle",
         "Herbe à punaises",
-        "Herbe aux yeux"
+        "Herbe aux yeux",
+        "Sureau yèble"
       ]
     },
     "trefle_id": "115825"
@@ -3276,12 +4227,16 @@
     "id": "c217556e-ba4f-4609-9695-caaffa640ac1",
     "growth_data": {
       "light": 10,
-      "sowing": "spring",
+      "sowing": "Spring",
       "spread": {
         "cm": 300
       },
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
       "ph_maximum": 8.5,
-      "ph_minimum": 6.0,
+      "ph_minimum": 5.0,
       "row_spacing": {
         "cm": 250
       },
@@ -3299,9 +4254,8 @@
         "october",
         "november"
       ],
-      "soil_texture": 7,
+      "soil_texture": 5,
       "growth_months": [
-        "march",
         "april",
         "may",
         "june",
@@ -3310,19 +4264,36 @@
         "september",
         "october"
       ],
-      "soil_salinity": 9,
+      "soil_salinity": 8,
       "days_to_harvest": null,
-      "soil_nutriments": 6,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 4,
       "max_soil_moisture": {
         "indoor": 70,
-        "outdoor": 80
+        "outdoor": 60
       },
       "min_soil_moisture": {
         "indoor": 40,
         "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 60
+        "cm": 50
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 21,
+          "min_days": 7
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
@@ -3333,10 +4304,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 5,
+    "ideal_humidity": 4,
     "image_url": "https://bs.plantnet.org/image/o/2ff93222759bd7436338492c834074bba64948f4",
-    "max_temp": 45.0,
-    "min_temp": -5.0,
+    "max_temp": 40.0,
+    "min_temp": -7.0,
     "name": "Oleander",
     "scientific_name": "Nerium oleander",
     "translated_name": {
@@ -3356,7 +4327,8 @@
         "Oléandre",
         "Nérion",
         "Rosage",
-        "Nérion laurier-rose"
+        "Nérion laurier-rose",
+        "Laurier-rose"
       ]
     },
     "trefle_id": "64150"
@@ -3367,62 +4339,82 @@
       "light": 8,
       "sowing": "Autumn",
       "spread": {
-        "cm": 200
+        "cm": 250
       },
-      "ph_maximum": 8.0,
-      "ph_minimum": 5.5,
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
+      "ph_maximum": 7.5,
+      "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 100
+        "cm": 180
       },
       "bloom_months": [
         "november",
         "december",
         "january",
         "february",
-        "march"
+        "march",
+        "april"
       ],
       "fruit_months": [
+        "february",
+        "march",
         "april",
         "may",
         "june",
         "july"
       ],
-      "soil_texture": 6,
+      "soil_texture": 5,
       "growth_months": [
         "march",
         "april",
         "may",
         "june",
+        "july",
+        "august",
         "september",
         "october"
       ],
-      "soil_salinity": 6,
+      "soil_salinity": 5,
       "days_to_harvest": null,
-      "soil_nutriments": 7,
+      "dormancy_months": [],
+      "soil_nutriments": 6,
       "max_soil_moisture": {
-        "indoor": 80,
-        "outdoor": 80
-      },
-      "min_soil_moisture": {
-        "indoor": 60,
+        "indoor": 70,
         "outdoor": 60
       },
-      "minimum_root_depth": {
-        "cm": 45
+      "min_soil_moisture": {
+        "indoor": 40,
+        "outdoor": 30
       },
-      "atmospheric_humidity": 7,
+      "minimum_root_depth": {
+        "cm": 40
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 1500
+        "mm": 1200
       },
       "minimum_precipitation": {
         "mm": 600
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": 6,
     "image_url": "https://bs.plantnet.org/image/o/eb0f353a739f7489583a7fdb050e77f9b2191d1c",
-    "max_temp": 35.0,
-    "min_temp": -10.0,
+    "max_temp": 30.0,
+    "min_temp": -12.0,
     "name": "Laurustinus",
     "scientific_name": "Viburnum tinus",
     "translated_name": {
@@ -3435,7 +4427,8 @@
         "Laurier-tin",
         "Viorne-tin",
         "Fatamot",
-        "Viorne tin"
+        "Viorne tin",
+        "Laurier-tin"
       ]
     },
     "trefle_id": "111185"
@@ -3443,17 +4436,22 @@
   {
     "id": "1134c9c5-f06b-4ee3-8134-ae2d143e40d7",
     "growth_data": {
-      "light": 9,
-      "sowing": "spring",
+      "light": 8,
+      "sowing": "Spring",
       "spread": {
-        "cm": 100
+        "cm": 90
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
       },
       "ph_maximum": 7.5,
-      "ph_minimum": 5.5,
+      "ph_minimum": 5.0,
       "row_spacing": {
         "cm": 45
       },
       "bloom_months": [
+        "june",
         "july",
         "august",
         "september"
@@ -3476,31 +4474,47 @@
       ],
       "soil_salinity": 3,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february"
+      ],
       "soil_nutriments": 6,
       "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": 70
+        "indoor": 70,
+        "outdoor": 75
       },
       "min_soil_moisture": {
-        "indoor": null,
-        "outdoor": 40
+        "indoor": 55,
+        "outdoor": 45
       },
       "minimum_root_depth": {
-        "cm": 25
+        "cm": 30
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 5,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 10,
+          "min_days": 5
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1500
       },
       "minimum_precipitation": {
-        "mm": 400
+        "mm": 600
       },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 7,
     "image_url": "https://bs.plantnet.org/image/o/21d93c5f8387e662e54a2937cdb8d44723c07770",
-    "max_temp": 32.0,
-    "min_temp": -35.0,
+    "max_temp": 35.0,
+    "min_temp": -40.0,
     "name": "Rosebay willowherb",
     "scientific_name": "Epilobium angustifolium",
     "translated_name": {
@@ -3522,7 +4536,8 @@
         "Fausse Lysimaque",
         "Osier de saint Antoine",
         "Osier fleuri",
-        "Plante à feu"
+        "Plante à feu",
+        "Épilobe en épi"
       ]
     },
     "trefle_id": "180320"
@@ -3535,13 +4550,16 @@
       "spread": {
         "cm": 30
       },
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
       "ph_maximum": 8.0,
       "ph_minimum": 6.0,
       "row_spacing": {
-        "cm": 20
+        "cm": 25
       },
       "bloom_months": [
-        "may",
         "june",
         "july",
         "august",
@@ -3555,6 +4573,7 @@
       ],
       "soil_texture": 3,
       "growth_months": [
+        "april",
         "may",
         "june",
         "july",
@@ -3563,28 +4582,46 @@
       ],
       "soil_salinity": 2,
       "days_to_harvest": null,
-      "soil_nutriments": 4,
+      "dormancy_months": [
+        "october",
+        "november",
+        "december",
+        "january",
+        "february",
+        "march"
+      ],
+      "soil_nutriments": 3,
       "max_soil_moisture": {
         "indoor": 60,
-        "outdoor": 70
+        "outdoor": 50
       },
       "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 30
+        "indoor": 30,
+        "outdoor": 25
       },
       "minimum_root_depth": {
         "cm": 15
       },
-      "atmospheric_humidity": 6,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 10,
+          "min_days": 5
+        },
+        "outdoor": {
+          "max_days": 20,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 4,
       "maximum_precipitation": {
         "mm": 1000
       },
       "minimum_precipitation": {
-        "mm": 400
+        "mm": 500
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 4,
+    "ideal_humidity": 3,
     "image_url": "https://bs.plantnet.org/image/o/2deead1012ad4586aa0bcd1784fd8716e3078ee1",
     "max_temp": 35.0,
     "min_temp": -20.0,
@@ -3607,7 +4644,8 @@
         "Clinopode des champs",
         "Petit Basilic",
         "Petit Basilic sauvage",
-        "Thym basilic"
+        "Thym basilic",
+        "Sarriette des champs"
       ]
     },
     "trefle_id": "233587"
@@ -3615,12 +4653,16 @@
   {
     "id": "74682956-32f1-42d0-bddf-41235813bd21",
     "growth_data": {
-      "light": 9,
+      "light": 8,
       "sowing": "Spring",
       "spread": {
         "cm": 45
       },
-      "ph_maximum": 7.5,
+      "toxicity": {
+        "pets": false,
+        "humans": false
+      },
+      "ph_maximum": 8.0,
       "ph_minimum": 6.0,
       "row_spacing": {
         "cm": 30
@@ -3637,7 +4679,6 @@
       ],
       "soil_texture": 6,
       "growth_months": [
-        "april",
         "may",
         "june",
         "july",
@@ -3645,33 +4686,51 @@
         "september",
         "october"
       ],
-      "soil_salinity": 2,
+      "soil_salinity": 3,
       "days_to_harvest": null,
+      "dormancy_months": [
+        "november",
+        "december",
+        "january",
+        "february",
+        "march",
+        "april"
+      ],
       "soil_nutriments": 5,
       "max_soil_moisture": {
         "indoor": 70,
-        "outdoor": 70
+        "outdoor": 60
       },
       "min_soil_moisture": {
-        "indoor": 50,
-        "outdoor": 40
+        "indoor": 40,
+        "outdoor": 30
       },
       "minimum_root_depth": {
-        "cm": 15
+        "cm": 20
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 10,
+          "min_days": 4
+        }
       },
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
-        "mm": 100
+        "mm": 1000
       },
       "minimum_precipitation": {
-        "mm": 50
+        "mm": 500
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": 6,
     "image_url": "https://bs.plantnet.org/image/o/6fcd0a6d4bb0d9820058367623b1de926b2cdbb0",
-    "max_temp": 30.0,
-    "min_temp": -25.0,
+    "max_temp": 35.0,
+    "min_temp": -30.0,
     "name": "Cushion calamint",
     "scientific_name": "Clinopodium vulgare",
     "translated_name": {
@@ -3692,7 +4751,8 @@
         "Grand Origan des haies",
         "Pied-de-lit",
         "Roulette",
-        "Sariette commune"
+        "Sariette commune",
+        "Calament commun"
       ]
     },
     "trefle_id": "234233"
@@ -3703,50 +4763,85 @@
       "light": 7,
       "sowing": null,
       "spread": {
-        "cm": 25
+        "cm": 30
+      },
+      "toxicity": {
+        "pets": false,
+        "humans": false
       },
       "ph_maximum": 7.0,
       "ph_minimum": 6.0,
-      "row_spacing": null,
+      "row_spacing": {
+        "cm": 30
+      },
       "bloom_months": [
-        "june",
-        "july",
-        "august"
-      ],
-      "fruit_months": [],
-      "soil_texture": 4,
-      "growth_months": [
+        "january",
+        "february",
         "march",
         "april",
         "may",
         "june",
         "july",
         "august",
-        "september"
+        "september",
+        "october",
+        "november",
+        "december"
       ],
-      "soil_salinity": 2,
+      "fruit_months": [],
+      "soil_texture": 4,
+      "growth_months": [
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december"
+      ],
+      "soil_salinity": 3,
       "days_to_harvest": null,
-      "soil_nutriments": 6,
+      "dormancy_months": [],
+      "soil_nutriments": 5,
       "max_soil_moisture": {
         "indoor": 70,
         "outdoor": 70
       },
       "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 40
+        "indoor": 30,
+        "outdoor": 30
       },
       "minimum_root_depth": {
         "cm": 10
       },
-      "atmospheric_humidity": 8,
-      "maximum_precipitation": null,
-      "minimum_precipitation": null,
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 14,
+          "min_days": 7
+        },
+        "outdoor": {
+          "max_days": 14,
+          "min_days": 7
+        }
+      },
+      "atmospheric_humidity": 7,
+      "maximum_precipitation": {
+        "mm": null
+      },
+      "minimum_precipitation": {
+        "mm": null
+      },
       "_growth_profile_enriched": true
     },
     "ideal_humidity": 6,
     "image_url": "https://bs.plantnet.org/image/o/21b7dab48594def004c2c7117fd614790ad196d6",
-    "max_temp": 28.0,
-    "min_temp": 15.0,
+    "max_temp": 30.0,
+    "min_temp": 13.0,
     "name": "American rubberplant",
     "scientific_name": "Peperomia obtusifolia",
     "translated_name": {
@@ -3757,6 +4852,7 @@
         "Pepper-face"
       ],
       "fr": [
+        "Peperomia à feuilles obtuses",
         "Peperomia à feuilles obtuses"
       ]
     },

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_10_160328) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_13_161136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -21,7 +21,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_10_160328) do
 
   create_table "plants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.jsonb "growth_data", default: {"light" => nil, "sowing" => nil, "spread" => {}, "ph_maximum" => nil, "ph_minimum" => nil, "row_spacing" => {}, "bloom_months" => [], "fruit_months" => [], "soil_texture" => nil, "growth_months" => [], "soil_salinity" => nil, "days_to_harvest" => nil, "soil_nutriments" => nil, "max_soil_moisture" => {"indoor" => nil, "outdoor" => nil}, "min_soil_moisture" => {"indoor" => nil, "outdoor" => nil}, "minimum_root_depth" => {}, "atmospheric_humidity" => nil, "maximum_precipitation" => {}, "minimum_precipitation" => {}}, comment: "Additional growth data"
+    t.jsonb "growth_data", default: {"light" => nil, "sowing" => nil, "spread" => {}, "toxicity" => {"pets" => nil, "humans" => nil}, "ph_maximum" => nil, "ph_minimum" => nil, "row_spacing" => {}, "bloom_months" => [], "fruit_months" => [], "soil_texture" => nil, "growth_months" => [], "soil_salinity" => nil, "days_to_harvest" => nil, "dormancy_months" => [], "soil_nutriments" => nil, "max_soil_moisture" => {"indoor" => nil, "outdoor" => nil}, "min_soil_moisture" => {"indoor" => nil, "outdoor" => nil}, "minimum_root_depth" => {}, "watering_frequency" => {"indoor" => {"max_days" => nil, "min_days" => nil}, "outdoor" => {"max_days" => nil, "min_days" => nil}}, "atmospheric_humidity" => nil, "maximum_precipitation" => {}, "minimum_precipitation" => {}}, comment: "Additional growth data"
     t.integer "ideal_humidity", comment: "Ideal humidity on a scale of 1 to 10, 1 being very dry, 10 being very humid"
     t.string "image_url"
     t.float "max_temp", comment: "Maximum temperature in Celsius"
