@@ -8,9 +8,9 @@ module Components
     CSS
 
     BACKDROP_TRANSITIONS = <<~CSS.squish
-      transition-opacity data-closed:opacity-0
-      data-enter:duration-300 data-enter:ease-out
-      data-leave:duration-200 data-leave:ease-in
+      transition-opacity data-[closed]:opacity-0
+      data-[enter]:duration-300 data-[enter]:ease-out
+      data-[leave]:duration-200 data-[leave]:ease-in
     CSS
 
     SCROLLER_CLASS = <<~CSS.squish
@@ -21,15 +21,17 @@ module Components
       relative mx-auto w-full transform overflow-hidden rounded-[2.5rem]
       border border-white bg-white/95 text-left shadow-2xl shadow-pulse-forest/10
       outline-none backdrop-blur-xl transition-all
-      data-closed:translate-y-4 data-closed:opacity-0
-      data-enter:duration-300 data-enter:ease-out
-      data-leave:duration-200 data-leave:ease-in
-      data-closed:sm:scale-95
+      data-[closed]:translate-y-4 data-[closed]:opacity-0
+      data-[enter]:duration-300 data-[enter]:ease-out
+      data-[leave]:duration-200 data-[leave]:ease-in
+      sm:data-[closed]:scale-95
     CSS
 
-    private_constant :DIALOG_CLASS, :BACKDROP_TRANSITIONS, :SCROLLER_CLASS, :PANEL_CLASS
+    CLOSED = { data: { closed: '' } }.freeze
 
-    def initialize(id:, labelledby:, panel_max_width: "max-w-[19rem]", backdrop_blur: "backdrop-blur-[2px]")
+    private_constant :DIALOG_CLASS, :BACKDROP_TRANSITIONS, :SCROLLER_CLASS, :PANEL_CLASS, :CLOSED
+
+    def initialize(id:, labelledby:, panel_max_width: 'max-w-[19rem]', backdrop_blur: 'backdrop-blur-[2px]')
       @id = id
       @labelledby = labelledby
       @panel_max_width = panel_max_width
@@ -48,12 +50,12 @@ module Components
     private
 
     def render_backdrop
-      tag(:el_dialog_backdrop, class: backdrop_classes)
+      tag(:el_dialog_backdrop, **CLOSED, class: backdrop_classes)
     end
 
     def render_scroller(&)
       div(tabindex: 0, class: SCROLLER_CLASS) do
-        tag(:el_dialog_panel, class: panel_classes, &)
+        tag(:el_dialog_panel, **CLOSED, class: panel_classes, &)
       end
     end
 
