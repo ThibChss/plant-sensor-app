@@ -1,5 +1,7 @@
 <div class="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-pulse-mist">
 
+  <%= turbo_stream_from Current.user, @sensor.dom_id %>
+
   <% cache [@sensor, @plant, I18n.locale] do %>
     <!-- Zone de contenu défilante (Correction du Scroll) -->
     <main class="min-h-0 flex-1 overflow-y-auto no-scrollbar">
@@ -40,31 +42,7 @@
           </div>
 
           <!-- Stats Temps Réel (Fix Alignement des Titres et Chiffres) -->
-          <div class="mt-8 grid grid-cols-2 gap-4">
-            <div class="bg-pulse-mist/40 rounded-[2rem] p-6 text-center border border-white/50 flex flex-col items-center">
-              <div class="min-h-[24px] flex items-center justify-center mb-2">
-                <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.15em] opacity-50 font-palanquin leading-tight"><%= t('.soil_moisture_label') %></p>
-              </div>
-              <div class="flex items-baseline gap-0.5">
-                <span class="text-3xl font-black text-pulse-forest font-alegreya leading-none">
-                  <%= @sensor.moisture_level_percent || "--" %>
-                </span>
-                <span class="text-sm font-bold text-pulse-forest/30 font-alegreya translate-y-[-1px]">%</span>
-              </div>
-            </div>
-
-            <div class="bg-pulse-mist/40 rounded-[2rem] p-6 text-center border border-white/50 flex flex-col items-center">
-              <div class="min-h-[24px] flex items-center justify-center mb-2">
-                <p class="text-[9px] font-bold text-pulse-moss uppercase tracking-[0.15em] opacity-50 font-palanquin leading-tight"><%= t('.battery_label') %></p>
-              </div>
-              <div class="flex items-baseline gap-0.5">
-                <span class="text-3xl font-black text-pulse-forest font-alegreya leading-none">
-                  <%= @sensor.battery_level || "--" %>
-                </span>
-                <span class="text-sm font-bold text-pulse-forest/30 font-alegreya translate-y-[-1px]">%</span>
-              </div>
-            </div>
-          </div>
+          <%= render 'show_live_stats', sensor: @sensor %>
         </div>
 
         <!-- Fiche Technique Botanique (Fix Alignement Icônes/Texte et Symboles) -->
