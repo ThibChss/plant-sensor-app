@@ -61,6 +61,21 @@ fr:
       active_count: "%{count} actifs"
       empty_state: Aucun capteur configuré.
       add_sensor: Ajouter un capteur
+    sensor_readings:
+      index:
+        not_found: Capteur introuvable.
+        back_aria: Retour aux capteurs
+        average: Moy.
+        min: Min
+        max: Max
+        moisture_flow: "Flux d'humidité"
+        level: Niveau
+        threshold_label: Seuil critique
+        periods:
+          '7d': 7 j
+          '30d': 30 j
+          '3m': 3 m
+          '6m': 6 m
     show:
       soil_moisture_label: Humidité sol
       battery_label: Batterie
@@ -206,6 +221,13 @@ fr:
   shared:
     password_visibility_field:
       show_password_aria: Afficher le mot de passe
+    sensor_analytics_modal:
+      title: Tendances vitalité
+      hint: Choisissez un capteur pour voir l'historique d'humidité.
+      empty_title: Aucun capteur
+      empty_hint: Associez un capteur pour suivre la vitalité dans le temps.
+      add_sensor: Ajouter un capteur
+      cancel: Fermer
   pwa:
     name: Green Pulse Monitoring
     short_name: Green Pulse

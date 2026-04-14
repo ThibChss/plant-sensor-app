@@ -9,8 +9,13 @@ class ApplicationController < ActionController::Base
 
   before_action :set_browser
   before_action :set_locale
+  before_action :set_current_user, if: :authenticated?
 
   private
+
+  def set_current_user
+    @current_user = Current.user
+  end
 
   def set_locale
     I18n.locale = validate_locale(locale)

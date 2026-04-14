@@ -1,0 +1,89 @@
+<div class="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-pulse-mist">
+
+  <main class="min-h-0 flex-1 overflow-y-auto no-scrollbar">
+
+    <%# --- STATIC HEADER (Stays during updates) --- %>
+    <div class="relative h-60 w-full overflow-hidden shrink-0">
+      <%= image_tag @plant.image_url, class: "w-full h-full object-cover transition-transform duration-[2000ms] scale-105" %>
+
+      <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-pulse-mist via-transparent to-transparent"></div>
+
+      <%= link_to sensors_path, class: "absolute top-14 left-6 z-10 w-10 h-10 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-white/20 active:scale-90 transition-all shadow-lg", aria: { label: t('.back_aria') } do %>
+        <%= icon "chevron-left", class: "w-5 h-5" %>
+      <% end %>
+
+      <div class="absolute bottom-12 left-6 right-6">
+        <p class="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] mb-1 font-palanquin"><%= @sensor.nickname %></p>
+        <h1 class="text-white text-2xl font-black font-alegreya uppercase tracking-tight"><%= @plant.display_name %></h1>
+      </div>
+    </div>
+
+    <%# --- DYNAMIC CONTENT (Turbo Frame) --- %>
+    <turbo-frame id="sensor_readings_frame" class="block">
+      <div class="px-6 space-y-6 pb-10 -mt-6 relative z-10">
+
+        <%# Period Selection Pill Selector %>
+        <div class="bg-white/40 backdrop-blur-md p-1.5 rounded-[2rem] border border-white/40 flex gap-1 shadow-sm">
+          <% %w[7d 30d 3m 6m].each do |range| %>
+            <%= link_to sensor_readings_path(@sensor, range: range),
+                data: { turbo_frame: "sensor_readings_frame" },
+                class: "flex-1 py-2.5 rounded-[1.5rem] text-[9px] font-black uppercase tracking-widest text-center transition-all duration-300 #{@range == range ? 'bg-pulse-forest text-white shadow-lg shadow-pulse-forest/20 scale-[1.02]' : 'text-pulse-moss hover:bg-white/50'}" do %>
+              <%= t(".periods.#{range}") %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <%# High-Level Stats Grid %>
+        <div class="grid grid-cols-3 gap-3">
+          <% [
+            [t('.average'), @stats[:average], 'text-pulse-forest'],
+            [t('.min'), @stats[:min], 'text-rose-500'],
+            [t('.max'), @stats[:max], 'text-emerald-600']
+          ].each do |label, value, text_color| %>
+            <div class="bg-white/80 rounded-[2rem] p-5 text-center border border-white shadow-sm">
+              <p class="text-[8px] font-bold text-pulse-moss uppercase tracking-widest opacity-40 mb-2 font-palanquin"><%= label %></p>
+              <div class="flex items-baseline justify-center gap-0.5">
+                <span class="text-xl font-black font-alegreya leading-none <%= text_color %>">
+                  <%= value || "--" %>
+                </span>
+                <span class="text-[10px] font-bold opacity-30 <%= text_color %>">%</span>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <%# The Chart Container %>
+        <div class="bg-white rounded-[2.5rem] p-8 border border-white shadow-xl shadow-pulse-forest/5 relative overflow-hidden"
+             data-controller="moisture-chart"
+             data-moisture-chart-readings-value="<%= @chart_data.to_json %>"
+             data-moisture-chart-threshold-value="<%= @sensor.moisture_threshold %>">
+
+          <div class="flex justify-between items-center mb-8">
+            <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] opacity-50 font-merriweather">
+              <%= t('.moisture_flow') %>
+            </h3>
+            <div class="flex items-center gap-2">
+              <div class="w-2 h-2 rounded-full bg-pulse-forest"></div>
+              <span class="text-[8px] font-bold text-pulse-forest uppercase tracking-tighter"><%= t('.level') %></span>
+            </div>
+          </div>
+
+          <div class="relative h-[220px] w-full">
+            <canvas id="moistureChart"></canvas>
+          </div>
+
+          <div class="mt-6 flex items-center justify-center gap-4 text-[7px] font-bold text-pulse-moss/40 uppercase tracking-[0.1em]">
+             <span class="flex items-center gap-1.5">
+               <span class="w-3 h-px bg-rose-400 border-t border-dashed"></span>
+               <%= t('.threshold_label') %>
+             </span>
+          </div>
+        </div>
+
+      </div>
+    </turbo-frame>
+  </main>
+
+  <%= render Components::NavigationBar.new %>
+</div>

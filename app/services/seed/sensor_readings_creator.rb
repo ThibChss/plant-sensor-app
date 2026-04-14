@@ -33,10 +33,8 @@ module Seed
 
       DAYS.times do |day|
         HOURS_PER_DAY.times do |hour|
-          # Gradual moisture drop (evaporation + plant consumption)
           current_moisture -= rand(0.3..0.8)
 
-          # Watering event: once every 7-14 days, moisture jumps back up
           if current_moisture < @min || ((day % rand(7..14)).zero? && hour == rand(8..20))
             current_moisture = rand((@max - 10)..@max).to_f
           end

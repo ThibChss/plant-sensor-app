@@ -8,13 +8,18 @@ Rails.application.routes.draw do
   resource :session, only: %i[new create destroy]
   resources :passwords, only: %i[new create edit update], param: :token
   resources :registrations, only: %i[new create]
+
   resources :plants, only: %i[] do
     collection do
       get :search
       post :prepare
     end
   end
-  resources :sensors, only: %i[index show]
+
+  resources :sensors, only: %i[index show] do
+    resources :readings, only: %i[index], path: :sensor_readings, module: :sensors,
+                         controller: :sensor_readings
+  end
 
   namespace :sensors do
     resource :setup, controller: :setup, only: %i[new create] do

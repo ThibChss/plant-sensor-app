@@ -61,6 +61,21 @@ en:
       active_count: "%{count} active"
       empty_state: No sensor configured yet.
       add_sensor: Add a sensor
+    sensor_readings:
+      index:
+        not_found: Sensor not found.
+        back_aria: Back to sensors
+        average: Avg
+        min: Min
+        max: Max
+        moisture_flow: Moisture flow
+        level: Level
+        threshold_label: Critical threshold
+        periods:
+          '7d': 7D
+          '30d': 30D
+          '3m': 3M
+          '6m': 6M
     show:
       soil_moisture_label: Soil moisture
       battery_label: Battery
@@ -206,6 +221,13 @@ en:
   shared:
     password_visibility_field:
       show_password_aria: Show password
+    sensor_analytics_modal:
+      title: Vitality trends
+      hint: Pick a sensor to open its moisture history.
+      empty_title: No sensors yet
+      empty_hint: Pair a sensor to track vitality over time.
+      add_sensor: Add a sensor
+      cancel: Close
   pwa:
     name: Green Pulse Monitoring
     short_name: Green Pulse
