@@ -1,77 +1,52 @@
-<el-dialog>
-  <%# On passe en absolute pour que le flou soit limité au parent relative (le frame iPhone sur desktop) %>
-  <dialog
-    id="language-dialog"
-    aria-labelledby="language-dialog-title"
-    class="absolute inset-0 z-50 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent"
-  >
-    <%# Backdrop limité au cadre du téléphone %>
-    <el-dialog-backdrop
-      class="absolute inset-0 bg-pulse-forest/20 backdrop-blur-[2px] transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
-    ></el-dialog-backdrop>
+<%= render Components::TailwindModal.new(id: 'language-dialog', labelledby: 'language-dialog-title') do %>
+  <%= form_with url: profile_locale_path, method: :patch, data: { turbo: false }, class: 'contents' do %>
+    <div class="px-6 pt-10 pb-4">
+      <div class="flex flex-col items-center text-center mb-8">
+        <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-pulse-sage/10 text-pulse-forest mb-6">
+          <%= icon 'languages', class: 'w-6 h-6' %>
+        </div>
+        <h3
+          id="language-dialog-title"
+          class="text-xl font-black leading-tight text-pulse-forest font-alegreya tracking-tight"
+        >
+          <%= t('pages.profile.language_modal_title') %>
+        </h3>
+        <p class="mt-2 text-[10px] leading-relaxed text-pulse-moss/50 font-palanquin uppercase tracking-wider">
+          <%= t('pages.profile.language_modal_hint') %>
+        </p>
+      </div>
 
-    <div
-      tabindex="0"
-      class="flex min-h-full items-center justify-center p-8 text-center focus:outline-none"
-    >
-      <%# Panel ajusté : un peu plus étroit pour ne pas coller aux bords du téléphone %>
-      <el-dialog-panel
-        class="relative mx-auto w-full max-w-[19rem] transform overflow-hidden rounded-[2.5rem] border border-white bg-white/95 text-left shadow-2xl shadow-pulse-forest/10 outline-none backdrop-blur-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in data-closed:sm:scale-95"
-      >
-        <%= form_with url: profile_locale_path, method: :patch, data: { turbo: false }, class: 'contents' do %>
-          <div class="px-6 pt-10 pb-4">
-            <%# Header : Icône plus discrète et centrée %>
-            <div class="flex flex-col items-center text-center mb-8">
-              <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-pulse-sage/10 text-pulse-forest mb-6">
-                <%= icon 'languages', class: 'w-6 h-6' %>
-              </div>
-              <h3
-                id="language-dialog-title"
-                class="text-xl font-black leading-tight text-pulse-forest font-alegreya tracking-tight"
-              >
-                <%= t('pages.profile.language_modal_title') %>
-              </h3>
-              <p class="mt-2 text-[10px] leading-relaxed text-pulse-moss/50 font-palanquin uppercase tracking-wider">
-                <%= t('pages.profile.language_modal_hint') %>
-              </p>
+      <div class="space-y-3">
+        <% %w[fr en].each do |code| %>
+          <label class="group flex cursor-pointer items-center justify-between rounded-2xl border border-pulse-sage/20 bg-white p-4 transition-all has-[input:checked]:border-pulse-forest has-[input:checked]:bg-pulse-sage/5">
+            <div class="flex items-center gap-3">
+              <span class="text-base"><%= { 'fr' => "\u{1F1EB}\u{1F1F7}", 'en' => "\u{1F1EC}\u{1F1E7}" }[code] %></span>
+              <span class="text-xs font-bold text-pulse-forest font-palanquin">
+                <%= t("pages.profile.language_#{code}") %>
+              </span>
             </div>
-
-            <%# Liste des options avec bordures plus fines %>
-            <div class="space-y-3">
-              <% %w[fr en].each do |code| %>
-                <label class="group flex cursor-pointer items-center justify-between rounded-2xl border border-pulse-sage/20 bg-white p-4 transition-all has-[input:checked]:border-pulse-forest has-[input:checked]:bg-pulse-sage/5">
-                  <div class="flex items-center gap-3">
-                    <span class="text-base"><%= code == 'fr' ? '🇫🇷' : '🇬🇧' %></span>
-                    <span class="text-xs font-bold text-pulse-forest font-palanquin">
-                      <%= t("pages.profile.language_#{code}") %>
-                    </span>
-                  </div>
-                  <%= radio_button_tag :locale, code, user.locale == code, class: 'size-4 border-pulse-sage text-pulse-forest focus:ring-transparent accent-pulse-forest' %>
-                </label>
-              <% end %>
-            </div>
-          </div>
-
-          <%# Actions : Bouton Valider imposant et Annuler en texte simple %>
-          <div class="flex flex-col items-center gap-4 px-6 pb-10 pt-4">
-            <button
-              type="submit"
-              class="w-full rounded-2xl bg-pulse-forest py-4 text-xs font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-pulse-forest/20 transition-all active:scale-95 font-alegreya"
-            >
-              <%= t('pages.profile.language_validate') %>
-            </button>
-
-            <button
-              type="button"
-              command="close"
-              commandfor="language-dialog"
-              class="text-[10px] font-bold text-pulse-moss/40 hover:text-pulse-forest transition-colors font-palanquin uppercase tracking-[0.15em]"
-            >
-              <%= t('pages.profile.language_cancel') %>
-            </button>
-          </div>
+            <%= radio_button_tag :locale, code, user.locale == code, class: 'size-4 border-pulse-sage text-pulse-forest focus:ring-transparent accent-pulse-forest' %>
+          </label>
         <% end %>
-      </el-dialog-panel>
+      </div>
     </div>
-  </dialog>
-</el-dialog>
+
+    <div class="flex flex-col items-center gap-4 px-6 pb-10 pt-4">
+      <button
+        type="submit"
+        class="w-full rounded-2xl bg-pulse-forest py-4 text-xs font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-pulse-forest/20 transition-all active:scale-95 font-alegreya"
+      >
+        <%= t('pages.profile.language_validate') %>
+      </button>
+
+      <button
+        type="button"
+        command="close"
+        commandfor="language-dialog"
+        class="text-[10px] font-bold text-pulse-moss/40 hover:text-pulse-forest transition-colors font-palanquin uppercase tracking-[0.15em]"
+      >
+        <%= t('pages.profile.language_cancel') %>
+      </button>
+    </div>
+  <% end %>
+<% end %>

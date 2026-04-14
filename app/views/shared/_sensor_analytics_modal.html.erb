@@ -1,98 +1,85 @@
-<el-dialog>
-  <dialog
-    id="sensor-analytics-dialog"
-    aria-labelledby="sensor-analytics-dialog-title"
-    class="absolute inset-0 z-50 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent shadow-none border-none outline-none"
-  >
-    <%# Backdrop with signature soft blur %>
-    <el-dialog-backdrop class="absolute inset-0 bg-pulse-forest/20 backdrop-blur-[3px] transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"></el-dialog-backdrop>
-
-    <div tabindex="0" class="flex min-h-full items-center justify-center p-8 text-center focus:outline-none">
-      <%# Main Panel with signature [2.5rem] rounding %>
-      <el-dialog-panel class="relative mx-auto w-full max-w-[20rem] transform overflow-hidden rounded-[2.5rem] border border-white bg-white/95 text-left shadow-2xl shadow-pulse-forest/10 outline-none backdrop-blur-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in data-closed:sm:scale-95">
-
-        <div class="px-6 pt-10 pb-4">
-          <%# Modal Header %>
-          <div class="flex flex-col items-center text-center mb-8">
-            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-pulse-sage/15 text-pulse-forest mb-6 shadow-sm border border-white/50">
-              <%= icon 'chart-column', class: 'w-6 h-6' %>
-            </div>
-            <h3 id="sensor-analytics-dialog-title" class="text-2xl font-black leading-tight text-pulse-forest font-alegreya tracking-tight px-2">
-              <%= t('shared.sensor_analytics_modal.title') %>
-            </h3>
-            <p class="mt-2 text-[10px] leading-relaxed text-pulse-moss/50 font-palanquin uppercase tracking-[0.15em] px-4 font-bold">
-              <%= t('shared.sensor_analytics_modal.hint') %>
-            </p>
-          </div>
-
-          <% if sensors.blank? %>
-            <%# Empty State Styling %>
-            <div class="text-center pb-8 pt-2">
-              <div class="w-16 h-16 bg-pulse-mist/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-dashed border-pulse-sage/40">
-                <span class="text-2xl">🌱</span>
-              </div>
-              <p class="text-xs font-bold text-pulse-moss font-palanquin mb-1">
-                <%= t('shared.sensor_analytics_modal.empty_title') %>
-              </p>
-              <p class="text-[10px] text-pulse-moss/40 font-palanquin mb-8 px-4 leading-relaxed">
-                <%= t('shared.sensor_analytics_modal.empty_hint') %>
-              </p>
-              <%= link_to new_sensors_setup_path, class: 'inline-flex justify-center rounded-2xl bg-pulse-forest px-8 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-pulse-forest/20 transition-all active:scale-95 font-alegreya' do %>
-                <%= t('shared.sensor_analytics_modal.add_sensor') %>
-              <% end %>
-            </div>
-          <% else %>
-            <%# Scrollable Sensor List %>
-            <ul class="max-h-[min(50vh,20rem)] space-y-3 overflow-y-auto no-scrollbar pb-4 px-1">
-              <% sensors.each do |sensor| %>
-                <% selected = selected_sensor_id.present? && sensor.id.to_s == selected_sensor_id.to_s %>
-                <li>
-                  <%= link_to sensor_readings_path(sensor),
-                      class: [
-                        'group flex w-full items-center gap-4 rounded-2xl border px-4 py-4 text-left transition-all active:scale-[0.97]',
-                        selected ? 'border-pulse-forest bg-pulse-sage/10 shadow-sm' : 'border-pulse-forest/5 bg-white/40 hover:border-pulse-forest/20 hover:bg-white hover:shadow-md'
-                      ].join(' ') do %>
-
-                    <%# Mini Thumbnail or Icon %>
-                    <div class="shrink-0 w-10 h-10 rounded-xl overflow-hidden bg-pulse-mist flex items-center justify-center border border-white/50">
-                      <% if sensor.plant&.image_url.present? %>
-                        <%= image_tag sensor.plant.image_url, class: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500", alt: t('sensors.sensor_card.plant_image_alt', name: sensor.plant.display_name) %>
-                      <% else %>
-                        <span class="text-lg">🌿</span>
-                      <% end %>
-                    </div>
-
-                    <div class="flex-1 flex flex-col justify-center overflow-hidden">
-                      <span class="text-sm font-black text-pulse-forest font-alegreya truncate leading-tight"><%= sensor.nickname %></span>
-                      <% if sensor.plant.present? %>
-                        <span class="text-[9px] font-bold text-pulse-moss/40 font-palanquin uppercase tracking-tighter truncate italic"><%= sensor.plant.display_name %></span>
-                      <% end %>
-                    </div>
-
-                    <% if selected %>
-                      <div class="shrink-0 text-pulse-forest">
-                        <%= icon "circle-check", class: "w-4 h-4" %>
-                      </div>
-                    <% end %>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
-        </div>
-
-        <%# Footer Action %>
-        <div class="flex flex-col items-center gap-3 px-6 pb-10 pt-2">
-          <button
-            type="button"
-            command="close"
-            commandfor="sensor-analytics-dialog"
-            class="group flex items-center gap-2 text-[10px] font-bold text-pulse-moss/40 hover:text-pulse-forest transition-colors font-palanquin uppercase tracking-[0.2em]"
-          >
-            <%= t('shared.sensor_analytics_modal.cancel') %>
-          </button>
-        </div>
-      </el-dialog-panel>
+<%= render Components::TailwindModal.new(
+  id: 'sensor-analytics-dialog',
+  labelledby: 'sensor-analytics-dialog-title'
+  # panel_max_width: 'max-w-[20rem]',
+  # backdrop_blur: 'backdrop-blur-[3px]'
+) do %>
+  <div class="px-6 pt-10 pb-4">
+    <div class="flex flex-col items-center text-center mb-8">
+      <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-pulse-sage/15 text-pulse-forest mb-6 shadow-sm border border-white/50">
+        <%= icon 'chart-column', class: 'w-6 h-6' %>
+      </div>
+      <h3 id="sensor-analytics-dialog-title" class="text-2xl font-black leading-tight text-pulse-forest font-alegreya tracking-tight px-2">
+        <%= t('shared.sensor_analytics_modal.title') %>
+      </h3>
+      <p class="mt-2 text-[10px] leading-relaxed text-pulse-moss/50 font-palanquin uppercase tracking-[0.15em] px-4 font-bold">
+        <%= t('shared.sensor_analytics_modal.hint') %>
+      </p>
     </div>
-  </dialog>
-</el-dialog>
+
+    <% if sensors.blank? %>
+      <div class="text-center pb-8 pt-2">
+        <div class="w-16 h-16 bg-pulse-mist/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-dashed border-pulse-sage/40">
+          <span class="text-2xl">&#127793;</span>
+        </div>
+        <p class="text-xs font-bold text-pulse-moss font-palanquin mb-1">
+          <%= t('shared.sensor_analytics_modal.empty_title') %>
+        </p>
+        <p class="text-[10px] text-pulse-moss/40 font-palanquin mb-8 px-4 leading-relaxed">
+          <%= t('shared.sensor_analytics_modal.empty_hint') %>
+        </p>
+        <%= link_to new_sensors_setup_path, class: 'inline-flex justify-center rounded-2xl bg-pulse-forest px-8 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-pulse-forest/20 transition-all active:scale-95 font-alegreya' do %>
+          <%= t('shared.sensor_analytics_modal.add_sensor') %>
+        <% end %>
+      </div>
+    <% else %>
+      <ul class="max-h-[min(50vh,20rem)] space-y-3 overflow-y-auto no-scrollbar pb-4 px-1">
+        <% cache [sensors, selected_sensor_id, I18n.locale] do %>
+          <% sensors.each do |sensor| %>
+            <% selected = selected_sensor_id.present? && sensor.id.to_s == selected_sensor_id.to_s %>
+            <li>
+              <%= link_to sensor_readings_path(sensor),
+                  class: [
+                    'group flex w-full items-center gap-4 rounded-2xl border px-4 py-4 text-left transition-all active:scale-[0.97]',
+                    selected ? 'border-pulse-forest bg-pulse-sage/10 shadow-sm' : 'border-pulse-forest/5 bg-white/40 hover:border-pulse-forest/20 hover:bg-white hover:shadow-md'
+                  ].join(' ') do %>
+
+                <div class="shrink-0 w-10 h-10 rounded-xl overflow-hidden bg-pulse-mist flex items-center justify-center border border-white/50">
+                  <% if sensor.plant&.image_url.present? %>
+                    <%= image_tag sensor.plant.image_url, class: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500", alt: t('sensors.sensor_card.plant_image_alt', name: sensor.plant.display_name) %>
+                  <% else %>
+                    <span class="text-lg">&#127807;</span>
+                  <% end %>
+                </div>
+
+                <div class="flex-1 flex flex-col justify-center overflow-hidden">
+                  <span class="text-sm font-black text-pulse-forest font-alegreya truncate leading-tight"><%= sensor.nickname %></span>
+                  <% if sensor.plant.present? %>
+                    <span class="text-[9px] font-bold text-pulse-moss/40 font-palanquin uppercase tracking-tighter truncate italic"><%= sensor.plant.display_name %></span>
+                  <% end %>
+                </div>
+
+                <% if selected %>
+                  <div class="shrink-0 text-pulse-forest">
+                    <%= icon "circle-check", class: "w-4 h-4" %>
+                  </div>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col items-center gap-3 px-6 pb-10 pt-2">
+    <button
+      type="button"
+      command="close"
+      commandfor="sensor-analytics-dialog"
+      class="group flex items-center gap-2 text-[10px] font-bold text-pulse-moss/40 hover:text-pulse-forest transition-colors font-palanquin uppercase tracking-[0.2em]"
+    >
+      <%= t('shared.sensor_analytics_modal.cancel') %>
+    </button>
+  </div>
+<% end %>
