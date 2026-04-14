@@ -76,9 +76,10 @@ en:
           '30d': 30D
           '3m': 3M
           '6m': 6M
-    show:
+    show_live_stats:
       soil_moisture_label: Soil moisture
       battery_label: Battery
+    show:
       ideal_needs_heading: Ideal needs
       light_label: Light
       soil_ph_label: Soil pH

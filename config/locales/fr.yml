@@ -76,9 +76,10 @@ fr:
           '30d': 30 j
           '3m': 3 m
           '6m': 6 m
-    show:
+    show_live_stats:
       soil_moisture_label: Humidité sol
       battery_label: Batterie
+    show:
       ideal_needs_heading: Besoins idéaux
       light_label: Lumière
       soil_ph_label: pH sol
