@@ -8,7 +8,6 @@ module Plants
 
     private_constant :MAX_RESULTS, :JSON_FILE_PATH, :CACHE_EXPIRATION
 
-
     def initialize(query: nil)
       @query = query&.downcase&.strip
       @results = Set.new
@@ -44,7 +43,7 @@ module Plants
     end
 
     def array_match?(plant, *keys)
-      plant.dig(*keys)&.any? { it.downcase.include?(@query) }
+      plant.dig(*keys)&.any? { it&.downcase&.include?(@query) }
     end
 
     def plants
