@@ -97,3 +97,5 @@ Lint/ItWithoutArgumentsInBlock:
   Enabled: false
 Style/ItBlockParameter:
   Enabled: false
+Style/SafeNavigationChainLength:
+  Enabled: false
