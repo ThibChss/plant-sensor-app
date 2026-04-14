@@ -7,3 +7,5 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/service-worker.js", { scope: "/" }).catch(() => {})
   })
 }
+
+addEventListener("turbo:before-prefetch", (e) => e.preventDefault())
