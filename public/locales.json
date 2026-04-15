@@ -77573,9 +77573,35 @@
         "empty_state": "No sensor configured yet."
       },
       "sensor_card": {
+        "awaiting_sync": "Awaiting sync",
+        "calculating": "Calculating…",
+        "critical_threshold": "Critical threshold: %{value}%",
+        "last_sync": "Last sync %{time}",
         "meta": "%{location} · %{time} ago",
         "meta_never_seen": "%{location} · Awaiting first reading",
-        "plant_image_alt": "Photo of %{name}"
+        "moisture_environment": "Moisture • %{environment}",
+        "offline_badge": "Offline",
+        "plant_image_alt": "Photo of %{name}",
+        "plug_bridge": "Connect your bridge",
+        "thirsty_badge": "Thirsty"
+      },
+      "sensor_readings": {
+        "index": {
+          "average": "Avg",
+          "back_aria": "Back to sensors",
+          "level": "Level",
+          "max": "Max",
+          "min": "Min",
+          "moisture_flow": "Moisture flow",
+          "not_found": "Sensor not found.",
+          "periods": {
+            "30d": "30D",
+            "3m": "3M",
+            "6m": "6M",
+            "7d": "7D"
+          },
+          "threshold_label": "Critical threshold"
+        }
       },
       "setup": {
         "new": {
@@ -77621,23 +77647,42 @@
       },
       "show": {
         "air_label": "Air",
-        "battery_label": "Battery",
         "botanist_analysis": "Your %{plant_name} is in excellent conditions. With a target soil moisture of %{moisture}%, it will thrive in your %{location}.",
         "botanist_analysis_heading": "Botanist's take",
         "cm_unit": "cm",
+        "days_unit": "days",
         "delete_confirm": "Remove this sensor?",
         "growth_period_heading": "Growing season",
         "ideal_needs_heading": "Ideal needs",
         "light_label": "Light",
         "scale_max": "10",
         "size_label": "Size",
-        "soil_moisture_label": "Soil moisture",
         "soil_ph_label": "Soil pH",
-        "unlink_sensor": "Unlink this sensor"
+        "unlink_sensor": "Unlink this sensor",
+        "watering_frequency_label": "Frequency"
+      },
+      "show_live_stats": {
+        "battery_label": "Battery",
+        "soil_moisture_label": "Soil moisture"
       },
       "thirsty_alerts": {
         "heading": "Urgent watering needed",
         "threshold": "Threshold %{value}%"
+      },
+      "time_ago": {
+        "day": "Last sync %{count} day ago",
+        "days": "Last sync %{count} days ago",
+        "hour": "Last sync %{count} hour ago",
+        "hours": "Last sync %{count} hours ago",
+        "less_than_minute": "Last sync less than a minute ago",
+        "minute": "Last sync %{count} minute ago",
+        "minutes": "Last sync %{count} minutes ago",
+        "month": "Last sync %{count} month ago",
+        "months": "Last sync %{count} months ago",
+        "week": "Last sync %{count} week ago",
+        "weeks": "Last sync %{count} weeks ago",
+        "year": "Last sync %{count} year ago",
+        "years": "Last sync %{count} years ago"
       }
     },
     "sessions": {
@@ -77655,6 +77700,14 @@
     "shared": {
       "password_visibility_field": {
         "show_password_aria": "Show password"
+      },
+      "sensor_analytics_modal": {
+        "add_sensor": "Add a sensor",
+        "cancel": "Close",
+        "empty_hint": "Pair a sensor to track vitality over time.",
+        "empty_title": "No sensors yet",
+        "hint": "Pick a sensor to open its moisture history.",
+        "title": "Vitality trends"
       }
     },
     "support": {
@@ -83027,9 +83080,35 @@
         "empty_state": "Aucun capteur configuré."
       },
       "sensor_card": {
+        "awaiting_sync": "En attente",
+        "calculating": "Calcul…",
+        "critical_threshold": "Seuil critique : %{value} %",
+        "last_sync": "Synchro il y a %{time}",
         "meta": "%{location} · Il y a %{time}",
         "meta_never_seen": "%{location} · En attente du premier relevé",
-        "plant_image_alt": "Photo de %{name}"
+        "moisture_environment": "Humidité • %{environment}",
+        "offline_badge": "Hors ligne",
+        "plant_image_alt": "Photo de %{name}",
+        "plug_bridge": "Branchez votre bridge",
+        "thirsty_badge": "Soif"
+      },
+      "sensor_readings": {
+        "index": {
+          "average": "Moy.",
+          "back_aria": "Retour aux capteurs",
+          "level": "Niveau",
+          "max": "Max",
+          "min": "Min",
+          "moisture_flow": "Flux d'humidité",
+          "not_found": "Capteur introuvable.",
+          "periods": {
+            "30d": "30 j",
+            "3m": "3 m",
+            "6m": "6 m",
+            "7d": "7 j"
+          },
+          "threshold_label": "Seuil critique"
+        }
       },
       "setup": {
         "new": {
@@ -83075,23 +83154,42 @@
       },
       "show": {
         "air_label": "Air",
-        "battery_label": "Batterie",
         "botanist_analysis": "Votre %{plant_name} est dans d'excellentes conditions. Avec une humidité cible de %{moisture}%, elle s'épanouira parfaitement dans votre %{location}.",
         "botanist_analysis_heading": "Analyse du botaniste",
         "cm_unit": "cm",
+        "days_unit": "jours",
         "delete_confirm": "Supprimer ce capteur ?",
         "growth_period_heading": "Période de croissance",
         "ideal_needs_heading": "Besoins idéaux",
         "light_label": "Lumière",
         "scale_max": "10",
         "size_label": "Taille",
-        "soil_moisture_label": "Humidité sol",
         "soil_ph_label": "pH sol",
-        "unlink_sensor": "Dissocier ce capteur"
+        "unlink_sensor": "Dissocier ce capteur",
+        "watering_frequency_label": "Fréquence"
+      },
+      "show_live_stats": {
+        "battery_label": "Batterie",
+        "soil_moisture_label": "Humidité sol"
       },
       "thirsty_alerts": {
         "heading": "Besoin d'eau urgent",
         "threshold": "Seuil %{value} %"
+      },
+      "time_ago": {
+        "day": "Synchro il y a %{count} jour",
+        "days": "Synchro il y a %{count} jours",
+        "hour": "Synchro il y a %{count} heure",
+        "hours": "Synchro il y a %{count} heures",
+        "less_than_minute": "Synchro il y a moins d'une minute",
+        "minute": "Synchro il y a %{count} minute",
+        "minutes": "Synchro il y a %{count} minutes",
+        "month": "Synchro il y a %{count} mois",
+        "months": "Synchro il y a %{count} mois",
+        "week": "Synchro il y a %{count} semaine",
+        "weeks": "Synchro il y a %{count} semaines",
+        "year": "Synchro il y a %{count} an",
+        "years": "Synchro il y a %{count} ans"
       }
     },
     "sessions": {
@@ -83109,6 +83207,14 @@
     "shared": {
       "password_visibility_field": {
         "show_password_aria": "Afficher le mot de passe"
+      },
+      "sensor_analytics_modal": {
+        "add_sensor": "Ajouter un capteur",
+        "cancel": "Fermer",
+        "empty_hint": "Associez un capteur pour suivre la vitalité dans le temps.",
+        "empty_title": "Aucun capteur",
+        "hint": "Choisissez un capteur pour voir l'historique d'humidité.",
+        "title": "Tendances vitalité"
       }
     },
     "support": {

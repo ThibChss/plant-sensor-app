@@ -135,7 +135,7 @@ module Components
     end
 
     def nav_icon(name, icon_class)
-      raw view_context.icon(name, class: icon_class)
+      raw icon(name, class: icon_class)
     end
   end
 end

@@ -61,6 +61,20 @@ en:
       active_count: "%{count} active"
       empty_state: No sensor configured yet.
       add_sensor: Add a sensor
+    time_ago:
+      less_than_minute: Last sync less than a minute ago
+      minute: Last sync %{count} minute ago
+      minutes: Last sync %{count} minutes ago
+      hour: Last sync %{count} hour ago
+      hours: Last sync %{count} hours ago
+      day: Last sync %{count} day ago
+      days: Last sync %{count} days ago
+      week: Last sync %{count} week ago
+      weeks: Last sync %{count} weeks ago
+      month: Last sync %{count} month ago
+      months: Last sync %{count} months ago
+      year: Last sync %{count} year ago
+      years: Last sync %{count} years ago
     sensor_readings:
       index:
         not_found: Sensor not found.

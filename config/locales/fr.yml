@@ -61,6 +61,20 @@ fr:
       active_count: "%{count} actifs"
       empty_state: Aucun capteur configuré.
       add_sensor: Ajouter un capteur
+    time_ago:
+      less_than_minute: Synchro il y a moins d'une minute
+      minute: Synchro il y a %{count} minute
+      minutes: Synchro il y a %{count} minutes
+      hour: Synchro il y a %{count} heure
+      hours: Synchro il y a %{count} heures
+      day: Synchro il y a %{count} jour
+      days: Synchro il y a %{count} jours
+      week: Synchro il y a %{count} semaine
+      weeks: Synchro il y a %{count} semaines
+      month: Synchro il y a %{count} mois
+      months: Synchro il y a %{count} mois
+      year: Synchro il y a %{count} an
+      years: Synchro il y a %{count} ans
     sensor_readings:
       index:
         not_found: Capteur introuvable.

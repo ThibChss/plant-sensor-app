@@ -93,7 +93,7 @@ module Seed
     end
 
     def nickname
-      special? ? 'Rubber Buddy' : PLANT_NICKNAMES.sample
+      special? ? 'Jean Célestin' : PLANT_NICKNAMES.sample
     end
 
     def uid
