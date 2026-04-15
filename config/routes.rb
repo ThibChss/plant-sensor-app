@@ -27,6 +27,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :users do
+    resources :push_subscriptions, only: %i[create]
+  end
+
   namespace :api do
     namespace :v1 do
       resource :measurements, only: [:update]

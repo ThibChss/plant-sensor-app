@@ -17,9 +17,11 @@
 #
 class User < ApplicationRecord
   has_secure_password
+
   has_many :sessions, dependent: :destroy
   has_many :sensors, dependent: :destroy
   has_many :plants, through: :sensors
+  has_many :push_subscriptions, dependent: :destroy
 
   validates :first_name, :last_name, presence: true
   validates :password, presence: true, if: -> { new_record? }
@@ -35,5 +37,9 @@ class User < ApplicationRecord
 
   def initials
     "#{first_name[0].upcase}#{last_name[0].upcase}"
+  end
+
+  def notify(message:)
+    push_subscriptions.each { it.deliver(message:) }
   end
 end

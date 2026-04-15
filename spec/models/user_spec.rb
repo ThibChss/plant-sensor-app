@@ -34,12 +34,53 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'associations' do
+    it { should have_many(:sessions).dependent(:destroy) }
+    it { should have_many(:sensors).dependent(:destroy) }
+    it { should have_many(:plants).through(:sensors) }
+    it { should have_many(:push_subscriptions).dependent(:destroy) }
+  end
+
   describe 'methods' do
     describe '#full_name' do
       let(:user) { build(:user, first_name: 'Jean', last_name: 'Dupont') }
 
       it 'joins first_name and last_name with a space' do
         expect(user.full_name).to eq('Jean Dupont')
+      end
+    end
+
+    describe '#notify' do
+      let_it_be(:user, reload: true) { create(:user) }
+
+      subject(:notify) { user.notify(message: 'hello') }
+
+      context 'when the user has no push subscriptions' do
+        it 'does not enqueue any job' do
+          expect { user.notify(message: 'hello') }.not_to have_enqueued_job(Notifications::WebPushJob)
+        end
+      end
+
+      context 'when the user has push subscriptions' do
+        let!(:subscription_one) { create(:push_subscription, user:) }
+        let!(:subscription_two) { create(:push_subscription, user:) }
+
+        it 'enqueues a WebPushJob for each subscription' do
+          expect { notify }.to have_enqueued_job(Notifications::WebPushJob).twice
+        end
+
+        it 'passes the correct arguments for each subscription' do
+          notify
+
+          [subscription_one, subscription_two].each do |subscription|
+            expect(Notifications::WebPushJob).to have_been_enqueued.with(
+              message: 'hello',
+              endpoint: subscription.endpoint,
+              p256dh_key: subscription.p256dh_key,
+              auth_key: subscription.auth_key
+            )
+          end
+        end
       end
     end
 

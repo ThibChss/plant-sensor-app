@@ -33,7 +33,9 @@
           position: @browser.device.mobile? ? :viewport : :device_frame
         ) %>
 
-    <div class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+    <div class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
+         data-controller="push-notifications"
+         data-push-notifications-vapid-public-key-value="<%= Rails.application.credentials.vapid_key.public.delete('=') %>">
       <%= yield %>
     </div>
   <% end %>

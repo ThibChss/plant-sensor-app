@@ -71,6 +71,9 @@ gem "i18n-js"
 # For QR code generation
 gem 'rqrcode'
 
+# Web Push for web push notifications
+gem 'web-push'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
