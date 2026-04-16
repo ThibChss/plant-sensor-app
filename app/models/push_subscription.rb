@@ -6,6 +6,7 @@
 #  auth_key   :string
 #  endpoint   :string
 #  p256dh_key :string
+#  pwa        :boolean          default(FALSE), not null
 #  user_agent :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -23,6 +24,6 @@ class PushSubscription < ApplicationRecord
   belongs_to :user
 
   def deliver(message:)
-    Notifications::WebPushJob.perform_later(message:, endpoint:, p256dh_key:, auth_key:)
+    Notifications::WebPushJob.perform_later(message:, subscription: self)
   end
 end

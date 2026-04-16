@@ -32,7 +32,8 @@ export default class extends Controller {
       push_subscription: {
         endpoint,
         p256dh_key: p256dh,
-        auth_key: auth
+        auth_key: auth,
+        pwa: this.#checkIfPwa()
       }
     })
 
@@ -44,5 +45,10 @@ export default class extends Controller {
         "X-CSRF-Token": this.CSRF_TOKEN
       }
     })
+  }
+
+  #checkIfPwa() {
+   return window.matchMedia('(display-mode: standalone)').matches
+    || window.navigator.standalone === true;
   }
 }

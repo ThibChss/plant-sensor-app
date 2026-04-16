@@ -6,7 +6,8 @@ RSpec.describe 'Users::PushSubscriptions', type: :request do
       push_subscription: {
         endpoint: 'https://fcm.googleapis.com/fcm/send/example',
         p256dh_key: 'BNcRdreALRFXTkOOUHK1EtK2wtaz5Ry4YfYCA_0QTpQtUbVlTLsTjro',
-        auth_key: 'tBHItJI5svbpez7KI4CCXg'
+        auth_key: 'tBHItJI5svbpez7KI4CCXg',
+        pwa: 'false'
       }
     }
   end
@@ -30,6 +31,14 @@ RSpec.describe 'Users::PushSubscriptions', type: :request do
           end.to change { user.push_subscriptions.count }.by(1)
 
           expect(response).to have_http_status(:ok)
+        end
+
+        it 'creates a PWA subscription if the pwa param is true' do
+          expect do
+            post users_push_subscriptions_path, params: valid_params.merge(push_subscription: { pwa: 'true' })
+          end.to change { user.push_subscriptions.count }.by(1)
+
+          expect(user.push_subscriptions.last.pwa).to be(true)
         end
 
         it 'stores the user_agent from the request' do

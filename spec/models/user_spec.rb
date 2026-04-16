@@ -75,9 +75,7 @@ RSpec.describe User, type: :model do
           [subscription_one, subscription_two].each do |subscription|
             expect(Notifications::WebPushJob).to have_been_enqueued.with(
               message: 'hello',
-              endpoint: subscription.endpoint,
-              p256dh_key: subscription.p256dh_key,
-              auth_key: subscription.auth_key
+              subscription:
             )
           end
         end

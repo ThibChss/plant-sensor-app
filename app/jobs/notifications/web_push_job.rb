@@ -3,34 +3,45 @@ module Notifications
     queue_as :default
 
     DEFAULT_MESSAGE = {
-      title: "Green Pulse",
-      icon: "/icon.png"
-    }.freeze
+      title: "Green Pulse"
+    }
 
     private_constant :DEFAULT_MESSAGE
 
-    def perform(message:, endpoint:, p256dh_key:, auth_key:)
-      notify(message:, endpoint:, p256dh_key:, auth_key:)
+    def perform(message:, subscription:)
+      @subscription = subscription
+
+      notify(body: message)
     rescue WebPush::ExpiredSubscription, WebPush::InvalidSubscription
-      PushSubscription.find_by(endpoint:, p256dh_key:, auth_key:)&.destroy
+      subscription.destroy
     rescue WebPush::Error => e
-      Rails.logger.error "[WebPush] Failed to deliver notification to #{endpoint}: #{e.message}"
+      Rails.logger.error "[WebPush] Failed to deliver notification to #{subscription.endpoint}: #{e.message}"
     end
 
     private
 
-    def notify(message:, endpoint:, p256dh_key:, auth_key:)
+    attr_accessor :subscription
+
+    def notify(body:)
       WebPush.payload_send(
-        message: DEFAULT_MESSAGE.merge({ body: message }).to_json,
-        endpoint:,
-        p256dh: p256dh_key,
-        auth: auth_key,
+        message: payload(body:),
+        endpoint: subscription.endpoint,
+        p256dh: subscription.p256dh_key,
+        auth: subscription.auth_key,
         vapid: {
           subject: "mailto:support@greenpulse.app",
           public_key: Rails.application.credentials.vapid_key.public,
           private_key: Rails.application.credentials.vapid_key.private
         }
       )
+    end
+
+    def payload(body:)
+      DEFAULT_MESSAGE.merge({ body:, icon: }.compact_blank).to_json
+    end
+
+    def icon
+      return "/icon.png" unless subscription.pwa?
     end
   end
 end

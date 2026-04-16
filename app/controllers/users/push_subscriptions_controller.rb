@@ -19,7 +19,7 @@ module Users
     end
 
     def push_subscription_params
-      params.require(:push_subscription).permit(:endpoint, :p256dh_key, :auth_key)
+      params.require(:push_subscription).permit(:endpoint, :p256dh_key, :auth_key, :pwa)
     end
   end
 end
