@@ -13,11 +13,11 @@ RSpec.describe Notifications::WebPushJob, type: :job do
     context 'with a PWA subscription' do
       let(:subscription) { build(:push_subscription, :pwa) }
 
-      it 'does not include the icon in the payload' do
+      it 'includes the icon in the payload' do
         perform
 
         expect(WebPush).to have_received(:payload_send).with(
-          hash_including(message: { title: 'Green Pulse', body: message }.to_json)
+          hash_including(message: { title: 'Green Pulse', body: message, icon: '/icon.png' }.to_json)
         )
       end
     end
@@ -25,11 +25,11 @@ RSpec.describe Notifications::WebPushJob, type: :job do
     context 'with a non-PWA subscription' do
       let(:subscription) { build(:push_subscription) }
 
-      it 'includes the icon in the payload' do
+      it 'does not include the icon in the payload' do
         perform
 
         expect(WebPush).to have_received(:payload_send).with(
-          hash_including(message: { title: 'Green Pulse', body: message, icon: '/icon.png' }.to_json)
+          hash_including(message: { title: 'Green Pulse', body: message }.to_json)
         )
       end
     end

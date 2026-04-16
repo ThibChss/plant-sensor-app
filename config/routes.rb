@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get 'service-worker.js', to: 'rails/pwa#service_worker', as: :pwa_service_worker,
                               defaults: { format: :js }
 
+  root 'pages#home'
+
   resource :session, only: %i[new create destroy]
   resources :passwords, only: %i[new create edit update], param: :token
   resources :registrations, only: %i[new create]
@@ -37,8 +39,8 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'pages#home'
-
-  get 'profile', to: 'pages#profile'
-  patch 'profile/locale', to: 'pages#update_locale', as: :profile_locale
+  resource :profile, controller: :profile, only: [:show] do
+    patch :update_locale, on: :member, as: :locale
+    patch :update_push_notifications, on: :member, as: :push_notifications
+  end
 end

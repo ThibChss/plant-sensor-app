@@ -51,7 +51,7 @@ RSpec.describe User, type: :model do
     end
 
     describe '#notify' do
-      let_it_be(:user, reload: true) { create(:user) }
+      let_it_be(:user, refind: true) { create(:user) }
 
       subject(:notify) { user.notify(message: 'hello') }
 
@@ -62,21 +62,33 @@ RSpec.describe User, type: :model do
       end
 
       context 'when the user has push subscriptions' do
-        let!(:subscription_one) { create(:push_subscription, user:) }
-        let!(:subscription_two) { create(:push_subscription, user:) }
+        let!(:subscriptions) { create_list(:push_subscription, 2, user:) }
 
-        it 'enqueues a WebPushJob for each subscription' do
-          expect { notify }.to have_enqueued_job(Notifications::WebPushJob).twice
+        context 'and when push notifications are enabled' do
+
+          it 'enqueues a WebPushJob for each subscription' do
+            expect { notify }.to have_enqueued_job(Notifications::WebPushJob).twice
+          end
+
+          it 'passes the correct arguments for each subscription' do
+            notify
+
+            subscriptions.each do |subscription|
+              expect(Notifications::WebPushJob).to have_been_enqueued.with(
+                message: 'hello',
+                subscription:
+              )
+            end
+          end
         end
 
-        it 'passes the correct arguments for each subscription' do
-          notify
+        context 'and when push notifications are disabled' do
+          before do
+            user.update(push_notifications_enabled: false)
+          end
 
-          [subscription_one, subscription_two].each do |subscription|
-            expect(Notifications::WebPushJob).to have_been_enqueued.with(
-              message: 'hello',
-              subscription:
-            )
+          it 'does not enqueue any job' do
+            expect { user.notify(message: 'hello') }.not_to have_enqueued_job(Notifications::WebPushJob)
           end
         end
       end

@@ -1,5 +1,5 @@
 <%= render Components::TailwindModal.new(id: 'language-dialog', labelledby: 'language-dialog-title') do %>
-  <%= form_with url: profile_locale_path, method: :patch, data: { turbo: false }, class: 'contents' do %>
+  <%= form_with url: locale_profile_path, method: :patch, data: { turbo: false }, class: 'contents' do %>
     <div class="px-6 pt-10 pb-4">
       <div class="flex flex-col items-center text-center mb-8">
         <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-pulse-sage/10 text-pulse-forest mb-6">

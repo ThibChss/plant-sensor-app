@@ -184,6 +184,7 @@ fr:
       language_fr: Français
       language_en: English
       locale_updated_notice: Langue mise à jour.
+      push_notifications_updated_notice: Préférences de notifications enregistrées.
       locale_update_failed_alert: Impossible de mettre à jour la langue.
       preferences_heading: Préférences
       push_notifications: Notifications push

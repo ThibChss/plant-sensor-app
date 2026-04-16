@@ -7,5 +7,7 @@ FactoryBot.define do
 
     password { 'password123' }
     password_confirmation { 'password123' }
+
+    push_notifications_enabled { true }
   end
 end

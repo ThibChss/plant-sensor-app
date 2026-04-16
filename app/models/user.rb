@@ -2,14 +2,15 @@
 #
 # Table name: users
 #
-#  id              :uuid             not null, primary key
-#  email_address   :string           not null
-#  first_name      :string           not null
-#  last_name       :string           not null
-#  locale          :string           default("fr"), not null
-#  password_digest :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                         :uuid             not null, primary key
+#  email_address              :string           not null
+#  first_name                 :string           not null
+#  last_name                  :string           not null
+#  locale                     :string           default("fr"), not null
+#  password_digest            :string           not null
+#  push_notifications_enabled :boolean          default(TRUE), not null
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
 #
 # Indexes
 #
@@ -40,6 +41,8 @@ class User < ApplicationRecord
   end
 
   def notify(message:)
+    return unless push_notifications_enabled?
+
     push_subscriptions.each { it.deliver(message:) }
   end
 end
