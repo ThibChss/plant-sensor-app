@@ -13,7 +13,7 @@ const onPush = (event) => {
   const { title, ...options } = event.data.json()
 
   const showNotification = self.registration.showNotification(title, {
-    icon: '/icon.png',
+    <%# icon: '/icon.png', %>
     ...options
   })
 

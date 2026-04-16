@@ -37,11 +37,11 @@ module Notifications
     end
 
     def payload(body:)
-      DEFAULT_MESSAGE.merge({ body: }).to_json
+      DEFAULT_MESSAGE.merge({ body:, icon: }.compact_blank).to_json
     end
 
     def icon
-      return "/icon.png" unless subscription.pwa?
+      return "/icon.png" if subscription.pwa?
     end
   end
 end
