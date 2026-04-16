@@ -44,6 +44,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Set up test credentials
+        run: echo "${{ secrets.RAILS_TEST_KEY }}" > config/credentials/test.key
+
       - name: Prepare test database
         run: bin/rails db:test:prepare
 
