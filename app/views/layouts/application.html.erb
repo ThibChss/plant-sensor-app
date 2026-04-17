@@ -35,7 +35,8 @@
 
     <div class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
          data-controller="push-notifications"
-         data-push-notifications-vapid-public-key-value="<%= Rails.application.credentials.vapid_key.public.delete('=') %>">
+         data-push-notifications-vapid-public-key-value="<%= Rails.application.credentials.vapid_key.public.delete('=') %>"
+         data-push-notifications-enabled-value="<%= Current.user&.push_notifications_enabled? || false %>">
       <%= yield %>
     </div>
   <% end %>

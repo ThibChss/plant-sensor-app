@@ -3,13 +3,14 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="push-notifications"
 export default class extends Controller {
   static values = {
-    vapidPublicKey: String
+    vapidPublicKey: String,
+    enabled: Boolean
   }
 
   CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').content
 
   connect() {
-    void this.#subscribeToPushNotifications()
+    if (this.enabledValue) void this.#subscribeToPushNotifications()
   }
 
   async #subscribeToPushNotifications() {
@@ -17,13 +18,13 @@ export default class extends Controller {
     let subscription = await registration.pushManager.getSubscription()
 
     if (!subscription) {
-      subscription = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: this.vapidPublicKeyValue
-      })
-
-      if (!subscription) {
-        console.error("Failed to subscribe to push notifications")
+      try {
+        subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: this.vapidPublicKeyValue
+        })
+      } catch {
+        return
       }
     }
 
@@ -37,7 +38,7 @@ export default class extends Controller {
       }
     })
 
-    await fetch("/users/push_subscriptions", {
+    const response = await fetch("/users/push_subscriptions", {
       method: "POST",
       body,
       headers: {
@@ -45,6 +46,10 @@ export default class extends Controller {
         "X-CSRF-Token": this.CSRF_TOKEN
       }
     })
+
+    if (!response.ok) {
+      console.error(`[PushNotifications] Unexpected response: ${response.status}`)
+    }
   }
 
   #checkIfPwa() {
