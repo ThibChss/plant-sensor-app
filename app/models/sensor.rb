@@ -90,6 +90,8 @@ class Sensor < ApplicationRecord
       .where("(current_data->>'moisture_level_percent')::numeric < moisture_threshold")
   }
 
+  scope :paired, -> { where.not(plant_id: nil) }
+
   def thirsty?
     return false unless moisture_level_present?
 
@@ -101,7 +103,7 @@ class Sensor < ApplicationRecord
   end
 
   def pairable?
-    user_id.blank? && plant_id.blank?
+    plant_id.blank?
   end
 
   def qr_code

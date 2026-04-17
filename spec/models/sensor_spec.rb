@@ -162,7 +162,21 @@ RSpec.describe Sensor, type: :model do
         expect(Sensor.thirsty).not_to include(no_moisture_level_sensor)
       end
     end
+
+    describe 'paired' do
+      let(:paired_sensor) { create(:sensor, user:, plant:) }
+      let(:unpaired_sensor) { create(:sensor, user:, plant: nil) }
+
+      it 'returns sensors with a plant' do
+        expect(Sensor.paired).to include(paired_sensor)
+      end
+
+      it 'returns sensors without a plant' do
+        expect(Sensor.paired).not_to include(unpaired_sensor)
+      end
+    end
   end
+
   describe 'instance methods' do
     describe 'pairable?' do
       context 'when the sensor is unclaimed' do
@@ -173,15 +187,19 @@ RSpec.describe Sensor, type: :model do
         end
       end
 
-      context 'when the sensor is claimed' do
+      context 'when the sensor belongs to user but not to a plant' do
+        let(:sensor) { build(:sensor, user:) }
+
+        it 'returns false' do
+          expect(sensor.pairable?).to be_truthy
+        end
+      end
+
+      context 'when the sensor is fully paired' do
         let(:sensor) { build(:sensor, user:, plant:) }
-        let(:sensor_with_user) { build(:sensor, user:, plant: nil) }
-        let(:sensor_with_plant) { build(:sensor, user: nil, plant:) }
 
         it 'returns false' do
           expect(sensor.pairable?).to be_falsey
-          expect(sensor_with_user.pairable?).to be_falsey
-          expect(sensor_with_plant.pairable?).to be_falsey
         end
       end
     end

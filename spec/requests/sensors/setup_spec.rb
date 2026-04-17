@@ -38,7 +38,7 @@ RSpec.describe 'Sensors::Setup', type: :request do
         end
 
         context 'when the sensor is claimed' do
-          let(:sensor) { create(:sensor, :with_uid_and_secret_key, user:, plant_id: '1234567890') }
+          let(:sensor) { create(:sensor, :with_uid_and_secret_key, user:, plant: create(:plant)) }
 
           it 'renders the setup page with an alert' do
             get new_sensors_setup_path, params: { uid: sensor.uid, secret_key: sensor.secret_key }
@@ -67,7 +67,7 @@ RSpec.describe 'Sensors::Setup', type: :request do
       with_user_signed_out
 
       it 'redirects to the sign-in page' do
-        get(validate_uid_sensors_setup_path, params:)
+        patch(validate_uid_sensors_setup_path, params:)
 
         expect(response).to redirect_to(new_session_path)
       end
@@ -80,7 +80,7 @@ RSpec.describe 'Sensors::Setup', type: :request do
 
       context 'when the uid is valid and the sensor is unclaimed' do
         it 'returns JSON when the uid is valid and the sensor is unclaimed' do
-          get(validate_uid_sensors_setup_path, params:)
+          patch(validate_uid_sensors_setup_path, params:)
 
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body).to include('ok' => true)
@@ -91,7 +91,7 @@ RSpec.describe 'Sensors::Setup', type: :request do
         let(:params) { { uid: "  #{unclaimed_uid}  " } }
 
         it 'strips whitespace before validating and returns JSON' do
-          get(validate_uid_sensors_setup_path, params:)
+          patch(validate_uid_sensors_setup_path, params:)
 
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body).to include('ok' => true)
@@ -101,7 +101,7 @@ RSpec.describe 'Sensors::Setup', type: :request do
       context 'when the uid format is invalid' do
         let(:params) { { uid: 'GP-SHORT' } }
         it 'returns JSON when the uid format is invalid' do
-          get(validate_uid_sensors_setup_path, params:)
+          patch(validate_uid_sensors_setup_path, params:)
 
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body).to include('ok' => false)
@@ -113,7 +113,7 @@ RSpec.describe 'Sensors::Setup', type: :request do
         let(:params) { {} }
 
         it 'responds with bad request' do
-          get(validate_uid_sensors_setup_path, params:)
+          patch(validate_uid_sensors_setup_path, params:)
 
           expect(response).to have_http_status(:bad_request)
         end
@@ -149,14 +149,13 @@ RSpec.describe 'Sensors::Setup', type: :request do
 
     context 'when signed in' do
       let_it_be(:unclaimed_sensor) do
-        create(:sensor, :with_uid_and_secret_key, user: nil, plant: nil, uid: unclaimed_uid)
+        create(:sensor, :with_uid_and_secret_key, user:, plant: nil, uid: unclaimed_uid)
       end
 
-      it 'claims the sensor, assigns the plant and user, and redirects home with notice' do
+      it 'claims the sensor, assigns the plant, and redirects home with notice' do
         expect do
           post(sensors_setup_path, params:)
-        end.to change { unclaimed_sensor.reload.user_id }.from(nil).to(user.id)
-                                                         .and change { unclaimed_sensor.reload.plant_id }.from(nil).to(plant.id)
+        end.to change { unclaimed_sensor.reload.plant_id }.from(nil).to(plant.id)
 
         expect(response).to redirect_to(root_path)
 

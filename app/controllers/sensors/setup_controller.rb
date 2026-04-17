@@ -20,13 +20,15 @@ module Sensors
     end
 
     def validate_uid
-      render json: Sensors::UidValidator.call(params.require(:uid).to_s.strip)
+      validation.sensor.update_column(:user_id, Current.user.id) if validation.ok
+
+      render json: validation.to_h.except(:sensor)
     end
 
     def create
       ActiveRecord::Base.transaction do
         raise ActiveRecord::Rollback unless plant && sensor.update(
-          sensor_params.except(:uid, :secret_key, :plant_id).merge(plant:)
+          sensor_params.except(:uid, :secret_key)
         )
 
         redirect_to root_path, notice: I18n.t('controllers.sensors.setup.successful')
@@ -46,13 +48,17 @@ module Sensors
 
     def sensor
       @sensor ||=
-        Sensor.find_by!(**sensor_params.slice(:uid, :secret_key).compact_blank, user_id: nil, plant_id: nil)
+        Sensor.find_by!(**sensor_params.slice(:uid, :secret_key).compact_blank, user_id: Current.user.id, plant_id: nil)
     end
 
     def sensor_params
       params.require(:sensor)
             .permit(:uid, :secret_key, :plant_id, :nickname, :environment, :location, :moisture_threshold)
             .with_defaults(user: Current.user)
+    end
+
+    def validation
+      @validation ||= Sensors::UidValidator.call(params.require(:uid).to_s.strip)
     end
   end
 end

@@ -1,6 +1,6 @@
 class SensorsController < ApplicationController
   def index
-    @sensors = Current.user.sensors.includes(:plant)
+    @sensors = Current.user.sensors.paired.includes(:plant)
 
     fresh_when etag: [@sensors, I18n.locale], public: false
   end

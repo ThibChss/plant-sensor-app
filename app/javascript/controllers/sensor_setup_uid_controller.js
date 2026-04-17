@@ -73,11 +73,9 @@ export default class extends Controller {
     if (uid.length === 0) return this.#displayErrorMessage(this.#blankMessage())
     if (!this.UID_REGEXP.test(uid)) return this.#displayErrorMessage(this.#invalidMessage())
 
-    const checkUrl = `${this.VALIDATE_UID_URL}?${new URLSearchParams({ uid })}`
-
     this.#disableNextButton()
 
-    return await this.#fetchValidationResponse(checkUrl)
+    return await this.#fetchValidationResponse(uid)
   }
 
   // PRIVATE METHODS
@@ -98,14 +96,17 @@ export default class extends Controller {
     return this.i18n.t("sensors.setup.uid_validation.server_error")
   }
 
-  async #fetchValidationResponse(url) {
+  async #fetchValidationResponse(uid) {
     try {
-      const response = await fetch(url, {
+      const response = await fetch(this.VALIDATE_UID_URL, {
+        method: 'PATCH',
         headers: {
-          Accept: "application/json"
-        }
-      })
-      .then(response => response.json())
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({ uid })
+      }).then(r => r.json())
 
       if (response.ok) return true
 

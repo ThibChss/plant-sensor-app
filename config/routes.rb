@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   namespace :sensors do
     resource :setup, controller: :setup, only: %i[new create] do
-      get :validate_uid, on: :member
+      patch :validate_uid, on: :member
     end
   end
 
