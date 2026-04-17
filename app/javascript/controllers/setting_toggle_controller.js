@@ -1,11 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
+import { Turbo } from "@hotwired/turbo-rails"
 
 // Connects to data-controller="setting-toggle"
 export default class extends Controller {
-  static targets = [
-    'knob'
-  ]
-
+  static targets = ['knob']
   static values  = {
     url: String,
     enabled: Boolean
@@ -21,19 +19,20 @@ export default class extends Controller {
   }
 
   async toggle() {
+    this.enabledValue = !this.enabledValue
+
     const response = await fetch(this.urlValue, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        'Accept': 'text/vnd.turbo-stream.html',
         'X-CSRF-Token': this.CSRF_TOKEN
       }
     })
 
     if (response.ok) {
-      const { enabled } = await response.json()
-
-      this.enabledValue = enabled
+      Turbo.renderStreamMessage(await response.text())
+    } else {
+      this.enabledValue = !this.enabledValue
     }
   }
 }

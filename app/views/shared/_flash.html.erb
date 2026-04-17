@@ -1,0 +1,4 @@
+<%= render Components::FlashToast.new(
+  flash: flash,
+  position: browser.device.mobile? ? :viewport : :device_frame
+) %>

@@ -28,10 +28,7 @@
   </head>
 
   <%= render Components::Layout::Frame.new(browser: @browser) do %>
-    <%= render Components::FlashToast.new(
-          flash: flash,
-          position: @browser.device.mobile? ? :viewport : :device_frame
-        ) %>
+    <%= render 'shared/flash', browser: @browser %>
 
     <div class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
          data-controller="push-notifications"

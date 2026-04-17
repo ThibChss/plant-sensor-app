@@ -14,9 +14,8 @@ class ProfileController < ApplicationController
   def update_push_notifications
     user.toggle!(:push_notifications_enabled)
 
-    toast_now(:success, message { t('pages.profile.push_notifications_updated_notice') })
-
-    render json: { enabled: user.push_notifications_enabled }
+    render_with_toast :notice, message { t('pages.profile.push_notifications_updated_notice') },
+                      json: { enabled: user.push_notifications_enabled }
   end
 
   private

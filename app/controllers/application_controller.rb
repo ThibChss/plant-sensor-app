@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Authentication
+  include Toaster
 
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
@@ -65,13 +66,5 @@ class ApplicationController < ActionController::Base
     ensure
       Prosopite.finish
     end
-  end
-
-  def toast_now(toast_type, message)
-    flash.now[toast_type] = message
-  end
-
-  def toast_later(toast_type, message)
-    flash[toast_type] = message
   end
 end
