@@ -7,12 +7,9 @@ module Sensors
       uptime_seconds
     ].freeze
 
-    DRY_VALUE = 3835
-    WET_VALUE = 1340
-
     SPIKE_THRESHOLD = 20
 
-    private_constant :DRY_VALUE, :WET_VALUE, :REQUIRED_DATA, :SPIKE_THRESHOLD
+    private_constant :REQUIRED_DATA, :SPIKE_THRESHOLD
 
     Response = Struct.new(:status, :message)
 
@@ -51,7 +48,7 @@ module Sensors
 
     def moisture_level_percent
       @moisture_level_percent ||=
-        calculate_moisture_level || @sensor.moisture_level_percent
+        MoistureLevelCalculator.compute(@sensor, moisture_level_raw)
     end
 
     def uptime_seconds
@@ -60,12 +57,6 @@ module Sensors
 
     def moisture_level_raw
       @moisture_level_raw ||= @data[:moisture_level_raw].to_f
-    end
-
-    def calculate_moisture_level
-      ((DRY_VALUE - moisture_level_raw) / (DRY_VALUE - WET_VALUE).to_f * 100)
-        .clamp(0, 100)
-        .round(1)
     end
 
     def response

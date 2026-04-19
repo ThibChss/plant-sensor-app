@@ -73,8 +73,8 @@ class Sensor < ApplicationRecord
 
   private_constant :CURRENT_DATA_KEYS
 
-  belongs_to :user, optional: true, touch: true
-  belongs_to :plant, optional: true, touch: true
+  belongs_to :user, optional: true
+  belongs_to :plant, optional: true
 
   has_many :readings, class_name: :SensorReading, dependent: :destroy
 
