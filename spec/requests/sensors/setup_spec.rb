@@ -27,7 +27,7 @@ RSpec.describe 'Sensors::Setup', type: :request do
 
       context 'when accessing the setup from a QR code' do
         context 'when the sensor is unclaimed' do
-          let(:unclaimed_sensor) { create(:sensor, :with_uid_and_secret_key, user: nil, plant: nil, uid: unclaimed_uid) }
+          let(:unclaimed_sensor) { create(:sensor, :with_valid_keys, user: nil, plant: nil, uid: unclaimed_uid) }
 
           it 'returns success and renders the setup page' do
             get new_sensors_setup_path, params: { uid: unclaimed_sensor.uid, secret_key: unclaimed_sensor.secret_key }
@@ -38,7 +38,7 @@ RSpec.describe 'Sensors::Setup', type: :request do
         end
 
         context 'when the sensor is claimed' do
-          let(:sensor) { create(:sensor, :with_uid_and_secret_key, user:, plant: create(:plant)) }
+          let(:sensor) { create(:sensor, :with_valid_keys, user:, plant: create(:plant)) }
 
           it 'renders the setup page with an alert' do
             get new_sensors_setup_path, params: { uid: sensor.uid, secret_key: sensor.secret_key }
@@ -75,7 +75,7 @@ RSpec.describe 'Sensors::Setup', type: :request do
 
     context 'when signed in' do
       let_it_be(:unclaimed_sensor) do
-        create(:sensor, :with_uid_and_secret_key, user: nil, plant: nil, uid: unclaimed_uid)
+        create(:sensor, :with_valid_keys, user: nil, plant: nil, uid: unclaimed_uid)
       end
 
       context 'when the uid is valid and the sensor is unclaimed' do
@@ -149,7 +149,7 @@ RSpec.describe 'Sensors::Setup', type: :request do
 
     context 'when signed in' do
       let_it_be(:unclaimed_sensor) do
-        create(:sensor, :with_uid_and_secret_key, user:, plant: nil, uid: unclaimed_uid)
+        create(:sensor, :with_valid_keys, user:, plant: nil, uid: unclaimed_uid)
       end
 
       it 'claims the sensor, assigns the plant, and redirects home with notice' do

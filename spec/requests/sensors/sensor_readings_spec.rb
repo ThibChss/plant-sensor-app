@@ -7,7 +7,7 @@ RSpec.describe 'Sensor readings', type: :request do
 
   describe 'GET /sensors/:sensor_id/sensor_readings' do
     let_it_be(:plant) { create(:plant) }
-    let_it_be(:sensor) { create(:sensor, :with_uid_and_secret_key, user:, plant:, nickname: 'Kitchen fern') }
+    let_it_be(:sensor) { create(:sensor, :with_valid_keys, user:, plant:, nickname: 'Kitchen fern') }
 
     context 'when not signed in' do
       with_user_signed_out
@@ -31,7 +31,7 @@ RSpec.describe 'Sensor readings', type: :request do
 
       context 'when the sensor belongs to another user' do
         let_it_be(:other_user) { create(:user, first_name: 'Alex', last_name: 'Rivera') }
-        let_it_be(:other_sensor) { create(:sensor, :with_uid_and_secret_key, user: other_user, plant:) }
+        let_it_be(:other_sensor) { create(:sensor, :with_valid_keys, user: other_user, plant:) }
 
         it 'redirects to sensors index with an alert' do
           get sensor_readings_path(other_sensor)

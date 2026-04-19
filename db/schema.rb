@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_16_150306) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_17_134418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -66,6 +66,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_16_150306) do
     t.string "location"
     t.integer "moisture_threshold"
     t.string "nickname"
+    t.string "pairing_code"
     t.uuid "plant_id"
     t.string "secret_key", null: false
     t.string "uid", null: false

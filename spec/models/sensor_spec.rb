@@ -54,13 +54,52 @@ RSpec.describe Sensor, type: :model do
       end
 
       describe 'secret_key' do
-        let(:shared_secret) { 'gpm_sk__sharedsecretforuniquenesstestsensorkey' }
+        let(:shared_secret) { 'gpm_sk__yoqv7TvN146Uxxm9cP384tVgHQUi8B2nUC9f' }
         let!(:existing_sensor) { create(:sensor, :with_uid, user:, plant:, secret_key: shared_secret) }
         let(:duplicate) { build(:sensor, :with_uid, user:, plant:, secret_key: shared_secret) }
 
         it 'is invalid when secret_key matches an existing sensor' do
           expect(duplicate).not_to be_valid
           expect(duplicate.errors[:secret_key]).to be_present
+        end
+      end
+    end
+
+    describe 'pairing_code' do
+      let(:sensor) { build(:sensor, pairing_code: nil) }
+
+      context 'when pairing_code is nil' do
+        before do
+          sensor.define_singleton_method(:generate_pairing_code) { nil }
+        end
+
+        it 'is invalid and adds an error on pairing_code' do
+          expect(sensor).not_to be_valid
+          expect(sensor.errors[:pairing_code]).to be_present
+        end
+      end
+
+      context 'when pairing_code is not nil' do
+        it 'is valid' do
+          expect(sensor).to be_valid
+        end
+      end
+
+      context 'when pairing_code is not 8 digits' do
+        let(:sensor) { build(:sensor, pairing_code: '1234567') }
+
+        it 'is invalid and adds an error on pairing_code' do
+          expect(sensor).not_to be_valid
+          expect(sensor.errors[:pairing_code]).to be_present
+        end
+      end
+
+      context 'when pairing_code is not a number' do
+        let(:sensor) { build(:sensor, pairing_code: '1234567a') }
+
+        it 'is invalid and adds an error on pairing_code' do
+          expect(sensor).not_to be_valid
+          expect(sensor.errors[:pairing_code]).to be_present
         end
       end
     end
@@ -101,14 +140,18 @@ RSpec.describe Sensor, type: :model do
 
   describe 'callbacks' do
     describe 'on create' do
-      let(:sensor) { build(:sensor, :with_uid_and_secret_key, user:, plant:) }
+      let(:sensor) { build(:sensor, :with_valid_keys, user:, plant:) }
 
       it 'assigns a uid with the expected prefix and shape' do
-        expect(sensor.uid).to match(/\AGP-[A-Z0-9]{5}-[A-Z0-9]{5}\z/)
+        expect(sensor.uid).to match(Sensor::UID_REGEXP)
       end
 
       it 'assigns a secret_key with the expected prefix' do
-        expect(sensor.secret_key).to match(/\Agpm_sk__[A-Za-z0-9]{36}\z/)
+        expect(sensor.secret_key).to match(Sensor::SECRET_KEY_REGEXP)
+      end
+
+      it 'assigns a pairing_code with the expected shape' do
+        expect(sensor.pairing_code).to match(Sensor::PAIRING_CODE_REGEXP)
       end
     end
 
@@ -137,7 +180,7 @@ RSpec.describe Sensor, type: :model do
   end
 
   describe 'readonly attributes' do
-    let(:sensor) { create(:sensor, :with_uid_and_secret_key) }
+    let(:sensor) { create(:sensor, :with_valid_keys) }
     let(:new_uid) { 'GP-NEWXX-NEWXX' }
     let(:new_secret) { 'gpm_sk__newreadonlysecretkeyfortestsensorreadonly' }
 
@@ -205,7 +248,7 @@ RSpec.describe Sensor, type: :model do
     end
 
     describe 'qr_code' do
-      let(:sensor) { create(:sensor, :with_uid_and_secret_key) }
+      let(:sensor) { create(:sensor, :with_valid_keys) }
 
       it 'returns a QR code' do
         expect(sensor.qr_code).to be_a(RQRCode::QRCode)

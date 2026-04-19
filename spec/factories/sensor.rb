@@ -32,9 +32,14 @@ FactoryBot.define do
       secret_key { "gpm_sk__#{SecureRandom.base58(36)}" }
     end
 
-    trait :with_uid_and_secret_key do
+    trait :with_pairing_code do
+      pairing_code { format('%08d', SecureRandom.random_number(10**8)) }
+    end
+
+    trait :with_valid_keys do
       with_uid
       with_secret_key
+      with_pairing_code
     end
 
     trait :with_user do

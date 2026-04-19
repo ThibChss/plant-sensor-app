@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Sensors::MeasurementProcessor do
   describe '.call' do
     let_it_be(:sensor, refind: true) do
-      create(:sensor, :with_uid_and_secret_key, :with_user_and_plant,
+      create(:sensor, :with_valid_keys, :with_user_and_plant,
              current_data: {
                moisture_level_percent: 10.0,
                moisture_level_raw: 3500.0,
@@ -50,7 +50,7 @@ RSpec.describe Sensors::MeasurementProcessor do
 
     context 'when the sensor is not yet linked to a user or plant' do
       let_it_be(:unclaimed_sensor, refind: true) do
-        create(:sensor, :with_uid_and_secret_key, user: nil, plant: nil)
+        create(:sensor, :with_valid_keys, user: nil, plant: nil)
       end
 
       let(:sensor_id) { unclaimed_sensor.id }

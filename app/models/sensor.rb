@@ -9,6 +9,7 @@
 #  location           :string
 #  moisture_threshold :integer
 #  nickname           :string
+#  pairing_code       :string
 #  secret_key         :string           not null
 #  uid                :string           not null
 #  created_at         :datetime         not null
@@ -63,6 +64,12 @@ class Sensor < ApplicationRecord
     greenhouse
   ].freeze
 
+  UID_REGEXP, SECRET_KEY_REGEXP, PAIRING_CODE_REGEXP = [
+    /\AGP-[A-Z0-9]{5}-[A-Z0-9]{5}\z/,
+    /\Agpm_sk__[A-Za-z0-9]{36}\z/,
+    /\A\d{8}\z/
+  ].freeze
+
   private_constant :CURRENT_DATA_KEYS
 
   belongs_to :user, optional: true, touch: true
@@ -72,7 +79,7 @@ class Sensor < ApplicationRecord
 
   enum :environment, { indoor: 'indoor', outdoor: 'outdoor' }, default: :indoor, validate: true
 
-  before_validation :generate_secret_key, :generate_uid, on: :create
+  before_validation :generate_keys, on: :create
 
   encrypts :secret_key, deterministic: true
   attr_readonly :secret_key, :uid
@@ -80,7 +87,10 @@ class Sensor < ApplicationRecord
   store_accessor :current_data, *CURRENT_DATA_KEYS
 
   validates :uid, :secret_key, presence: true, uniqueness: { case_sensitive: false }, if: -> { new_record? }
+  validates :secret_key, format: { with: SECRET_KEY_REGEXP }, if: -> { new_record? }
+  validates :uid, format: { with: UID_REGEXP }, if: -> { new_record? }
   validates :user_id, :plant_id, presence: true, on: :update, unless: :pairable?
+  validates :pairing_code, presence: true, length: { is: 8 }, format: { with: PAIRING_CODE_REGEXP }, if: -> { new_record? }
   validate :location_matches_environment, on: :update
 
   after_update :generate_reading, if: :saved_change_to_current_data?
@@ -115,12 +125,22 @@ class Sensor < ApplicationRecord
 
   private
 
+  def generate_keys
+    generate_secret_key
+    generate_uid
+    generate_pairing_code
+  end
+
   def generate_secret_key
     self.secret_key = "gpm_sk__#{SecureRandom.base58(36)}" if secret_key.blank?
   end
 
   def generate_uid
     self.uid = "GP-#{SecureRandom.base58(5)}-#{SecureRandom.base58(5)}".upcase if uid.blank?
+  end
+
+  def generate_pairing_code
+    self.pairing_code = format('%08d', SecureRandom.random_number(10**8)) if pairing_code.blank?
   end
 
   def location_matches_environment

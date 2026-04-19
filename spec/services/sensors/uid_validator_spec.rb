@@ -43,7 +43,7 @@ RSpec.describe Sensors::UidValidator do
     end
 
     context 'when uid matches an unclaimed sensor (user_id nil)' do
-      let!(:sensor) { create(:sensor, :with_uid_and_secret_key, user: nil, plant: nil) }
+      let!(:sensor) { create(:sensor, :with_valid_keys, user: nil, plant: nil) }
       let(:uid) { sensor.uid }
 
       it 'returns ok' do
@@ -54,7 +54,7 @@ RSpec.describe Sensors::UidValidator do
     end
 
     context 'when uid matches a sensor already linked to the current user without a plant' do
-      let!(:sensor) { create(:sensor, :with_uid_and_secret_key, user:, plant: nil) }
+      let!(:sensor) { create(:sensor, :with_valid_keys, user:, plant: nil) }
       let(:uid) { sensor.uid }
 
       it 'returns ok' do
@@ -65,7 +65,7 @@ RSpec.describe Sensors::UidValidator do
     end
 
     context 'when uid matches a sensor already linked to another user without a plant' do
-      let!(:sensor) { create(:sensor, :with_uid_and_secret_key, user: build(:user), plant: nil) }
+      let!(:sensor) { create(:sensor, :with_valid_keys, user: build(:user), plant: nil) }
       let(:uid) { sensor.uid }
 
       it 'returns not ok with the unavailable message' do

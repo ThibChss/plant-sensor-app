@@ -27,7 +27,7 @@ RSpec.describe 'Sensors', type: :request do
 
       context 'when there are sensors' do
         let(:plant) { create(:plant) }
-        let!(:sensor) { create(:sensor, :with_uid_and_secret_key, user:, plant:, nickname: 'Balcony') }
+        let!(:sensor) { create(:sensor, :with_valid_keys, user:, plant:, nickname: 'Balcony') }
 
         it 'lists the user sensors' do
           get sensors_path
@@ -41,7 +41,7 @@ RSpec.describe 'Sensors', type: :request do
   end
 
   describe 'GET /sensors/:id' do
-    let_it_be(:sensor) { create(:sensor, :with_uid_and_secret_key, user:, plant: create(:plant)) }
+    let_it_be(:sensor) { create(:sensor, :with_valid_keys, user:, plant: create(:plant)) }
 
     context 'when not signed in' do
       with_user_signed_out

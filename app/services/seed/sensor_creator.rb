@@ -31,8 +31,10 @@ module Seed
     SPECIAL_PLANT_ID = "126118"
     SPECIAL_UID = "GP-FC6TL-HSCRR"
     SPECIAL_SECRET_KEY = "gpm_sk__aiMq1UWabBCjp2zHmfurHXvrV6KxBTVzLKrU"
+    SPECIAL_PAIRING_CODE = "12345678"
 
-    private_constant :PLANT_NICKNAMES, :SPECIAL_PLANT_ID, :SPECIAL_UID, :SPECIAL_SECRET_KEY
+    private_constant :PLANT_NICKNAMES, :SPECIAL_PLANT_ID, :SPECIAL_UID, :SPECIAL_SECRET_KEY,
+                     :SPECIAL_PAIRING_CODE
 
     def initialize(user: Initializer.user, plant: nil, need_water: false)
       @user = user
@@ -64,7 +66,8 @@ module Seed
         last_seen_at: rand(1.day).seconds.ago,
         current_data: {
           moisture_level_percent:
-        }
+        },
+        pairing_code:
       )
     end
 
@@ -102,6 +105,10 @@ module Seed
 
     def secret_key
       return SPECIAL_SECRET_KEY if special?
+    end
+
+    def pairing_code
+      return SPECIAL_PAIRING_CODE if special?
     end
 
     def special?
