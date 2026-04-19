@@ -163,6 +163,29 @@ RSpec.describe Sensor, type: :model do
           expect { sensor.update!(current_data: { moisture_level_percent: 50 }) }.to change(SensorReading, :count).by(1)
           expect(sensor.readings.last.moisture_level_percent).to eq(50)
         end
+
+        context 'when the last_watered_at is changed' do
+          it 'generates a reading with watering_event set to true' do
+            expect do
+              sensor.update!(
+                current_data: { moisture_level_percent: 50 },
+                last_watered_at: Time.current
+              )
+            end.to change(SensorReading, :count).by(1)
+
+            expect(sensor.readings.last.watering_event).to be_truthy
+          end
+        end
+
+        context 'when the last_watered_at is not changed' do
+          it 'generates a reading with watering_event set to false' do
+            expect do
+              sensor.update!(current_data: { moisture_level_percent: 50 })
+            end.to change(SensorReading, :count).by(1)
+
+            expect(sensor.readings.last.watering_event).to be_falsey
+          end
+        end
       end
 
       context 'when current_data is not changed' do

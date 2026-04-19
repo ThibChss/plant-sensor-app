@@ -2,18 +2,25 @@ module Sensors
   class MeasurementProcessor < ApplicationService
     class MeasurementDataError < StandardError; end
 
-    REQUIRED_DATA = %i[moisture_level_raw uptime_seconds].freeze
+    REQUIRED_DATA = %i[
+      moisture_level_raw
+      uptime_seconds
+    ].freeze
 
     DRY_VALUE = 3835
     WET_VALUE = 1340
 
-    private_constant :DRY_VALUE, :WET_VALUE, :REQUIRED_DATA
+    SPIKE_THRESHOLD = 20
+
+    private_constant :DRY_VALUE, :WET_VALUE, :REQUIRED_DATA, :SPIKE_THRESHOLD
 
     Response = Struct.new(:status, :message)
 
     def initialize(sensor_id, data)
       @sensor = Sensor.find_by(id: sensor_id)
       @data = data
+      @last_reading = @sensor&.readings&.last
+      @timestamp = Time.current
     end
 
     def call
@@ -34,15 +41,17 @@ module Sensors
 
     def update_sensor_current_data
       @sensor.update!(
-        last_seen_at: Time.current,
+        last_seen_at: @timestamp,
         moisture_level_percent:,
         moisture_level_raw:,
-        uptime_seconds:
+        uptime_seconds:,
+        last_watered_at:
       )
     end
 
     def moisture_level_percent
-      calculate_moisture_level || @sensor.moisture_level_percent
+      @moisture_level_percent ||=
+        calculate_moisture_level || @sensor.moisture_level_percent
     end
 
     def uptime_seconds
@@ -73,6 +82,16 @@ module Sensors
       return if REQUIRED_DATA.all? { @data.key?(it) }
 
       raise MeasurementDataError, 'Missing required data: moisture_level_raw and uptime_seconds'
+    end
+
+    def last_watered_at
+      watered? ? @timestamp : @sensor.last_watered_at
+    end
+
+    def watered?
+      return false unless @last_reading
+
+      (moisture_level_percent - @last_reading.moisture_level_percent) >= SPIKE_THRESHOLD
     end
   end
 end

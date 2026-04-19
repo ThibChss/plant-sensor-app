@@ -6,6 +6,7 @@
 #  current_data       :jsonb
 #  environment        :enum             default("indoor"), not null
 #  last_seen_at       :datetime
+#  last_watered_at    :datetime
 #  location           :string
 #  moisture_threshold :integer
 #  nickname           :string
@@ -152,6 +153,9 @@ class Sensor < ApplicationRecord
   def generate_reading
     return if current_data.values.compact_blank.empty?
 
-    readings.create!(current_data)
+    readings.create!(
+      **current_data,
+      watering_event: saved_change_to_last_watered_at?
+    )
   end
 end

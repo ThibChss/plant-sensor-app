@@ -8,6 +8,7 @@
 #  moisture_level_raw     :integer
 #  temperature            :float
 #  uptime_seconds         :integer
+#  watering_event         :boolean          default(FALSE), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  sensor_id              :uuid

@@ -48,17 +48,75 @@ RSpec.describe Sensors::MeasurementProcessor do
       end
     end
 
-    context 'when the sensor is not yet linked to a user or plant' do
-      let_it_be(:unclaimed_sensor, refind: true) do
-        create(:sensor, :with_valid_keys, user: nil, plant: nil)
+    context 'when the sensor has readings' do
+      let(:timestamp) { Time.zone.parse('2026-04-19 12:00:00') }
+      let(:last_watered_at) { Time.zone.parse('2026-04-19 11:00:00') }
+
+      before do
+        allow(Time).to receive(:current).and_return(timestamp)
       end
 
-      let(:sensor_id) { unclaimed_sensor.id }
+      context 'when the sensor is watered' do
+        let(:data) { { moisture_level_raw: 1340, uptime_seconds: 2000 } }
+        let!(:sensor_reading) { create(:sensor_reading, sensor:, moisture_level_percent: 10.0) }
+
+        context 'when the last_watered_at is nil' do
+          it 'returns success and updates last_seen_at, moisture, uptime, and last_watered_at' do
+            expect(sensor.last_watered_at).to be_nil
+
+            expect(service.status).to eq(:ok)
+            expect(sensor.reload.last_watered_at).to eq(timestamp)
+            expect(sensor.readings.last.watering_event).to be_truthy
+          end
+        end
+
+        context 'when the last_watered_at is present' do
+          before { sensor.update!(last_watered_at:) }
+
+          it 'returns success and updates last_seen_at, moisture, uptime, and last_watered_at' do
+            expect(sensor.last_watered_at).to eq(last_watered_at)
+
+            expect(service.status).to eq(:ok)
+            expect(sensor.reload.last_watered_at).to eq(timestamp)
+            expect(sensor.readings.last.watering_event).to be_truthy
+          end
+        end
+      end
+
+      context 'when the sensor is not watered' do
+        let!(:sensor_reading) { create(:sensor_reading, sensor:, moisture_level_percent: 46.5) }
+
+        context 'when the last_watered_at is nil' do
+          it 'returns success and keeps the last_watered_at' do
+            expect(sensor.last_watered_at).to be_nil
+
+            expect(service.status).to eq(:ok)
+            expect(sensor.reload.last_watered_at).to be_nil
+            expect(sensor.readings.last.watering_event).to be_falsey
+          end
+        end
+
+        context 'when the last_watered_at is present' do
+          before { sensor.update!(last_watered_at:) }
+
+          it 'returns success and keeps the last_watered_at' do
+            expect(sensor.last_watered_at).to eq(last_watered_at)
+
+            expect(service.status).to eq(:ok)
+            expect(sensor.reload.last_watered_at).to eq(last_watered_at)
+            expect(sensor.readings.last.watering_event).to be_falsey
+          end
+        end
+      end
+    end
+
+    context 'when the sensor is not yet linked to a user or plant' do
+      before { sensor.update!(user: nil, plant: nil) }
 
       it 'still accepts measurements (hardware may report before app setup)' do
         expect(service.status).to eq(:ok)
-        expect(unclaimed_sensor.reload.moisture_level_raw.to_f).to eq(2675.0)
-        expect(unclaimed_sensor.uptime_seconds).to eq(2000)
+        expect(sensor.reload.moisture_level_raw.to_f).to eq(2675.0)
+        expect(sensor.uptime_seconds).to eq(2000)
       end
     end
 
