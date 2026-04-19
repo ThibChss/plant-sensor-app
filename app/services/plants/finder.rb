@@ -1,59 +1,59 @@
 module Plants
   class Finder < ApplicationService
     MAX_RESULTS = 10
-
     JSON_FILE_PATH = Rails.root.join('db', 'plants.json')
 
-    CACHE_EXPIRATION = 24.hours
-
-    private_constant :MAX_RESULTS, :JSON_FILE_PATH, :CACHE_EXPIRATION
+    private_constant :MAX_RESULTS, :JSON_FILE_PATH
 
     def initialize(query: nil)
       @query = query&.downcase&.strip
-      @results = Set.new
     end
 
     def call
       return [] if @query.blank? || @query.length < 3
 
       search
-
-      @results.to_a
     end
 
     private
 
     def search
-      plants.each do |plant|
-        break if @results.size >= MAX_RESULTS
+      self.class.search_index
+          .lazy
+          .select { |string, _plant| string.include?(@query) }
+          .map { |_string, plant| plant }
+          .first(MAX_RESULTS)
+    end
 
-        @results << plant if plant_matches?(plant)
+    class << self
+      def search_index
+        @search_index ||= build_search_index
       end
-    end
 
-    def plant_matches?(plant)
-      match?(plant, 'name') ||
-        match?(plant, 'scientific_name') ||
-        array_match?(plant, 'translated_name', 'en') ||
-        array_match?(plant, 'translated_name', 'fr')
-    end
-
-    def match?(plant, key)
-      plant[key]&.downcase&.include?(@query)
-    end
-
-    def array_match?(plant, *keys)
-      plant.dig(*keys)&.any? { it&.downcase&.include?(@query) }
-    end
-
-    def plants
-      @plants ||= Rails.cache.fetch(cache_key, expires_in: CACHE_EXPIRATION) do
-        Oj.load_file(JSON_FILE_PATH.to_s)['plants']
+      def reload!
+        @search_index = nil
       end
-    end
 
-    def cache_key
-      @cache_key ||= "plants_#{File.mtime(JSON_FILE_PATH).to_i}"
+      private
+
+      def build_search_index
+        Rails.logger.info "[Plants::Finder] Building search index from disk"
+
+        Oj.load_file(JSON_FILE_PATH.to_s)['plants'].map do |plant|
+          [searchable(plant), plant]
+        end
+      end
+
+      def searchable(plant)
+        [
+          plant['name'],
+          plant['scientific_name'],
+          *plant.dig('translated_name', 'en'),
+          *plant.dig('translated_name', 'fr')
+        ].compact_blank
+         .map(&:downcase)
+         .join(' ')
+      end
     end
   end
 end

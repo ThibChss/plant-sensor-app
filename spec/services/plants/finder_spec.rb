@@ -10,6 +10,10 @@ RSpec.describe Plants::Finder do
       stub_const('Plants::Finder::JSON_FILE_PATH', fixture_path)
     end
 
+    after do
+      Plants::Finder.reload!
+    end
+
     shared_examples 'returns an empty array' do
       it 'returns an empty array' do
         expect(finder_results).to eq([])
