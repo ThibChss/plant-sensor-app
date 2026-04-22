@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_19_094651) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_153250) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -18,6 +18,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_094651) do
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "sensor_environment", ["indoor", "outdoor"]
+
+  create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "data", default: {}, null: false
+    t.uuid "notifiable_id"
+    t.string "notifiable_type"
+    t.datetime "read_at"
+    t.string "type", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id", "created_at"], name: "index_notifications_on_user_id_and_created_at"
+    t.index ["user_id", "read_at"], name: "index_notifications_on_user_id_and_read_at"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
 
   create_table "plants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -113,6 +128,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_094651) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "notifications", "users"
   add_foreign_key "push_subscriptions", "users"
   add_foreign_key "sensor_readings", "sensors"
   add_foreign_key "sensors", "plants"
