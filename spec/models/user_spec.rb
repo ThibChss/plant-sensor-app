@@ -94,6 +94,34 @@ RSpec.describe User, type: :model do
       end
     end
 
+    describe '#active?' do
+      let(:user) { build(:user, last_seen_at:) }
+
+      context 'when last_seen_at is within 2 minutes' do
+        let(:last_seen_at) { 1.minute.ago }
+
+        it 'returns true' do
+          freeze_time { expect(user.active?).to be true }
+        end
+      end
+
+      context 'when last_seen_at is older than 2 minutes' do
+        let(:last_seen_at) { 3.minutes.ago }
+
+        it 'returns false' do
+          freeze_time { expect(user.active?).to be false }
+        end
+      end
+
+      context 'when last_seen_at is exactly 2 minutes ago' do
+        let(:last_seen_at) { 2.minutes.ago }
+
+        it 'returns false' do
+          freeze_time { expect(user.active?).to be false }
+        end
+      end
+    end
+
     describe '#initials' do
       context 'when first_name and last_name are lowercase' do
         let(:user) { build(:user, first_name: 'jean', last_name: 'dupont') }

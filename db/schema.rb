@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_153250) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_22_152345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -121,11 +121,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_153250) do
     t.string "email_address", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
+    t.datetime "last_seen_at", default: -> { "CURRENT_TIMESTAMP" }
     t.string "locale", default: "fr", null: false
     t.string "password_digest", null: false
     t.boolean "push_notifications_enabled", default: true, null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["last_seen_at"], name: "index_users_on_last_seen_at"
   end
 
   add_foreign_key "notifications", "users"

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   namespace :users do
     resources :push_subscriptions, only: %i[create]
+    resource :presence, only: %i[update], controller: :presence
   end
 
   namespace :api do

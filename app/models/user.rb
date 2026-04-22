@@ -6,6 +6,7 @@
 #  email_address              :string           not null
 #  first_name                 :string           not null
 #  last_name                  :string           not null
+#  last_seen_at               :datetime
 #  locale                     :string           default("fr"), not null
 #  password_digest            :string           not null
 #  push_notifications_enabled :boolean          default(TRUE), not null
@@ -15,6 +16,7 @@
 # Indexes
 #
 #  index_users_on_email_address  (email_address) UNIQUE
+#  index_users_on_last_seen_at   (last_seen_at)
 #
 class User < ApplicationRecord
   has_secure_password
@@ -44,5 +46,9 @@ class User < ApplicationRecord
     return unless push_notifications_enabled?
 
     push_subscriptions.each { it.deliver(message:) }
+  end
+
+  def active?
+    last_seen_at > 2.minutes.ago
   end
 end
