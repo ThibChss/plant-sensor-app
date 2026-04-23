@@ -1,7 +1,7 @@
 module Sensors
   class SensorReadingsController < ApplicationController
     def index
-      @sensor = @current_user.sensors.preload(:plant).find(params[:sensor_id])
+      @sensor = @current_user.sensors.paired.preload(:plant).find(params[:sensor_id])
       @plant = @sensor.plant
 
       @range = tracker.param
