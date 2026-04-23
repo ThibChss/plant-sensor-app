@@ -22,22 +22,22 @@ module Notifications
     attr_reader :user, :context
 
     def notify_in_app(data: {})
-      Turbo::StreamsChannel.broadcast_append_to(user, target: :flash, html:)
+      @notification = create_notification!(data: { via: :flash, flash_type: context.flash_type }.merge(**data))
 
-      create_notification!(data: { via: :flash, flash_type: context.flash_type }.merge(**data))
+      Turbo::StreamsChannel.broadcast_append_to(user, target: :flash, html:)
     end
 
     def notify_web_push
       return notify_in_app(data: { push_notifications_disabled: true }) unless user.push_notifications_enabled?
 
-      user.push_subscriptions.each { it.deliver(message: context.message) }
+      @notification = create_notification!(data: { via: :web_push })
 
-      create_notification!(data: { via: :web_push })
+      user.push_subscriptions.each { it.deliver(message: @notification.message) }
     end
 
     def html
       ApplicationController.render(
-        Components::Toast.new(type: context.flash_type, message: context.message),
+        Components::Toast.new(type: context.flash_type, message: @notification.message),
         layout: false
       ).html_safe
     end
