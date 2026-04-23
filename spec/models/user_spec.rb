@@ -51,45 +51,32 @@ RSpec.describe User, type: :model do
     end
 
     describe '#notify' do
-      let_it_be(:user, refind: true) { create(:user) }
+      let(:user) { build(:user) }
 
-      subject(:notify) { user.notify(message: 'hello') }
+      let(:expected_arguments) do
+        {
+          user:,
+          message: 'hello',
+          notification_type: :sensor_connected,
+          flash_type: :notice,
+          notifiable: nil,
+          data: {}
+        }
+      end
 
-      context 'when the user has no push subscriptions' do
-        it 'does not enqueue any job' do
-          expect { user.notify(message: 'hello') }.not_to have_enqueued_job(Notifications::WebPushJob)
+      context 'when successfully delivered' do
+        it 'delegates to Notifications::Deliverer.notify! with defaults' do
+          expect(Notifications::Deliverer).to receive(:notify!).with(**expected_arguments)
+
+          expect { user.notify(message: 'hello', notification_type: :sensor_connected) }.not_to raise_error
         end
       end
 
-      context 'when the user has push subscriptions' do
-        let!(:subscriptions) { create_list(:push_subscription, 2, user:) }
+      context 'when delivery fails' do
+        it 'raises Notifications::Deliverer::DeliveryError' do
+          expect(Notifications::Deliverer).to receive(:notify!).and_raise(Notifications::Deliverer::DeliveryError)
 
-        context 'and when push notifications are enabled' do
-
-          it 'enqueues a WebPushJob for each subscription' do
-            expect { notify }.to have_enqueued_job(Notifications::WebPushJob).twice
-          end
-
-          it 'passes the correct arguments for each subscription' do
-            notify
-
-            subscriptions.each do |subscription|
-              expect(Notifications::WebPushJob).to have_been_enqueued.with(
-                message: 'hello',
-                subscription:
-              )
-            end
-          end
-        end
-
-        context 'and when push notifications are disabled' do
-          before do
-            user.update(push_notifications_enabled: false)
-          end
-
-          it 'does not enqueue any job' do
-            expect { user.notify(message: 'hello') }.not_to have_enqueued_job(Notifications::WebPushJob)
-          end
+          expect { user.notify(message: 'hello', notification_type: :nonexistent_type) }.to raise_error(Notifications::Deliverer::DeliveryError)
         end
       end
     end

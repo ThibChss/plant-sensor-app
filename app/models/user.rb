@@ -42,10 +42,8 @@ class User < ApplicationRecord
     "#{first_name[0].upcase}#{last_name[0].upcase}"
   end
 
-  def notify(message:)
-    return unless push_notifications_enabled?
-
-    push_subscriptions.each { it.deliver(message:) }
+  def notify(message:, notification_type:, flash_type: :notice, notifiable: nil, data: {})
+    Notifications::Deliverer.notify!(user: self, message:, notification_type:, flash_type:, notifiable:, data:)
   end
 
   def active?

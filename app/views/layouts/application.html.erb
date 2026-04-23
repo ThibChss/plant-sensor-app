@@ -28,6 +28,8 @@
   </head>
 
   <%= render Components::Layout::Frame.new(browser: @browser) do %>
+    <%= turbo_stream_from Current.user if Current.user %>
+
     <%= render 'shared/flash', browser: @browser %>
 
     <div class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
