@@ -6,15 +6,35 @@ export default class extends Controller {
   CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').content
 
   connect() {
-    this.ping()
-    this.interval = setInterval(() => this.ping(), 60000)
+    this.handleVisibility = this.#handleVisibility.bind(this)
+    document.addEventListener("visibilitychange", this.handleVisibility)
+
+    this.#startPing()
   }
 
   disconnect() {
+    this.#stopPing()
+    document.removeEventListener("visibilitychange", this.handleVisibility)
+  }
+
+  // PRIVATE
+
+  #handleVisibility() {
+    document.hidden ? this.#stopPing() : this.#startPing()
+  }
+
+  #startPing() {
+    this.#ping()
+    this.interval = setInterval(() => this.#ping(), 60000)
+  }
+
+  #stopPing() {
     clearInterval(this.interval)
   }
 
-  async ping() {
+  async #ping() {
+    if (document.hidden) return
+
     await fetch(this.PRESENCE_URL, {
       method: "PATCH",
       headers: { "X-CSRF-Token": this.CSRF_TOKEN }
