@@ -25,6 +25,7 @@ class User < ApplicationRecord
   has_many :sensors, dependent: :destroy
   has_many :plants, through: :sensors
   has_many :push_subscriptions, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates :first_name, :last_name, presence: true
   validates :password, presence: true, if: -> { new_record? }
@@ -42,7 +43,7 @@ class User < ApplicationRecord
     "#{first_name[0].upcase}#{last_name[0].upcase}"
   end
 
-  def notify(message:, notification_type:, flash_type: :notice, notifiable: nil, data: {})
+  def notify(notification_type:, message: nil, flash_type: :notice, notifiable: nil, data: {})
     Notifications::Deliverer.notify!(user: self, message:, notification_type:, flash_type:, notifiable:, data:)
   end
 

@@ -51,32 +51,34 @@ RSpec.describe User, type: :model do
     end
 
     describe '#notify' do
-      let(:user) { build(:user) }
+      let_it_be(:user, reload: true) { create(:user) }
 
-      let(:expected_arguments) do
-        {
+      it 'delegates to Notifications::Deliverer.notify! with message nil by default' do
+        expect(Notifications::Deliverer).to receive(:notify!).with(
           user:,
-          message: 'hello',
+          message: nil,
           notification_type: :sensor_connected,
           flash_type: :notice,
           notifiable: nil,
           data: {}
-        }
+        )
+
+        user.notify(notification_type: :sensor_connected)
       end
 
-      context 'when successfully delivered' do
-        it 'delegates to Notifications::Deliverer.notify! with defaults' do
-          expect(Notifications::Deliverer).to receive(:notify!).with(**expected_arguments)
+      it 'forwards an explicit message when provided' do
+        expect(Notifications::Deliverer).to receive(:notify!).with(
+          hash_including(message: 'Hello!')
+        )
 
-          expect { user.notify(message: 'hello', notification_type: :sensor_connected) }.not_to raise_error
-        end
+        user.notify(message: 'Hello!', notification_type: :sensor_connected)
       end
 
       context 'when delivery fails' do
         it 'raises Notifications::Deliverer::DeliveryError' do
           expect(Notifications::Deliverer).to receive(:notify!).and_raise(Notifications::Deliverer::DeliveryError)
 
-          expect { user.notify(message: 'hello', notification_type: :nonexistent_type) }.to raise_error(Notifications::Deliverer::DeliveryError)
+          expect { user.notify(notification_type: :nonexistent_type) }.to raise_error(Notifications::Deliverer::DeliveryError)
         end
       end
     end

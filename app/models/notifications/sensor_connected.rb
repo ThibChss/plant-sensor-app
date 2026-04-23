@@ -25,5 +25,12 @@
 #
 module Notifications
   class SensorConnected < Notification
+    private
+
+    def set_message
+      return unless message.blank?
+
+      self.message = I18n.t('notifications.sensor_connected.message', sensor_uid: notifiable.uid)
+    end
   end
 end

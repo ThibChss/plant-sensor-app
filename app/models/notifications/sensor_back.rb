@@ -23,33 +23,14 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class Notification < ApplicationRecord
-  belongs_to :user
-  belongs_to :notifiable, polymorphic: true, optional: true
+module Notifications
+  class SensorBack < Notification
+    private
 
-  validates :type, presence: true
+    def set_message
+      return unless message.blank?
 
-  scope :unread, -> { where(read_at: nil) }
-
-  store_accessor :data, :message
-
-  before_validation :set_message, on: :create
-
-  def read?
-    read_at.present?
-  end
-
-  def unread?
-    !read?
-  end
-
-  def mark_as_read!
-    touch(:read_at)
-  end
-
-  private
-
-  def set_message
-    raise NotImplementedError, 'Subclasses must implement this method'
+      self.message = I18n.t('notifications.sensor_back.message', sensor_uid: notifiable.uid)
+    end
   end
 end

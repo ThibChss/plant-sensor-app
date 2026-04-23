@@ -6,9 +6,8 @@ module Api
         return head :ok unless paired? && sensor.user.present?
 
         sensor.user.notify(
-          message: I18n.t('api.v1.connection.paired'),
           notifiable: sensor,
-          notification_type: :sensor_connected,
+          notification_type:,
           flash_type: :notice,
           data: {
             first_connection: first_time_pairing?
@@ -28,8 +27,13 @@ module Api
         ActiveModel::Type::Boolean.new.cast(connection_params[:paired])
       end
 
+      def notification_type
+        first_time_pairing? ? :sensor_connected : :sensor_back
+      end
+
       def first_time_pairing?
-        Notifications::SensorConnected
+        @first_time_pairing ||=
+          Notifications::SensorConnected
           .where(user_id: sensor.user_id, notifiable: sensor)
           .where("data @> ?", { first_connection: true }.to_json)
           .none?

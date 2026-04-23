@@ -78,12 +78,12 @@ RSpec.describe 'Api::V1::Connection', type: :request do
       end
 
       context 'on the first pairing (no prior notification)' do
-        it 'notifies the user with first_connection: true' do
+        it 'uses notification_type :sensor_connected and sets first_connection: true' do
           patch_connection
 
           expect(Notifications::Deliverer).to have_received(:notify!).with(
             user:,
-            message: I18n.t('api.v1.connection.paired'),
+            message: nil,
             notifiable: sensor,
             notification_type: :sensor_connected,
             flash_type: :notice,
@@ -101,11 +101,16 @@ RSpec.describe 'Api::V1::Connection', type: :request do
           )
         end
 
-        it 'notifies the user with first_connection: false' do
+        it 'uses notification_type :sensor_back and sets first_connection: false' do
           patch_connection
 
           expect(Notifications::Deliverer).to have_received(:notify!).with(
-            hash_including(data: { first_connection: false })
+            user:,
+            message: nil,
+            notifiable: sensor,
+            notification_type: :sensor_back,
+            flash_type: :notice,
+            data: { first_connection: false }
           )
         end
       end

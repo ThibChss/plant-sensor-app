@@ -111,6 +111,19 @@ RSpec.describe Notifications::Deliverer do
           )
         end
       end
+
+      context 'when no message is provided' do
+        let(:message) { nil }
+        let(:notifiable) { create(:sensor, :with_valid_keys) }
+
+        it 'uses the default message from the notification class' do
+          notify!
+
+          expect(Notifications::SensorConnected.last.message).to eq(
+            I18n.t('notifications.sensor_connected.message', sensor_uid: notifiable.uid)
+          )
+        end
+      end
     end
 
     context 'when the user is inactive' do

@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
+  before do
+    allow_any_instance_of(Notification).to receive(:set_message).and_return(true)
+  end
+
   describe 'associations' do
     it { should belong_to(:user) }
     it { should belong_to(:notifiable).optional }
