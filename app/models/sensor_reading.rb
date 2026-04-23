@@ -15,7 +15,8 @@
 #
 # Indexes
 #
-#  index_sensor_readings_on_sensor_id  (sensor_id)
+#  index_sensor_readings_on_sensor_id                 (sensor_id)
+#  index_sensor_readings_on_sensor_id_and_created_at  (sensor_id,created_at)
 #
 # Foreign Keys
 #

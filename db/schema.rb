@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_22_152345) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_23_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -28,6 +28,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_22_152345) do
     t.string "type", null: false
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
+    t.index ["data"], name: "index_notifications_on_data", using: :gin
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
     t.index ["user_id", "created_at"], name: "index_notifications_on_user_id_and_created_at"
     t.index ["user_id", "read_at"], name: "index_notifications_on_user_id_and_read_at"
@@ -71,6 +72,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_22_152345) do
     t.datetime "updated_at", null: false
     t.integer "uptime_seconds"
     t.boolean "watering_event", default: false, null: false
+    t.index ["sensor_id", "created_at"], name: "index_sensor_readings_on_sensor_id_and_created_at"
     t.index ["sensor_id"], name: "index_sensor_readings_on_sensor_id"
   end
 

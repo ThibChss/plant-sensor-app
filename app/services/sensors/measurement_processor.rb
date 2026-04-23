@@ -87,7 +87,7 @@ module Sensors
     end
 
     def notify_moisture_low
-      return unless @sensor.reload.thirsty? && not_notified?
+      return unless @sensor.thirsty? && not_notified?
 
       @sensor.user.notify(
         notifiable: @sensor,
