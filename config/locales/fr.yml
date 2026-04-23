@@ -246,9 +246,11 @@ fr:
       cancel: Fermer
   notifications:
     sensor_connected:
-      message: 'Votre capteur %{sensor_uid} est maintenant connecté et prêt.'
+      message: "Votre capteur %{sensor_uid} est maintenant connecté et prêt."
     sensor_back:
-      message: 'Votre capteur %{sensor_uid} est de nouveau connecté.'
+      message: "Votre capteur %{sensor_uid} est de nouveau connecté."
+    moisture_low:
+      message: "Votre plante %{plant_name} a besoin d'eau."
   pwa:
     name: Green Pulse Monitoring
     short_name: Green Pulse

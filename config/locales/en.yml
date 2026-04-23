@@ -249,6 +249,8 @@ en:
       message: 'Your sensor %{sensor_uid} is now connected and ready.'
     sensor_back:
       message: 'Your sensor %{sensor_uid} is back online.'
+    moisture_low:
+      message: 'Your plant %{plant_name} needs water.'
   pwa:
     name: Green Pulse Monitoring
     short_name: Green Pulse

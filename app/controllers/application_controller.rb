@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
+  add_flash_types :info, :error, :warning
+
   before_action :set_browser
   before_action :set_locale
   before_action :set_current_user, if: :authenticated?

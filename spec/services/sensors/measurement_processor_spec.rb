@@ -201,6 +201,69 @@ RSpec.describe Sensors::MeasurementProcessor do
     end
 
     # ─────────────────────────────────────────────
+    # Moisture low notification
+    # ─────────────────────────────────────────────
+    context 'with moisture low notification' do
+      before { allow(Notifications::Deliverer).to receive(:notify!) }
+
+      context 'when the sensor is thirsty (moisture below threshold)' do
+        before { sensor.update!(moisture_threshold: 50) }
+
+        context 'and no prior MoistureLow notification exists for this last_watered_at' do
+          it 'notifies the user with :moisture_low and :warning flash' do
+            service
+
+            expect(Notifications::Deliverer).to have_received(:notify!).with(
+              hash_including(
+                notification_type: :moisture_low,
+                flash_type: :warning,
+                notifiable: sensor
+              )
+            )
+          end
+
+          it 'passes the sensor last_watered_at in data' do
+            service
+
+            expect(Notifications::Deliverer).to have_received(:notify!).with(
+              hash_including(data: { last_watered_at: sensor.reload.last_watered_at })
+            )
+          end
+        end
+
+        context 'and a MoistureLow notification already exists for this last_watered_at' do
+          let(:last_watered_at) { Time.zone.parse('2026-04-10 08:00:00') }
+
+          before do
+            sensor.update!(last_watered_at:)
+
+            Notifications::MoistureLow.create!(
+              user: sensor.user,
+              notifiable: sensor,
+              data: { last_watered_at: last_watered_at.as_json, via: 'flash', message: 'low' }
+            )
+          end
+
+          it 'does not notify again (deduplication)' do
+            service
+
+            expect(Notifications::Deliverer).not_to have_received(:notify!)
+          end
+        end
+      end
+
+      context 'when the sensor is not thirsty (moisture above threshold)' do
+        before { sensor.update!(moisture_threshold: 20) }
+
+        it 'does not notify' do
+          service
+
+          expect(Notifications::Deliverer).not_to have_received(:notify!)
+        end
+      end
+    end
+
+    # ─────────────────────────────────────────────
     # Error handling
     # ─────────────────────────────────────────────
     context 'when update! raises RecordInvalid' do
