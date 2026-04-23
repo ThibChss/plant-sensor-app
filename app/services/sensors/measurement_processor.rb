@@ -25,6 +25,7 @@ module Sensors
 
       if @sensor
         update_sensor_current_data
+        notify_moisture_low
 
         response[:success]
       else
@@ -83,6 +84,26 @@ module Sensors
       return false unless @last_reading
 
       (moisture_level_percent - @last_reading.moisture_level_percent) >= SPIKE_THRESHOLD
+    end
+
+    def notify_moisture_low
+      return unless @sensor.reload.thirsty? && not_notified?
+
+      @sensor.user.notify(
+        notifiable: @sensor,
+        notification_type: :moisture_low,
+        flash_type: :warning,
+        data: {
+          last_watered_at: @sensor.last_watered_at
+        }
+      )
+    end
+
+    def not_notified?
+      Notifications::MoistureLow
+        .where(user_id: @sensor.user_id, notifiable: @sensor)
+        .where("data @> ?", { last_watered_at: @sensor.last_watered_at }.to_json)
+        .none?
     end
   end
 end
