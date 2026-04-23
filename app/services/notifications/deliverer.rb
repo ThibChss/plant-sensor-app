@@ -2,7 +2,7 @@ module Notifications
   class Deliverer < ApplicationService
     class DeliveryError < StandardError; end
 
-    NotificationContext = Struct.new(:user, :message, :notification_type, :flash_type, :notifiable, :data)
+    NotificationContext = Data.define(:message, :notification_type, :flash_type, :notifiable, :data)
 
     alias_call :notify!
 
@@ -21,14 +21,14 @@ module Notifications
 
     attr_reader :user, :context
 
-    def notify_in_app
+    def notify_in_app(data: {})
       Turbo::StreamsChannel.broadcast_append_to(user, target: :flash, html:)
 
-      create_notification!(data: { via: :flash, flash_type: context.flash_type })
+      create_notification!(data: { via: :flash, flash_type: context.flash_type }.merge(**data))
     end
 
     def notify_web_push
-      return notify_in_app unless user.push_notifications_enabled?
+      return notify_in_app(data: { push_notifications_disabled: true }) unless user.push_notifications_enabled?
 
       user.push_subscriptions.each { it.deliver(message: context.message) }
 

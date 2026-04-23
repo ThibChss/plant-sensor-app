@@ -2,23 +2,25 @@ require 'rails_helper'
 
 RSpec.describe Notifications::Deliverer do
   describe '.notify!' do
-    let_it_be(:user, refind: true) { create(:user) }
-    let_it_be(:push_subscriptions) { create_list(:push_subscription, 2, user:) }
-
-    let(:message) { 'Your sensor is now connected.' }
-    let(:notification_type) { :sensor_connected }
-    let(:flash_type) { :notice }
-
     subject(:notify!) do
       described_class.notify!(
         user:,
         message:,
         notification_type:,
         flash_type:,
-        notifiable: nil,
-        data: {}
+        notifiable:,
+        data:
       )
     end
+
+    let_it_be(:user, refind: true) { create(:user) }
+    let_it_be(:push_subscriptions) { create_list(:push_subscription, 2, user:) }
+
+    let(:message) { 'Your sensor is now connected.' }
+    let(:notification_type) { :sensor_connected }
+    let(:flash_type) { :notice }
+    let(:notifiable) { nil }
+    let(:data) { {} }
 
     before do
       allow(Turbo::StreamsChannel).to receive(:broadcast_append_to)
@@ -42,10 +44,24 @@ RSpec.describe Notifications::Deliverer do
           nil
         end.not_to change(Notification, :count)
       end
+
+      it 'does not broadcast anything' do
+        begin
+          notify!
+        rescue
+          nil
+        end
+
+        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_to)
+      end
     end
 
     context 'when the user is active' do
       before { user.update!(last_seen_at: 1.minute.ago) }
+
+      it 'returns ok' do
+        expect { notify! }.not_to raise_error
+      end
 
       it 'broadcasts a flash toast via Turbo' do
         notify!
@@ -54,12 +70,12 @@ RSpec.describe Notifications::Deliverer do
           .with(user, hash_including(target: :flash))
       end
 
-      it 'creates a SensorConnected notification record' do
-        expect { notify! }.to change { Notifications::SensorConnected.count }.by(1)
+      it 'does not enqueue any WebPushJob' do
+        expect { notify! }.not_to have_enqueued_job(Notifications::WebPushJob)
       end
 
-      it 'stores via: flash, its type and the message in the notification data' do
-        notify!
+      it 'creates a notification with via: flash' do
+        expect { notify! }.to change { Notifications::SensorConnected.count }.by(1)
 
         expect(Notifications::SensorConnected.last.data).to include(
           'via' => 'flash',
@@ -74,8 +90,26 @@ RSpec.describe Notifications::Deliverer do
         expect(Notifications::SensorConnected.last.user).to eq(user)
       end
 
-      it 'does not deliver web push' do
-        expect { notify! }.not_to have_enqueued_job(Notifications::WebPushJob)
+      context 'with a notifiable object' do
+        let(:notifiable) { create(:sensor, :with_valid_keys) }
+
+        it 'associates the notifiable with the notification' do
+          notify!
+
+          expect(Notifications::SensorConnected.last.notifiable).to eq(notifiable)
+        end
+      end
+
+      context 'with extra data' do
+        let(:data) { { sensor_uid: 'GP-XXXXX-XXXXX' } }
+
+        it 'merges extra data into the notification' do
+          notify!
+
+          expect(Notifications::SensorConnected.last.data).to include(
+            'sensor_uid' => 'GP-XXXXX-XXXXX'
+          )
+        end
       end
     end
 
@@ -87,19 +121,19 @@ RSpec.describe Notifications::Deliverer do
           expect { notify! }.to have_enqueued_job(Notifications::WebPushJob).twice
         end
 
-        it 'creates a SensorConnected notification with via: web_push' do
+        it 'does not broadcast a Turbo flash' do
+          notify!
+
+          expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_to)
+        end
+
+        it 'creates a notification with via: web_push' do
           expect { notify! }.to change { Notifications::SensorConnected.count }.by(1)
 
           expect(Notifications::SensorConnected.last.data).to include(
             'via' => 'web_push',
             'message' => message
           )
-        end
-
-        it 'does not broadcast a Turbo flash' do
-          notify!
-
-          expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_to)
         end
       end
 
@@ -113,51 +147,18 @@ RSpec.describe Notifications::Deliverer do
             .with(user, hash_including(target: :flash))
         end
 
-        it 'creates a notification with via: flash' do
-          expect { notify! }.to change { Notifications::SensorConnected.count }.by(1)
-
-          expect(Notifications::SensorConnected.last.data).to include('via' => 'flash')
-        end
-
         it 'does not enqueue any WebPushJob' do
           expect { notify! }.not_to have_enqueued_job(Notifications::WebPushJob)
         end
-      end
-    end
 
-    context 'with a notifiable object' do
-      let!(:sensor) { create(:sensor, :with_valid_keys) }
+        it 'creates a notification with via: flash and push_notifications_disabled: true' do
+          expect { notify! }.to change { Notifications::SensorConnected.count }.by(1)
 
-      before { user.update!(last_seen_at: 1.minute.ago) }
-
-      it 'associates the notifiable with the notification' do
-        described_class.notify!(
-          user:,
-          message:,
-          notification_type:,
-          flash_type:,
-          notifiable: sensor,
-          data: {}
-        )
-
-        expect(Notifications::SensorConnected.last.notifiable).to eq(sensor)
-      end
-    end
-
-    context 'with extra data' do
-      before { user.update!(last_seen_at: 1.minute.ago) }
-
-      it 'merges extra data into the notification data' do
-        described_class.notify!(
-          user:,
-          message:,
-          notification_type:,
-          flash_type:,
-          notifiable: nil,
-          data: { sensor_uid: 'GP-XXXXX-XXXXX' }
-        )
-
-        expect(Notifications::SensorConnected.last.data).to include('sensor_uid' => 'GP-XXXXX-XXXXX')
+          expect(Notifications::SensorConnected.last.data).to include(
+            'via' => 'flash',
+            'push_notifications_disabled' => true
+          )
+        end
       end
     end
   end
