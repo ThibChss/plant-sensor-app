@@ -244,6 +244,10 @@ fr:
       empty_hint: Associez un capteur pour suivre la vitalité dans le temps.
       add_sensor: Ajouter un capteur
       cancel: Fermer
+  api:
+    v1:
+      connection:
+        paired: Votre capteur est maintenant connecté et prêt.
   pwa:
     name: Green Pulse Monitoring
     short_name: Green Pulse

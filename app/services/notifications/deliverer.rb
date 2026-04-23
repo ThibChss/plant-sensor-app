@@ -22,7 +22,7 @@ module Notifications
     attr_reader :user, :context
 
     def notify_in_app
-      Turbo::StreamsChannel.broadcast_append_to(user, target: :flash, html: flash_html)
+      Turbo::StreamsChannel.broadcast_append_to(user, target: :flash, html:)
 
       create_notification!(data: { via: :flash, flash_type: context.flash_type })
     end
@@ -35,7 +35,7 @@ module Notifications
       create_notification!(data: { via: :web_push })
     end
 
-    def flash_html
+    def html
       ApplicationController.render(
         Components::Toast.new(type: context.flash_type, message: context.message),
         layout: false

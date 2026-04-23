@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :measurements, only: [:update]
+      resource :connection, only: [:update], controller: :connection
     end
   end
 

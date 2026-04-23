@@ -244,6 +244,10 @@ en:
       empty_hint: Pair a sensor to track vitality over time.
       add_sensor: Add a sensor
       cancel: Close
+  api:
+    v1:
+      connection:
+        paired: Your sensor is now connected and ready.
   pwa:
     name: Green Pulse Monitoring
     short_name: Green Pulse
