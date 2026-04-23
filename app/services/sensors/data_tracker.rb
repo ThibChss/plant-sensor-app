@@ -1,87 +1,89 @@
+# frozen_string_literal: true
+
 module Sensors
   class DataTracker < ApplicationService
-    DEFAULT_PARAM = '7d'.freeze
+    DEFAULT_PARAM = '7d'
     CACHE_EXPIRATION = 1.hour
 
-    private_constant :DEFAULT_PARAM, :CACHE_EXPIRATION
+    RANGES = {
+      '7d' => { interval: 7.days, truncate_to: nil },
+      '30d' => { interval: 30.days, truncate_to: 'day' },
+      '3m' => { interval: 3.months, truncate_to: 'week'  },
+      '6m' => { interval: 6.months, truncate_to: 'month' }
+    }.freeze
+
+    private_constant :DEFAULT_PARAM, :CACHE_EXPIRATION, :RANGES
 
     attr_reader :param
 
     def initialize(sensor, param)
       @sensor = sensor
-      @param = param || DEFAULT_PARAM
+      @param  = param || DEFAULT_PARAM
+      @range = RANGES[@param]
     end
 
     def stats
-      @stats ||=
-        Rails.cache.fetch("#{cache_key}_stats", expires_in: CACHE_EXPIRATION) do
-          {
-            average: stat_for(:average),
-            min: stat_for(:minimum),
-            max: stat_for(:maximum)
-          }
-        end
+      @stats ||= Rails.cache.fetch("#{cache_key}_stats", expires_in: CACHE_EXPIRATION) do
+        {
+          average: fetched_stats['average'].to_f,
+          min: fetched_stats['min'].to_f,
+          max: fetched_stats['max'].to_f
+        }
+      end
     end
 
     def chart_data
-      @chart_data ||=
-        Rails.cache.fetch("#{cache_key}_chart_data", expires_in: CACHE_EXPIRATION) do
-          case param
-          when '7d'
-            group_and_map(:to_time)
-          when '30d'
-            group_and_map(:to_date)
-          when '3m'
-            group_and_map(:beginning_of_week, :to_date)
-          when '6m'
-            group_and_map(:beginning_of_month, :to_date)
-          end
+      @chart_data ||= Rails.cache.fetch("#{cache_key}_chart_data", expires_in: CACHE_EXPIRATION) do
+        if @range[:truncate_to]
+          aggregated_chart_data(@range[:truncate_to])
+        else
+          individual_readings_chart_data
         end
+      end
     end
 
     private
 
-    def readings
-      @readings ||=
-        @sensor.readings
-               .where(created_at: range)
-               .order(:created_at)
-               .select(:moisture_level_percent, :created_at)
+    def fetched_stats
+      readings_scope
+        .unscope(:order)
+        .select(
+          'ROUND(AVG(moisture_level_percent)::numeric, 1) AS average',
+          'ROUND(MIN(moisture_level_percent)::numeric, 1) AS min',
+          'ROUND(MAX(moisture_level_percent)::numeric, 1) AS max'
+        )
+        .take
     end
 
-    def range
-      case param
-      when '7d'
-        7.days.ago.beginning_of_day..
-      when '30d'
-        30.days.ago.beginning_of_day..
-      when '3m'
-        3.months.ago.beginning_of_day..
-      when '6m'
-        6.months.ago.beginning_of_day..
-      end
+    def readings_scope
+      @readings_scope ||= SensorReading.where(sensor_id: @sensor.id, created_at: range_start..)
     end
 
-    def stat_for(key)
-      readings.send(key, :moisture_level_percent)&.round(1) || 0
+    def range_start
+      @range_start ||= @range[:interval].ago.beginning_of_day
     end
 
-    def group_and_map(*args)
-      mapped_readings(group(:created_at, *args))
+    def individual_readings_chart_data
+      readings_scope
+        .order(:created_at)
+        .pluck(:created_at, :moisture_level_percent)
+        .map do |created_at, moisture|
+          { x: created_at.iso8601, y: moisture.round(1) }
+        end
     end
 
-    def group(*args)
-      readings.group_by { chain_send(it, *args).iso8601 }
-    end
-
-    def mapped_readings(readings_grouped)
-      readings_grouped.map do |date, reading|
-        { x: date, y: (reading.sum(&:moisture_level_percent) / reading.size).round(1) }
-      end
-    end
-
-    def chain_send(object, *args)
-      args.reduce(object) { |result, key| result.send(key) }
+    def aggregated_chart_data(truncate_to)
+      readings_scope
+        .unscope(:order)
+        .select(
+          "DATE_TRUNC('#{truncate_to}', created_at) AS timestamp",
+          'ROUND(AVG(moisture_level_percent)::numeric, 1) AS average'
+        )
+        .group("DATE_TRUNC('#{truncate_to}', created_at)")
+        .order('timestamp ASC')
+        .map do |row|
+          { x: row['timestamp'].to_date.iso8601, y: row['average'].to_f }
+        end
     end
 
     def cache_key
