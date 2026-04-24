@@ -1,6 +1,9 @@
 module Api
   module V1
     class ConnectionController < ActionController::API
+      rate_limit to: 30, within: 1.minute, name: 'api-v1-connection',
+                 with: -> { render json: { error: 'Rate limit exceeded' }, status: :too_many_requests }
+
       def update
         return head :unauthorized unless sensor
         return head :ok unless paired? && sensor.user.present?

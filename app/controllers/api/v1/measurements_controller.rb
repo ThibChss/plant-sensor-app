@@ -1,6 +1,9 @@
 module Api
   module V1
     class MeasurementsController < ActionController::API
+      rate_limit to: 60, within: 1.minute, name: 'api-v1-measurements',
+                 with: -> { render json: { error: 'Rate limit exceeded' }, status: :too_many_requests }
+
       def update
         render json: processor.message, status: processor.status
       end
