@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                         :uuid             not null, primary key
+#  admin                      :boolean          default(FALSE), not null
 #  email_address              :string           not null
 #  first_name                 :string           not null
 #  last_name                  :string           not null

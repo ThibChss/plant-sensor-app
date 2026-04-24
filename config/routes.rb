@@ -45,4 +45,8 @@ Rails.application.routes.draw do
     patch :update_locale, on: :member, as: :locale
     patch :update_push_notifications, on: :member, as: :push_notifications
   end
+
+  namespace :admin do
+    resources :sensors, only: %i[index new create destroy]
+  end
 end

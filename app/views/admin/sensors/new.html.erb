@@ -1,0 +1,60 @@
+<div class="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-pulse-mist font-palanquin">
+
+  <%# --- HEADER --- %>
+  <header class="pt-14 px-6 pb-6 flex items-center justify-between gap-3 shrink-0">
+    <%= link_to admin_sensors_path, class: "flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white/60 text-pulse-forest border border-white shadow-sm active:scale-90 transition-all",
+                aria: { label: t('.back_aria') } do %>
+      <%= icon 'chevron-left', class: 'w-5 h-5' %>
+    <% end %>
+
+    <h1 class="min-w-0 flex-1 text-2xl font-black text-pulse-forest font-alegreya tracking-tight text-center uppercase">
+      <%= t('.title') %>
+    </h1>
+
+    <%# Symmetry balance %>
+    <div class="w-10"></div>
+  </header>
+
+  <%# --- MAIN CONTENT AREA (Scrollable fix) --- %>
+  <main class="min-h-0 flex-1 overflow-y-auto px-6 pt-4 pb-0 no-scrollbar">
+
+    <div class="relative overflow-hidden rounded-[2.5rem] border border-white bg-white/70 p-8 shadow-xl shadow-pulse-forest/5 backdrop-blur-md text-center">
+
+      <%# Illustrative Icon Section %>
+      <div class="w-20 h-20 bg-pulse-forest/10 rounded-[2rem] flex items-center justify-center mx-auto mb-8 text-pulse-forest border border-white shadow-inner">
+        <%= icon "cpu", class: "w-10 h-10 opacity-80" %>
+      </div>
+
+      <%# Content Block %>
+      <div class="space-y-4 mb-10">
+        <h2 class="text-xl font-black text-pulse-forest font-alegreya uppercase tracking-tight">
+          <%= t('.heading') %>
+        </h2>
+        <p class="text-sm leading-relaxed text-pulse-moss font-palanquin px-2">
+          <%= t('.hint') %>
+        </p>
+        <p class="text-[10px] text-pulse-moss/50 font-palanquin font-medium leading-snug">
+          <%= t('.hint_footer') %>
+        </p>
+      </div>
+
+      <%# Primary Action Button %>
+      <div class="relative z-10 mb-6">
+        <%= button_to admin_sensors_path,
+                      method: :post,
+                      class: "w-full py-5 bg-pulse-forest text-white rounded-full font-black text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-pulse-forest/20 active:scale-95 transition-all font-alegreya cursor-pointer" do %>
+          <%= t('.submit') %>
+        <% end %>
+      </div>
+
+      <%# Signature decorative leaf background detail %>
+      <div class="absolute -right-6 -bottom-6 text-9xl opacity-5 pointer-events-none rotate-12 select-none">
+         🌿
+      </div>
+    </div>
+
+  </main>
+
+  <%# --- NAVIGATION --- %>
+  <%= render Components::NavigationBar.new %>
+</div>

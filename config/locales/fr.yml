@@ -1,5 +1,10 @@
 fr:
+  time:
+    formats:
+      admin_sensor: "%d/%m/%y"
   controllers:
+    admin:
+      unauthorized: Vous n'êtes pas autorisé à accéder à cette page.
     sessions:
       try_again_later: Réessayez plus tard.
       invalid_credentials: Adresse e-mail ou mot de passe incorrect.
@@ -196,6 +201,45 @@ fr:
       sign_out_modal_hint: Vous devrez vous reconnecter pour accéder à vos capteurs.
       sign_out_modal_confirm: Me déconnecter
       sign_out_modal_cancel: Annuler
+      admin_heading: Admin
+      admin_see_sensors: Voir les capteurs
+      admin_create_sensor: Créer un capteur
+  admin:
+    sensors:
+      index:
+        title: Gestion des capteurs
+        back_to_profile: Retour au profil
+        stats_total_label: Total
+        stats_available_label: Disponibles
+        empty: Aucun capteur en inventaire.
+        paired: Assigné
+        unpaired: Disponible
+        user_column: Utilisateur
+        created: Création
+        created_on: Créé le %{date}
+        awaiting_pairing: En attente de liaison
+        qr_code_aria: Afficher le code QR
+      new:
+        title: Nouveau capteur
+        back_aria: Retour à la liste des capteurs
+        heading: Enregistrer un nouveau capteur
+        hint: Cette action enregistre un capteur non associé en base de données et génère un identifiant (UID) et une clé secrète. Vous en aurez besoin pour flasher le micrologiciel, l’étiqueter ou l’installer avant sa mise en service.
+        hint_footer: Saisissez-les lorsque l’appareil ou l’étape d’onboarding le demande (portail captif Wi‑Fi, appli mobile, etc.). L’utilisateur final pourra lier la plante depuis l’app après la première connexion.
+        submit: Créer le capteur
+        cancel: Retour
+      create:
+        created: 'Capteur %{uid} créé.'
+      destroy:
+        notice: 'Le capteur %{uid} a été supprimé.'
+        not_found: Capteur introuvable.
+        alert_failed: Impossible de supprimer ce capteur. Réessayez.
+        title: Supprimer ce capteur ?
+        body: "Vous allez supprimer définitivement %{uid}. %{user_line} Cette action est irréversible."
+        linked_to: "Associé à %{email}."
+        unpaired: Non associé à un compte.
+        confirm: Supprimer
+        cancel: Annuler
+        button_aria: Retirer le capteur
   sessions:
     new:
       title: Connexion

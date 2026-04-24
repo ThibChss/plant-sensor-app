@@ -1,5 +1,10 @@
 en:
+  time:
+    formats:
+      admin_sensor: "%d/%m/%y"
   controllers:
+    admin:
+      unauthorized: You are not allowed to access this page.
     sessions:
       try_again_later: Try again later.
       invalid_credentials: Try another email address or password.
@@ -196,6 +201,45 @@ en:
       sign_out_modal_hint: You will need to sign in again to access your sensors.
       sign_out_modal_confirm: Sign me out
       sign_out_modal_cancel: Cancel
+      admin_heading: Admin
+      admin_see_sensors: View sensors
+      admin_create_sensor: Create sensor
+  admin:
+    sensors:
+      index:
+        title: Sensor management
+        back_to_profile: Back to profile
+        stats_total_label: Total
+        stats_available_label: Available
+        empty: No sensors in inventory.
+        paired: Assigned
+        unpaired: Available
+        user_column: User
+        created: Created
+        created_on: Created on %{date}
+        awaiting_pairing: Awaiting pairing
+        qr_code_aria: Show QR code
+      new:
+        title: New sensor
+        back_aria: Back to sensor list
+        heading: Register a new device
+        hint: This saves an unpaired sensor in the database and issues a new UID and secret key. You will need both to provision the board or label the unit before it goes in the field.
+        hint_footer: Enter them when the device or setup flow asks (Wi‑Fi captive portal, mobile app, serial console, etc.). The end user can link the plant in the app after the first connection.
+        submit: Create sensor
+        cancel: Back
+      create:
+        created: 'Sensor %{uid} was created.'
+      destroy:
+        notice: 'Sensor %{uid} was removed.'
+        not_found: Sensor not found.
+        alert_failed: Could not remove this sensor. Please try again.
+        title: Delete this sensor?
+        body: "You are about to permanently remove %{uid}. %{user_line} This cannot be undone."
+        linked_to: "Linked to %{email}."
+        unpaired: Not linked to any user.
+        confirm: Delete
+        cancel: Cancel
+        button_aria: Remove sensor
   sessions:
     new:
       title: Sign in

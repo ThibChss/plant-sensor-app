@@ -87,6 +87,37 @@
         </div>
       </div>
 
+      <% if @current_user.admin? %>
+        <div>
+          <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-4 px-4 font-merriweather">
+            <%= t('pages.profile.admin_heading') %>
+          </h3>
+          <div class="bg-white/40 backdrop-blur-xl rounded-[2.5rem] border border-white/40 overflow-hidden shadow-sm">
+            <%= link_to admin_sensors_path, class: "flex items-center justify-between px-5 py-2 hover:bg-white/20 transition-colors" do %>
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-pulse-forest">
+                  <%= icon "layout-list", class: "w-5 h-5" %>
+                </div>
+                <span class="font-bold text-pulse-forest font-palanquin"><%= t('pages.profile.admin_see_sensors') %></span>
+              </div>
+              <%= icon "chevron-right", class: "w-4 h-4 text-pulse-moss/30" %>
+            <% end %>
+
+            <div class="h-px bg-pulse-forest/5 mx-5"></div>
+
+            <%= link_to new_admin_sensor_path, class: "flex items-center justify-between px-5 py-2 hover:bg-white/20 transition-colors" do %>
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-pulse-forest">
+                  <%= icon "circle-plus", class: "w-5 h-5" %>
+                </div>
+                <span class="font-bold text-pulse-forest font-palanquin"><%= t('pages.profile.admin_create_sensor') %></span>
+              </div>
+              <%= icon "chevron-right", class: "w-4 h-4 text-pulse-moss/30" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
       <div>
         <h3 class="text-[10px] font-bold text-pulse-moss uppercase tracking-[0.2em] mb-4 px-4 font-merriweather">
           <%= t('pages.profile.account_heading') %>

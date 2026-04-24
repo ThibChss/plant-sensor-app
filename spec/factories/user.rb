@@ -9,5 +9,9 @@ FactoryBot.define do
     password_confirmation { 'password123' }
 
     push_notifications_enabled { true }
+
+    trait :admin do
+      admin { true }
+    end
   end
 end

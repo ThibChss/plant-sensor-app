@@ -1,0 +1,139 @@
+<div class="relative flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden bg-pulse-mist font-palanquin">
+  <div class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+  <%# --- HEADER --- %>
+  <header class="pt-14 px-6 pb-6 flex items-center justify-between gap-3 shrink-0">
+    <%= link_to profile_path, class: "flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white/60 text-pulse-forest border border-white shadow-sm active:scale-90 transition-all",
+                aria: { label: t('.back_to_profile') } do %>
+      <%= icon 'chevron-left', class: 'w-5 h-5' %>
+    <% end %>
+
+    <h1 class="min-w-0 flex-1 text-2xl font-black text-pulse-forest font-alegreya tracking-tight text-center uppercase">
+      <%= t('.title') %>
+    </h1>
+
+    <%# Empty div for flex symmetry %>
+    <div class="w-10"></div>
+  </header>
+
+  <main class="min-h-0 flex-1 overflow-y-auto px-6 pb-10 no-scrollbar">
+
+    <%# --- QUICK STATS SUMMARY --- %>
+    <div class="grid grid-cols-2 gap-3 mb-8">
+      <div class="bg-white/40 border border-white/60 p-4 rounded-[1.5rem] text-center">
+        <p class="text-[8px] font-bold text-pulse-moss uppercase tracking-widest opacity-60 mb-1"><%= t('.stats_total_label') %></p>
+        <p class="text-xl font-black text-pulse-forest font-alegreya leading-none"><%= @sensors.count %></p>
+      </div>
+      <div class="bg-white/40 border border-white/60 p-4 rounded-[1.5rem] text-center">
+        <p class="text-[8px] font-bold text-pulse-moss uppercase tracking-widest opacity-60 mb-1"><%= t('.stats_available_label') %></p>
+        <p class="text-xl font-black text-emerald-600 font-alegreya leading-none"><%= @sensors.select(&:pairable?).count %></p>
+      </div>
+    </div>
+
+    <%# --- CREATE ACTION --- %>
+    <div class="mb-8">
+      <%= link_to new_admin_sensor_path, class: "flex items-center justify-center gap-3 w-full py-4 bg-pulse-forest text-white rounded-full font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-pulse-forest/20 active:scale-95 transition-all font-alegreya" do %>
+        <%= icon "plus", class: "w-4 h-4" %>
+        <%= t('pages.profile.admin_create_sensor') %>
+      <% end %>
+    </div>
+
+    <%# --- SENSOR LIST --- %>
+    <% if @sensors.any? %>
+      <div class="space-y-4">
+        <% @sensors.each do |sensor| %>
+          <div class="group relative overflow-hidden rounded-[2.5rem] border border-white bg-white/70 p-6 shadow-sm backdrop-blur-md transition-all active:scale-[0.98]">
+
+            <%# Header row: Status Badge & Date %>
+            <div class="flex items-center justify-between mb-4">
+              <% if sensor.pairable? %>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[9px] font-black uppercase tracking-widest border border-emerald-100">
+                  <%= t('.unpaired') %>
+                </span>
+              <% else %>
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-pulse-forest/10 text-pulse-forest text-[9px] font-black uppercase tracking-widest border border-pulse-forest/10">
+                  <%= t('.paired') %>
+                </span>
+              <% end %>
+
+              <span class="text-[9px] font-bold text-pulse-moss/40 uppercase font-palanquin">
+                <%= t('.created_on', date: l(sensor.created_at, format: :admin_sensor)) %>
+              </span>
+            </div>
+
+            <%# Body: UID & User info %>
+            <div class="flex items-start gap-4">
+              <div class="shrink-0 w-12 h-12 rounded-2xl bg-pulse-mist flex items-center justify-center text-pulse-forest border border-white">
+                <%= icon sensor.pairable? ? "cpu" : "user-check", class: "w-6 h-6 opacity-60" %>
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <p class="font-mono text-xs font-bold text-pulse-forest tracking-tighter truncate uppercase mb-1">
+                  <%= sensor.uid %>
+                </p>
+
+                <% if sensor.user %>
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-1 h-1 rounded-full bg-pulse-moss"></div>
+                    <p class="text-xs font-medium text-pulse-moss truncate italic">
+                      <%= sensor.user.email_address %>
+                    </p>
+                  </div>
+                  <% if sensor.nickname.present? %>
+                    <p class="text-[10px] font-black text-pulse-forest/40 uppercase tracking-widest mt-1">
+                      "<%= sensor.nickname %>"
+                    </p>
+                  <% end %>
+                <% else %>
+                  <p class="text-xs font-bold text-pulse-moss/30 uppercase tracking-widest italic">
+                    <%= t('.awaiting_pairing') %>
+                  </p>
+                <% end %>
+              </div>
+
+              <%# Actions (QR + destroy) %>
+              <div class="flex shrink-0 flex-col items-center gap-1.5">
+                <%= link_to "#", class: "w-8 h-8 rounded-xl bg-white flex items-center justify-center text-pulse-moss/40 hover:text-pulse-forest border border-pulse-mist transition-colors",
+                            aria: { label: t('.qr_code_aria') } do %>
+                  <%= icon "qr-code", class: "w-4 h-4" %>
+                <% end %>
+                <button
+                  type="button"
+                  command="show-modal"
+                  commandfor="<%= dom_id(sensor, 'destroy') %>"
+                  class="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-rose-300 hover:text-rose-500 border border-pulse-mist transition-colors"
+                  aria-label="<%= t('admin.sensors.destroy.button_aria') %>"
+                >
+                  <%= icon 'trash-2', class: 'w-4 h-4' %>
+                </button>
+              </div>
+            </div>
+
+            <%# Bottom visual detail %>
+            <div class="absolute -right-4 -bottom-4 text-6xl opacity-5 pointer-events-none rotate-12">
+               🌿
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <%# --- EMPTY STATE --- %>
+      <div class="rounded-[2.5rem] border border-dashed border-pulse-sage/40 bg-white/40 p-12 text-center">
+        <div class="text-4xl mb-4 opacity-40">📦</div>
+        <p class="text-sm text-pulse-moss italic font-merriweather">
+          <%= t('.empty') %>
+        </p>
+      </div>
+    <% end %>
+  </main>
+
+  <%= render Components::NavigationBar.new %>
+  </div>
+
+  <% if @sensors.any? %>
+    <div class="pointer-events-none absolute inset-0 z-40 min-h-0 overflow-x-hidden [&_dialog]:pointer-events-auto [&_el-dialog]:pointer-events-auto">
+      <% @sensors.each do |sensor| %>
+        <%= render 'destroy_sensor_modal', sensor: %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -33,7 +33,8 @@ module Seed
         first_name: "Thibault",
         last_name: "Chassine",
         email_address: "thib@gmail.com",
-        password: "password"
+        password: "password",
+        admin: true
       )
     end
   end
