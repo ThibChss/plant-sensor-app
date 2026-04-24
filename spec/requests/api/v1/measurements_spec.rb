@@ -8,7 +8,8 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
                'moisture_level_percent' => 10,
                'moisture_level_raw' => 3500,
                'temperature' => 18.0,
-               'battery_level' => 50,
+               'battery_level_raw' => 50,
+               'battery_level_percent' => 80,
                'uptime_seconds' => 1000
              })
     end
@@ -17,7 +18,8 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
       {
         data: {
           moisture_level_raw: 2675,
-          uptime_seconds: 2000
+          uptime_seconds: 2000,
+          battery_level_raw: 3000
         }
       }
     end
@@ -43,6 +45,8 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
           expect(sensor.reload.moisture_level_percent).to eq(46.5)
           expect(sensor.moisture_level_raw).to eq(2675)
           expect(sensor.uptime_seconds).to eq(2000)
+          expect(sensor.battery_level_raw).to eq(3000)
+          expect(sensor.battery_level_percent).to eq(73.3)
         end
       end
 
@@ -53,7 +57,9 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
           patch_measurement
 
           expect(response).to have_http_status(:unprocessable_content)
-          expect(response.parsed_body['error']).to include('Missing required data: moisture_level_raw and uptime_seconds')
+          expect(response.parsed_body['error']).to include(
+            'Missing required data: moisture_level_raw, uptime_seconds, battery_level_raw'
+          )
         end
       end
     end

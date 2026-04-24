@@ -13,7 +13,7 @@ module Api
       private
 
       def measurement_params
-        params.require(:data).permit(:moisture_level_raw, :uptime_seconds)
+        params.require(:data).permit(:moisture_level_raw, :uptime_seconds, :battery_level_raw)
       end
 
       def processor

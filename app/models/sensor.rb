@@ -41,7 +41,8 @@ class Sensor < ApplicationRecord
     moisture_level_percent
     moisture_level_raw
     temperature
-    battery_level
+    battery_level_raw
+    battery_level_percent
     uptime_seconds
   ].freeze
 

@@ -120,19 +120,21 @@ RSpec.describe Sensor, type: :model do
       let(:moisture_level_percent) { 55 }
       let(:moisture_level_raw) { 3500 }
       let(:temperature) { 19.2 }
-      let(:battery_level) { 72 }
+      let(:battery_level_raw) { 72 }
+      let(:battery_level_percent) { 80 }
       let(:uptime_seconds) { 1000 }
       let(:sensor) do
         build_stubbed(:sensor, user:, plant:,
                                current_data: { moisture_level_percent:, moisture_level_raw:,
-                                               temperature:, battery_level:, uptime_seconds: })
+                                               temperature:, battery_level_raw:, battery_level_percent:, uptime_seconds: })
       end
 
       it 'reads moisture_level, temperature, and battery_level from current_data' do
         expect(sensor.moisture_level_percent).to eq(moisture_level_percent)
         expect(sensor.moisture_level_raw).to eq(moisture_level_raw)
         expect(sensor.temperature).to eq(temperature)
-        expect(sensor.battery_level).to eq(battery_level)
+        expect(sensor.battery_level_raw).to eq(battery_level_raw)
+        expect(sensor.battery_level_percent).to eq(battery_level_percent)
         expect(sensor.uptime_seconds).to eq(uptime_seconds)
       end
     end

@@ -10,7 +10,8 @@ RSpec.describe Sensors::MeasurementProcessor do
                moisture_level_percent: 10.0,
                moisture_level_raw: 3500.0,
                temperature: 18.0,
-               battery_level: 50,
+               battery_level_raw: 50,
+               battery_level_percent: 80,
                uptime_seconds: 1000
              })
     end
@@ -19,7 +20,8 @@ RSpec.describe Sensors::MeasurementProcessor do
     let(:data) do
       {
         moisture_level_raw: 2675,
-        uptime_seconds: 2000
+        uptime_seconds: 2000,
+        battery_level_raw: 3000
       }
     end
 
@@ -46,7 +48,7 @@ RSpec.describe Sensors::MeasurementProcessor do
       it 'returns unprocessable_content' do
         expect(service.status).to eq(:unprocessable_content)
         expect(service.message[:error]).to eq(
-          '[MeasurementProcessor] Unable to process measurement data: Missing required data: moisture_level_raw and uptime_seconds'
+          '[MeasurementProcessor] Unable to process measurement data: Missing required data: moisture_level_raw, uptime_seconds, battery_level_raw'
         )
       end
     end
@@ -57,7 +59,7 @@ RSpec.describe Sensors::MeasurementProcessor do
       it 'returns unprocessable_content' do
         expect(service.status).to eq(:unprocessable_content)
         expect(service.message[:error]).to eq(
-          '[MeasurementProcessor] Unable to process measurement data: Missing required data: moisture_level_raw and uptime_seconds'
+          '[MeasurementProcessor] Unable to process measurement data: Missing required data: moisture_level_raw, uptime_seconds, battery_level_raw'
         )
       end
     end
@@ -86,7 +88,8 @@ RSpec.describe Sensors::MeasurementProcessor do
           expect(sensor.moisture_level_raw.to_f).to eq(2675.0)
           expect(sensor.uptime_seconds).to eq(2000)
           expect(sensor.temperature).to eq(18.0)
-          expect(sensor.battery_level).to eq(50)
+          expect(sensor.battery_level_raw).to eq(3000)
+          expect(sensor.battery_level_percent).to eq(73.3)
           expect(sensor.last_seen_at).to eq(timestamp)
         end
       end
@@ -98,7 +101,8 @@ RSpec.describe Sensors::MeasurementProcessor do
                    moisture_level_percent: 10.0,
                    moisture_level_raw: 3500.0,
                    temperature: 18.0,
-                   battery_level: 50,
+                   battery_level_raw: 50,
+                   battery_level_percent: 80,
                    uptime_seconds: 1000
                  })
         end
@@ -139,7 +143,7 @@ RSpec.describe Sensors::MeasurementProcessor do
       end
 
       context 'when the moisture spike is exactly at the threshold' do
-        let(:data) { { moisture_level_raw: 1340, uptime_seconds: 2000 } }
+        let(:data) { { moisture_level_raw: 1340, uptime_seconds: 2000, battery_level_raw: 3000 } }
         let!(:sensor_reading) { create(:sensor_reading, sensor:, moisture_level_percent: 80.0) }
 
         it 'detects a watering event (100.0 - 80.0 = 20.0, exactly at threshold)' do
@@ -151,7 +155,7 @@ RSpec.describe Sensors::MeasurementProcessor do
       end
 
       context 'when the moisture spike is above the threshold' do
-        let(:data) { { moisture_level_raw: 1340, uptime_seconds: 2000 } }
+        let(:data) { { moisture_level_raw: 1340, uptime_seconds: 2000, battery_level_raw: 3000 } }
         let!(:sensor_reading) { create(:sensor_reading, sensor:, moisture_level_percent: 79.9) }
 
         # 100.0 - 79.9 = 20.1 → above SPIKE_THRESHOLD of 20

@@ -4,6 +4,8 @@
 #
 #  id                     :uuid             not null, primary key
 #  battery_level          :integer
+#  battery_level_percent  :integer
+#  battery_level_raw      :integer
 #  moisture_level_percent :float
 #  moisture_level_raw     :integer
 #  temperature            :float

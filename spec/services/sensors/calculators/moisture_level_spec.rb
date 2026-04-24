@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Sensors::MoistureLevelCalculator do
+RSpec.describe Sensors::Calculators::MoistureLevel do
   describe '.compute' do
     subject(:result) { described_class.compute(sensor, moisture_level_raw) }
 

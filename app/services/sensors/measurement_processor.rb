@@ -5,6 +5,7 @@ module Sensors
     REQUIRED_DATA = %i[
       moisture_level_raw
       uptime_seconds
+      battery_level_raw
     ].freeze
 
     SPIKE_THRESHOLD = 20
@@ -43,13 +44,15 @@ module Sensors
         moisture_level_percent:,
         moisture_level_raw:,
         uptime_seconds:,
+        battery_level_raw:,
+        battery_level_percent:,
         last_watered_at:
       )
     end
 
     def moisture_level_percent
       @moisture_level_percent ||=
-        MoistureLevelCalculator.compute(@sensor, moisture_level_raw)
+        Sensors::Calculators::MoistureLevel.compute(@sensor, moisture_level_raw)
     end
 
     def uptime_seconds
@@ -58,6 +61,14 @@ module Sensors
 
     def moisture_level_raw
       @moisture_level_raw ||= @data[:moisture_level_raw].to_f
+    end
+
+    def battery_level_raw
+      @data[:battery_level_raw].to_i
+    end
+
+    def battery_level_percent
+      Sensors::Calculators::BatteryLevel.compute(@sensor, battery_level_raw)
     end
 
     def response
@@ -77,7 +88,7 @@ module Sensors
     def validate_data!
       return if REQUIRED_DATA.all? { @data.key?(it) }
 
-      raise MeasurementDataError, 'Missing required data: moisture_level_raw and uptime_seconds'
+      raise MeasurementDataError, "Missing required data: #{REQUIRED_DATA.join(', ')}"
     end
 
     def last_watered_at
