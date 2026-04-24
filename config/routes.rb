@@ -47,6 +47,12 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :sensors, only: %i[index new create destroy]
+    resources :sensors, only: %i[index new create destroy] do
+      member do
+        get :qr_sticker
+        get :qr_sticker_preview
+        get :destroy_confirmation
+      end
+    end
   end
 end

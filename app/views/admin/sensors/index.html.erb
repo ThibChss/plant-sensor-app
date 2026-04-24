@@ -1,4 +1,7 @@
-<div class="relative flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden bg-pulse-mist font-palanquin">
+<div
+  class="relative flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden bg-pulse-mist font-palanquin"
+  <% if @sensors.any? %>data-controller="admin-sensors-modals"<% end %>
+>
   <div class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
   <%# --- HEADER --- %>
   <header class="pt-14 px-6 pb-6 flex items-center justify-between gap-3 shrink-0">
@@ -92,15 +95,20 @@
 
               <%# Actions (QR + destroy) %>
               <div class="flex shrink-0 flex-col items-center gap-1.5">
-                <%= link_to "#", class: "w-8 h-8 rounded-xl bg-white flex items-center justify-center text-pulse-moss/40 hover:text-pulse-forest border border-pulse-mist transition-colors",
-                            aria: { label: t('.qr_code_aria') } do %>
-                  <%= icon "qr-code", class: "w-4 h-4" %>
-                <% end %>
                 <button
                   type="button"
-                  command="show-modal"
-                  commandfor="<%= dom_id(sensor, 'destroy') %>"
+                  class="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-pulse-moss/40 hover:text-pulse-forest border border-pulse-mist transition-colors"
+                  data-action="admin-sensors-modals#openQr"
+                  data-qr-sticker-url="<%= qr_sticker_preview_admin_sensor_path(sensor) %>"
+                  aria-label="<%= t('.qr_code_aria') %>"
+                >
+                  <%= icon "qr-code", class: "w-4 h-4" %>
+                </button>
+                <button
+                  type="button"
                   class="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-rose-300 hover:text-rose-500 border border-pulse-mist transition-colors"
+                  data-action="admin-sensors-modals#openDestroy"
+                  data-destroy-confirm-url="<%= destroy_confirmation_admin_sensor_path(sensor) %>"
                   aria-label="<%= t('admin.sensors.destroy.button_aria') %>"
                 >
                   <%= icon 'trash-2', class: 'w-4 h-4' %>
@@ -131,9 +139,7 @@
 
   <% if @sensors.any? %>
     <div class="pointer-events-none absolute inset-0 z-40 min-h-0 overflow-x-hidden [&_dialog]:pointer-events-auto [&_el-dialog]:pointer-events-auto">
-      <% @sensors.each do |sensor| %>
-        <%= render 'destroy_sensor_modal', sensor: %>
-      <% end %>
+      <%= render "shared_sensor_modals" %>
     </div>
   <% end %>
 </div>

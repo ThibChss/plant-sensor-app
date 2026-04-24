@@ -545,6 +545,7 @@ DEPENDENCIES
   rqrcode
   rspec-rails
   rubocop-rails-omakase
+  ruby-vips
   shoulda-matchers
   solid_cable
   solid_cache

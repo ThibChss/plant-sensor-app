@@ -1,0 +1,56 @@
+<main class="max-h-[85vh] overflow-y-auto no-scrollbar">
+  <div class="px-6 pt-10 pb-4">
+    <div class="flex flex-col items-center text-center mb-8">
+      <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-pulse-forest/10 text-pulse-forest mb-4 shadow-sm border border-white">
+        <%= icon 'qr-code', class: 'w-7 h-7' %>
+      </div>
+      <h3 id="admin-shared-qr-sticker-title" class="text-xl font-black leading-tight text-pulse-forest font-alegreya tracking-tight px-2">
+        <%= t('admin.sensors.qr_sticker.modal_title') %>
+      </h3>
+      <p class="mt-2 text-[10px] leading-relaxed text-pulse-moss/50 font-palanquin uppercase tracking-[0.15em] font-bold text-center">
+        <%= t('admin.sensors.qr_sticker.modal_subtitle') %>
+      </p>
+    </div>
+
+    <div class="mx-auto mb-8 flex w-full aspect-[40/12] items-center justify-center rounded-[2rem] bg-pulse-mist/30 p-5 shadow-inner">
+      <div class="w-full shadow-[0_10px_20px_rgba(52,103,57,0.1)] transition-all hover:scale-[1.02]">
+        <%= render Components::SensorSticker.new(sensor: sensor) %>
+      </div>
+    </div>
+
+    <div class="bg-white/60 rounded-[2rem] p-6 border border-white shadow-sm space-y-4 mb-8">
+      <div class="flex justify-between items-center px-1">
+        <span class="text-[9px] font-bold text-pulse-moss/50 uppercase tracking-widest"><%= t('admin.sensors.qr_sticker.grid_identifier') %></span>
+        <span class="font-mono text-[11px] font-bold text-pulse-forest uppercase tracking-tighter"><%= sensor.uid %></span>
+      </div>
+      <div class="h-px bg-pulse-forest/5"></div>
+      <div class="flex justify-between items-center px-1">
+        <span class="text-[9px] font-bold text-pulse-moss/50 uppercase tracking-widest"><%= t('admin.sensors.qr_sticker.grid_pairing_code') %></span>
+        <span class="font-mono text-[11px] font-black text-pulse-forest"><%= sensor.pairing_code %></span>
+      </div>
+    </div>
+
+    <p class="text-[9px] leading-relaxed text-pulse-moss/60 font-palanquin text-center italic px-4 mb-4">
+      <%= t('admin.sensors.qr_sticker.export_hint_line1') %><br>
+      <%= t('admin.sensors.qr_sticker.export_hint_line2') %>
+    </p>
+  </div>
+
+  <div class="flex flex-col items-center gap-3 px-6 pb-6 pt-2">
+    <%= link_to qr_sticker_admin_sensor_path(sensor, format: :png),
+        class: "flex w-full items-center justify-center gap-3 rounded-2xl bg-pulse-forest py-5 text-[10px] font-black uppercase tracking-[0.2em] text-white shadow-xl shadow-pulse-forest/20 transition-all active:scale-95 font-alegreya",
+        data: { turbo: false } do %>
+      <%= icon "download", class: "w-4 h-4" %>
+      <%= t('admin.sensors.qr_sticker.download_png') %>
+    <% end %>
+
+    <button
+      type="button"
+      command="close"
+      commandfor="<%= dialog_id %>"
+      class="text-[10px] font-bold text-pulse-moss/40 hover:text-pulse-forest transition-colors font-palanquin uppercase tracking-[0.15em] py-4"
+    >
+      <%= t('admin.sensors.qr_sticker.back') %>
+    </button>
+  </div>
+</main>

@@ -1,0 +1,32 @@
+<div class="px-6 pt-10 pb-4">
+  <div class="flex flex-col items-center text-center mb-6">
+    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-50 text-rose-500 mb-6">
+      <%= icon 'trash-2', class: 'w-6 h-6' %>
+    </div>
+    <h3 id="admin-shared-destroy-sensor-title" class="text-xl font-black leading-tight text-pulse-forest font-alegreya tracking-tight px-2">
+      <%= t('admin.sensors.destroy.title') %>
+    </h3>
+    <p class="mt-3 text-xs leading-relaxed text-pulse-moss/80 font-palanquin text-left w-full">
+      <%= t('admin.sensors.destroy.body',
+            uid: sensor.uid,
+            user_line: sensor.user ? t('admin.sensors.destroy.linked_to', email: sensor.user.email_address) : t('admin.sensors.destroy.unpaired')) %>
+    </p>
+  </div>
+</div>
+
+<div class="flex flex-col items-center gap-4 px-6 pb-10 pt-2">
+  <%= button_to t('admin.sensors.destroy.confirm'),
+      admin_sensor_path(sensor),
+      method: :delete,
+      form: { class: 'w-full', data: { turbo: true } },
+      class: 'flex w-full justify-center rounded-2xl bg-rose-500 py-4 text-xs font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-rose-500/20 transition-all active:scale-95 font-alegreya' %>
+
+  <button
+    type="button"
+    command="close"
+    commandfor="<%= dialog_id %>"
+    class="text-[10px] font-bold text-pulse-moss/40 hover:text-pulse-forest transition-colors font-palanquin uppercase tracking-[0.15em]"
+  >
+    <%= t('admin.sensors.destroy.cancel') %>
+  </button>
+</div>

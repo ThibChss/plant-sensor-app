@@ -11,10 +11,73 @@
         }
       }
     },
+    "admin": {
+      "sensors": {
+        "create": {
+          "created": "Sensor %{uid} was created."
+        },
+        "destroy": {
+          "alert_failed": "Could not remove this sensor. Please try again.",
+          "body": "You are about to permanently remove %{uid}. %{user_line} This cannot be undone.",
+          "button_aria": "Remove sensor",
+          "cancel": "Cancel",
+          "confirm": "Delete",
+          "linked_to": "Linked to %{email}.",
+          "not_found": "Sensor not found.",
+          "notice": "Sensor %{uid} was removed.",
+          "title": "Delete this sensor?",
+          "unpaired": "Not linked to any user."
+        },
+        "index": {
+          "awaiting_pairing": "Awaiting pairing",
+          "back_to_profile": "Back to profile",
+          "created": "Created",
+          "created_on": "Created on %{date}",
+          "empty": "No sensors in inventory.",
+          "modal_load_error": "We couldn’t load this dialog. Please try again.",
+          "modal_loading": "Loading…",
+          "paired": "Assigned",
+          "qr_code_aria": "Show QR code",
+          "stats_available_label": "Available",
+          "stats_total_label": "Total",
+          "title": "Sensor management",
+          "unpaired": "Available",
+          "user_column": "User"
+        },
+        "new": {
+          "back_aria": "Back to sensor list",
+          "cancel": "Back",
+          "heading": "Register a new device",
+          "hint": "This saves an unpaired sensor in the database and issues a new UID and secret key. You will need both to provision the board or label the unit before it goes in the field.",
+          "hint_footer": "Enter them when the device or setup flow asks (Wi‑Fi captive portal, mobile app, serial console, etc.). The end user can link the plant in the app after the first connection.",
+          "submit": "Create sensor",
+          "title": "New sensor"
+        },
+        "qr_sticker": {
+          "back": "Back",
+          "download": "Download sticker (PNG)",
+          "download_png": "Download PNG",
+          "export_hint_line1": "Exported as PNG at 300 dpi for 12×40 mm tape.",
+          "export_hint_line2": "Disable smoothing in your Niimbot app.",
+          "grid_identifier": "Identifier",
+          "grid_pairing_code": "Pairing code",
+          "hint": "Download matches this preview (green dot QR, UID, and pairing on one label). PNG for narrow thermal tape; keep the full quiet zone for reliable scans. If the styled export is unavailable, a black-and-white thermal layout is used instead.",
+          "modal_subtitle": "Ready for thermal printing",
+          "modal_title": "Sensor label",
+          "sticker_pairing_line": "Pairing code - %{code}",
+          "sticker_pairing_svg_label": "Pairing code",
+          "title": "Label QR",
+          "uid_label": "UID: %{uid}"
+        }
+      }
+    },
     "app": {
       "title": "Green Pulse"
     },
     "controllers": {
+      "admin": {
+        "unauthorized": "You are not allowed to access this page."
+      },
       "passwords": {
         "invalid_reset_link": "Password reset link is invalid or has expired.",
         "password_reset_done": "Your password has been reset.",
@@ -4733,7 +4796,6 @@
           "Precious Bane",
           "The Proper Study",
           "Quo Vadis",
-          "Recalled to Life",
           "Recalled to Life",
           "Ring of Bright Water",
           "The Road Less Traveled",
@@ -19271,7 +19333,16 @@
           "Galatasaray",
           "PSV Eindhoven",
           "LA Galaxy",
-          "Paris Saint Germain"
+          "Paris Saint Germain",
+          "FC Porto",
+          "Manchester City",
+          "Sporting",
+          "Atalanta",
+          "Villareal",
+          "Lyon",
+          "AS Monaco",
+          "Bayer 04 Leverkusen",
+          "Aston Villa"
         ]
       },
       "friends": {
@@ -77379,6 +77450,17 @@
         ]
       }
     },
+    "notifications": {
+      "moisture_low": {
+        "message": "Your plant %{plant_name} needs water."
+      },
+      "sensor_back": {
+        "message": "Your sensor %{sensor_uid} is back online."
+      },
+      "sensor_connected": {
+        "message": "Your sensor %{sensor_uid} is now connected and ready."
+      }
+    },
     "number": {
       "currency": {
         "format": {
@@ -77467,6 +77549,9 @@
       },
       "profile": {
         "account_heading": "Account",
+        "admin_create_sensor": "Create sensor",
+        "admin_heading": "Admin",
+        "admin_see_sensors": "View sensors",
         "edit_profile": "Edit profile",
         "help_support": "Help & support",
         "language": "Language",
@@ -77481,6 +77566,7 @@
         "notifications_switch_aria": "Push notifications",
         "preferences_heading": "Preferences",
         "push_notifications": "Push notifications",
+        "push_notifications_updated_notice": "Notification preferences saved.",
         "security_pin": "Security & PIN",
         "sign_out": "Sign out",
         "sign_out_modal_cancel": "Cancel",
@@ -77720,6 +77806,7 @@
     "time": {
       "am": "am",
       "formats": {
+        "admin_sensor": "%d/%m/%y",
         "default": "%a, %d %b %Y %H:%M:%S %z",
         "long": "%B %d, %Y %H:%M",
         "short": "%d %b %H:%M",
@@ -77740,10 +77827,73 @@
         }
       }
     },
+    "admin": {
+      "sensors": {
+        "create": {
+          "created": "Capteur %{uid} créé."
+        },
+        "destroy": {
+          "alert_failed": "Impossible de supprimer ce capteur. Réessayez.",
+          "body": "Vous allez supprimer définitivement %{uid}. %{user_line} Cette action est irréversible.",
+          "button_aria": "Retirer le capteur",
+          "cancel": "Annuler",
+          "confirm": "Supprimer",
+          "linked_to": "Associé à %{email}.",
+          "not_found": "Capteur introuvable.",
+          "notice": "Le capteur %{uid} a été supprimé.",
+          "title": "Supprimer ce capteur ?",
+          "unpaired": "Non associé à un compte."
+        },
+        "index": {
+          "awaiting_pairing": "En attente de liaison",
+          "back_to_profile": "Retour au profil",
+          "created": "Création",
+          "created_on": "Créé le %{date}",
+          "empty": "Aucun capteur en inventaire.",
+          "modal_load_error": "Impossible de charger cette boîte de dialogue. Réessayez.",
+          "modal_loading": "Chargement…",
+          "paired": "Assigné",
+          "qr_code_aria": "Afficher le code QR",
+          "stats_available_label": "Disponibles",
+          "stats_total_label": "Total",
+          "title": "Gestion des capteurs",
+          "unpaired": "Disponible",
+          "user_column": "Utilisateur"
+        },
+        "new": {
+          "back_aria": "Retour à la liste des capteurs",
+          "cancel": "Retour",
+          "heading": "Enregistrer un nouveau capteur",
+          "hint": "Cette action enregistre un capteur non associé en base de données et génère un identifiant (UID) et une clé secrète. Vous en aurez besoin pour flasher le micrologiciel, l’étiqueter ou l’installer avant sa mise en service.",
+          "hint_footer": "Saisissez-les lorsque l’appareil ou l’étape d’onboarding le demande (portail captif Wi‑Fi, appli mobile, etc.). L’utilisateur final pourra lier la plante depuis l’app après la première connexion.",
+          "submit": "Créer le capteur",
+          "title": "Nouveau capteur"
+        },
+        "qr_sticker": {
+          "back": "Retour",
+          "download": "Télécharger l’étiquette (PNG)",
+          "download_png": "Télécharger le PNG",
+          "export_hint_line1": "Exporté en PNG 300 dpi pour ruban 12×40 mm.",
+          "export_hint_line2": "Désactivez le lissage dans votre application Niimbot.",
+          "grid_identifier": "Identifiant",
+          "grid_pairing_code": "Code d’appairage",
+          "hint": "Le téléchargement reprend cet aperçu (QR en pastilles vertes, UID et code sur une étiquette). PNG pour ruban thermique étroit; gardez la marge de silence. Si l’export stylé est indisponible, un rendu noir et blanc est proposé.",
+          "modal_subtitle": "Prêt pour impression thermique",
+          "modal_title": "Étiquette de capteur",
+          "sticker_pairing_line": "Code d’appairage - %{code}",
+          "sticker_pairing_svg_label": "Code d’appairage",
+          "title": "QR pour étiquette",
+          "uid_label": "UID : %{uid}"
+        }
+      }
+    },
     "app": {
       "title": "Green Pulse"
     },
     "controllers": {
+      "admin": {
+        "unauthorized": "Vous n'êtes pas autorisé à accéder à cette page."
+      },
       "passwords": {
         "invalid_reset_link": "Lien de réinitialisation invalide ou expiré.",
         "password_reset_done": "Votre mot de passe a été réinitialisé.",
@@ -82888,6 +83038,17 @@
         }
       }
     },
+    "notifications": {
+      "moisture_low": {
+        "message": "Votre plante %{plant_name} a besoin d'eau."
+      },
+      "sensor_back": {
+        "message": "Votre capteur %{sensor_uid} est de nouveau connecté."
+      },
+      "sensor_connected": {
+        "message": "Votre capteur %{sensor_uid} est maintenant connecté et prêt."
+      }
+    },
     "number": {
       "currency": {
         "format": {
@@ -82974,6 +83135,9 @@
       },
       "profile": {
         "account_heading": "Compte",
+        "admin_create_sensor": "Créer un capteur",
+        "admin_heading": "Admin",
+        "admin_see_sensors": "Voir les capteurs",
         "edit_profile": "Modifier le profil",
         "help_support": "Aide et support",
         "language": "Langue",
@@ -82988,6 +83152,7 @@
         "notifications_switch_aria": "Notifications push",
         "preferences_heading": "Préférences",
         "push_notifications": "Notifications push",
+        "push_notifications_updated_notice": "Préférences de notifications enregistrées.",
         "security_pin": "Sécurité et PIN",
         "sign_out": "Déconnexion",
         "sign_out_modal_cancel": "Annuler",
@@ -83227,6 +83392,7 @@
     "time": {
       "am": "am",
       "formats": {
+        "admin_sensor": "%d/%m/%y",
         "default": "%d %B %Y %Hh %Mmin %Ss",
         "long": "%A %d %B %Y %Hh%M",
         "short": "%d %b %Hh%M"

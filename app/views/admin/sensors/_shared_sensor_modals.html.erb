@@ -1,0 +1,17 @@
+<div
+  class="pointer-events-none absolute inset-0 z-40 min-h-0 overflow-x-hidden [&_dialog]:pointer-events-auto [&_el-dialog]:pointer-events-auto"
+>
+  <%= render Components::TailwindModal.new(
+        id: 'admin-shared-qr-sticker',
+        labelledby: 'admin-shared-qr-sticker-title',
+        panel_max_width: 'max-w-[22rem]') do %>
+    <div class="min-h-[10rem]" data-admin-sensors-modals-target="qrBody"></div>
+  <% end %>
+
+  <%= render Components::TailwindModal.new(
+        id: 'admin-shared-destroy-sensor',
+        labelledby: 'admin-shared-destroy-sensor-title',
+        panel_max_width: 'max-w-[22rem]') do %>
+    <div class="min-h-[8rem]" data-admin-sensors-modals-target="destroyBody"></div>
+  <% end %>
+</div>

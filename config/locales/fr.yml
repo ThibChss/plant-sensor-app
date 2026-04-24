@@ -219,6 +219,8 @@ fr:
         created_on: Créé le %{date}
         awaiting_pairing: En attente de liaison
         qr_code_aria: Afficher le code QR
+        modal_loading: Chargement…
+        modal_load_error: Impossible de charger cette boîte de dialogue. Réessayez.
       new:
         title: Nouveau capteur
         back_aria: Retour à la liste des capteurs
@@ -240,6 +242,21 @@ fr:
         confirm: Supprimer
         cancel: Annuler
         button_aria: Retirer le capteur
+      qr_sticker:
+        title: QR pour étiquette
+        uid_label: 'UID : %{uid}'
+        sticker_pairing_line: 'Code d’appairage - %{code}'
+        hint: Le téléchargement reprend cet aperçu (QR en pastilles vertes, UID et code sur une étiquette). PNG pour ruban thermique étroit; gardez la marge de silence. Si l’export stylé est indisponible, un rendu noir et blanc est proposé.
+        download: Télécharger l’étiquette (PNG)
+        modal_title: Étiquette de capteur
+        modal_subtitle: Prêt pour impression thermique
+        grid_identifier: Identifiant
+        grid_pairing_code: Code d’appairage
+        export_hint_line1: 'Exporté en PNG 300 dpi pour ruban 12×40 mm.'
+        export_hint_line2: Désactivez le lissage dans votre application Niimbot.
+        download_png: Télécharger le PNG
+        back: Retour
+        sticker_pairing_svg_label: Code d’appairage
   sessions:
     new:
       title: Connexion

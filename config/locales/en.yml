@@ -219,6 +219,8 @@ en:
         created_on: Created on %{date}
         awaiting_pairing: Awaiting pairing
         qr_code_aria: Show QR code
+        modal_loading: Loading…
+        modal_load_error: We couldn’t load this dialog. Please try again.
       new:
         title: New sensor
         back_aria: Back to sensor list
@@ -240,6 +242,21 @@ en:
         confirm: Delete
         cancel: Cancel
         button_aria: Remove sensor
+      qr_sticker:
+        title: Label QR
+        uid_label: 'UID: %{uid}'
+        sticker_pairing_line: 'Pairing code - %{code}'
+        hint: Download matches this preview (green dot QR, UID, and pairing on one label). PNG for narrow thermal tape; keep the full quiet zone for reliable scans. If the styled export is unavailable, a black-and-white thermal layout is used instead.
+        download: Download sticker (PNG)
+        modal_title: Sensor label
+        modal_subtitle: Ready for thermal printing
+        grid_identifier: Identifier
+        grid_pairing_code: Pairing code
+        export_hint_line1: 'Exported as PNG at 300 dpi for 12×40 mm tape.'
+        export_hint_line2: 'Disable smoothing in your Niimbot app.'
+        download_png: Download PNG
+        back: Back
+        sticker_pairing_svg_label: Pairing code
   sessions:
     new:
       title: Sign in
