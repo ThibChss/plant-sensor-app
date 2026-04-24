@@ -15,8 +15,6 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
 
     let(:base_body) do
       {
-        sensor_uid: sensor.uid,
-        secret_key: sensor.secret_key,
         data: {
           moisture_level_raw: 2675,
           uptime_seconds: 2000
@@ -26,10 +24,11 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
 
     let(:body) { base_body }
 
-    def patch_measurement
+    def patch_measurement(uid: sensor.uid, secret_key: sensor.secret_key)
       patch api_v1_measurements_path, params: body.to_json, headers: {
         'CONTENT_TYPE' => 'application/json',
-        'ACCEPT' => 'application/json'
+        'ACCEPT' => 'application/json',
+        'Authorization' => ActionController::HttpAuthentication::Basic.encode_credentials(uid, secret_key)
       }
     end
 
@@ -48,7 +47,7 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
       end
 
       context 'with only moisture data payload' do
-        let(:body) { base_body.merge(data: { moisture_level_raw: 1515 }) }
+        let(:body) { { data: { moisture_level_raw: 1515 } } }
 
         it 'returns unprocessable entity with the error message' do
           patch_measurement
@@ -60,10 +59,8 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
     end
 
     context 'with an unknown or wrong sensor uid' do
-      let(:body) { base_body.merge(sensor_uid: 'GP-XXXXX-XXXXX') }
-
       it 'returns unauthorized' do
-        patch_measurement
+        patch_measurement(uid: 'GP-XXXXX-XXXXX')
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to eq('error' => 'Access denied: Invalid UID or Secret Key')
@@ -71,18 +68,27 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
     end
 
     context 'with an unknown or wrong secret key' do
-      let(:body) { base_body.merge(secret_key: 'gpm_sk__wrong') }
-
       it 'returns unauthorized' do
-        patch_measurement
+        patch_measurement(secret_key: 'gpm_sk__wrong')
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to eq('error' => 'Access denied: Invalid UID or Secret Key')
       end
     end
 
+    context 'without an Authorization header' do
+      it 'returns unauthorized' do
+        patch api_v1_measurements_path, params: base_body.to_json, headers: {
+          'CONTENT_TYPE' => 'application/json',
+          'ACCEPT' => 'application/json'
+        }
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
     context 'without a data payload' do
-      let(:body) { base_body.merge(data: nil) }
+      let(:body) { {} }
 
       it 'does not save and responds with a client error' do
         expect do
@@ -102,7 +108,7 @@ RSpec.describe 'Api::V1::Measurements', type: :request do
         patch_measurement
 
         expect(response).to have_http_status(:unprocessable_content)
-        expect(response.parsed_body['error']).to include('Internal error:')
+        expect(response.parsed_body['error']).to include('[MeasurementProcessor] Unable to process measurement data:')
       end
     end
   end

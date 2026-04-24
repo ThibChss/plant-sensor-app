@@ -33,6 +33,7 @@
 #
 class Sensor < ApplicationRecord
   include Broadcaster::Sensor
+  include Encryptor
 
   DEFAULT_MOISTURE_THRESHOLD = 25
 
@@ -119,12 +120,16 @@ class Sensor < ApplicationRecord
 
   def qr_code
     RQRCode::QRCode.new(
-      Rails.application.routes.url_helpers.new_sensors_setup_url(uid:, secret_key:),
+      Rails.application.routes.url_helpers.new_sensors_setup_url(token: encrypted_token),
       level: :m
     )
   end
 
   private
+
+  def encrypted_token
+    self.class.generate_encrypted_token(uid:, secret_key:, purpose: :sensor_setup)
+  end
 
   def generate_keys
     generate_secret_key

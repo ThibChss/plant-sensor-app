@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Api
   module V1
-    class MeasurementsController < ActionController::API
+    class MeasurementsController < BaseController
       rate_limit to: 60, within: 1.minute, name: 'api-v1-measurements',
                  with: -> { render json: { error: 'Rate limit exceeded' }, status: :too_many_requests }
 
@@ -9,10 +11,6 @@ module Api
       end
 
       private
-
-      def sensor
-        @sensor ||= Sensor.find_by(uid: params.require(:sensor_uid), secret_key: params.require(:secret_key))
-      end
 
       def measurement_params
         params.require(:data).permit(:moisture_level_raw, :uptime_seconds)

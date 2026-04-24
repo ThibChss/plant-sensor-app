@@ -8,29 +8,22 @@ RSpec.describe 'Api::V1::Connection', type: :request do
     let(:body) { base_body }
 
     let(:base_body) do
-      {
-        connection: {
-          sensor_uid: sensor.uid,
-          secret_key: sensor.secret_key,
-          paired: true
-        }
-      }
+      { connection: { paired: true } }
     end
 
-    def patch_connection
+    def patch_connection(uid: sensor.uid, secret_key: sensor.secret_key)
       patch api_v1_connection_path, params: body.to_json, headers: {
         'CONTENT_TYPE' => 'application/json',
-        'ACCEPT' => 'application/json'
+        'ACCEPT' => 'application/json',
+        'Authorization' => ActionController::HttpAuthentication::Basic.encode_credentials(uid, secret_key)
       }
     end
 
     before { allow(Notifications::Deliverer).to receive(:notify!) }
 
     context 'with an unknown sensor uid' do
-      let(:body) { base_body.deep_merge(connection: { sensor_uid: 'GP-XXXXX-XXXXX' }) }
-
       it 'returns unauthorized and does not notify' do
-        patch_connection
+        patch_connection(uid: 'GP-XXXXX-XXXXX')
 
         expect(response).to have_http_status(:unauthorized)
         expect(Notifications::Deliverer).not_to have_received(:notify!)
@@ -38,10 +31,8 @@ RSpec.describe 'Api::V1::Connection', type: :request do
     end
 
     context 'with a wrong secret key' do
-      let(:body) { base_body.deep_merge(connection: { secret_key: 'gpm_sk__wrong' }) }
-
       it 'returns unauthorized and does not notify' do
-        patch_connection
+        patch_connection(secret_key: 'gpm_sk__wrong')
 
         expect(response).to have_http_status(:unauthorized)
         expect(Notifications::Deliverer).not_to have_received(:notify!)
@@ -49,7 +40,7 @@ RSpec.describe 'Api::V1::Connection', type: :request do
     end
 
     context 'when paired is false' do
-      let(:body) { base_body.deep_merge(connection: { paired: false }) }
+      let(:body) { { connection: { paired: false } } }
 
       it 'returns ok without notifying' do
         patch_connection

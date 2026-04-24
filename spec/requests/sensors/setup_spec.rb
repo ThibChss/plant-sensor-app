@@ -5,6 +5,10 @@ RSpec.describe 'Sensors::Setup', type: :request do
 
   let_it_be(:unclaimed_uid) { 'GP-SETUP-UNCLM' }
 
+  def encrypted_token(sensor)
+    Sensor.generate_encrypted_token(uid: sensor.uid, secret_key: sensor.secret_key, purpose: :sensor_setup)
+  end
+
   describe 'GET /sensors/setup/new' do
     context 'when not signed in' do
       with_user_signed_out
@@ -28,9 +32,14 @@ RSpec.describe 'Sensors::Setup', type: :request do
       context 'when accessing the setup from a QR code' do
         context 'when the sensor is unclaimed' do
           let(:unclaimed_sensor) { create(:sensor, :with_valid_keys, user: nil, plant: nil, uid: unclaimed_uid) }
+          let(:token) { encrypted_token(unclaimed_sensor) }
 
-          it 'returns success and renders the setup page' do
-            get new_sensors_setup_path, params: { uid: unclaimed_sensor.uid, secret_key: unclaimed_sensor.secret_key }
+          it 'redirects to the clean setup URL and renders the setup page' do
+            get new_sensors_setup_path, params: { token: }
+
+            expect(response).to redirect_to(new_sensors_setup_path)
+
+            follow_redirect!
 
             expect(response).to have_http_status(:ok)
             expect(flash.now[:alert]).to be_nil
@@ -39,18 +48,19 @@ RSpec.describe 'Sensors::Setup', type: :request do
 
         context 'when the sensor is claimed' do
           let(:sensor) { create(:sensor, :with_valid_keys, user:, plant: create(:plant)) }
+          let(:token) { encrypted_token(sensor) }
 
           it 'renders the setup page with an alert' do
-            get new_sensors_setup_path, params: { uid: sensor.uid, secret_key: sensor.secret_key }
+            get new_sensors_setup_path, params: { token: }
 
             expect(response).to have_http_status(:ok)
             expect(flash.now[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found_or_paired'))
           end
         end
 
-        context 'when the sensor does not exist' do
+        context 'when the token is invalid' do
           it 'renders the setup page with an alert' do
-            get new_sensors_setup_path, params: { uid: 'GP-NOTEX-ISTNG', secret_key: '1234567890' }
+            get new_sensors_setup_path, params: { token: 'invalid_token' }
 
             expect(response).to have_http_status(:ok)
             expect(flash.now[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found_or_paired'))
@@ -152,45 +162,54 @@ RSpec.describe 'Sensors::Setup', type: :request do
         create(:sensor, :with_valid_keys, user:, plant: nil, uid: unclaimed_uid)
       end
 
-      it 'claims the sensor, assigns the plant, and redirects home with notice' do
-        expect do
+      context 'with a valid setup session' do
+        let(:token) { encrypted_token(unclaimed_sensor) }
+
+        before do
+          get new_sensors_setup_path, params: { token: }
+          follow_redirect!
+        end
+
+        it 'claims the sensor, assigns the plant, and redirects home with notice' do
+          expect do
+            post(sensors_setup_path, params:)
+          end.to change { unclaimed_sensor.reload.plant_id }.from(nil).to(plant.id)
+
+          expect(response).to redirect_to(root_path)
+
+          follow_redirect!
+
+          expect(flash[:notice]).to eq(I18n.t('controllers.sensors.setup.successful'))
+          expect(unclaimed_sensor.reload.nickname).to eq('Balcony sensor')
+          expect(unclaimed_sensor.moisture_threshold).to eq(30)
+        end
+
+        it 'redirects to setup with alert when the plant does not exist' do
+          post sensors_setup_path, params: {
+            sensor: params[:sensor].merge(plant_id: SecureRandom.uuid)
+          }
+
+          expect(response).to redirect_to(new_sensors_setup_path)
+          expect(flash[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found'))
+        end
+
+        it 're-renders new with unprocessable content when the location does not match the environment' do
+          post sensors_setup_path, params: {
+            sensor: params[:sensor].merge(environment: 'indoor', location: 'garden')
+          }
+
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(response.body).to include('sensor-setup-root')
+        end
+      end
+
+      context 'without a valid setup session' do
+        it 'redirects to setup with alert' do
           post(sensors_setup_path, params:)
-        end.to change { unclaimed_sensor.reload.plant_id }.from(nil).to(plant.id)
 
-        expect(response).to redirect_to(root_path)
-
-        follow_redirect!
-
-        expect(flash[:notice]).to eq(I18n.t('controllers.sensors.setup.successful'))
-        expect(unclaimed_sensor.reload.nickname).to eq('Balcony sensor')
-        expect(unclaimed_sensor.moisture_threshold).to eq(30)
-      end
-
-      it 'redirects to setup with alert when the sensor uid does not match an unclaimed sensor' do
-        post(sensors_setup_path, params: {
-               sensor: params[:sensor].merge(uid: 'GP-NOTEX-ISTNG')
-             })
-
-        expect(response).to redirect_to(new_sensors_setup_path)
-        expect(flash[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found'))
-      end
-
-      it 'redirects to setup with alert when the plant does not exist' do
-        post sensors_setup_path, params: {
-          sensor: params[:sensor].merge(plant_id: SecureRandom.uuid)
-        }
-
-        expect(response).to redirect_to(new_sensors_setup_path)
-        expect(flash[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found'))
-      end
-
-      it 're-renders new with unprocessable content when the location does not match the environment' do
-        post sensors_setup_path, params: {
-          sensor: params[:sensor].merge(environment: 'indoor', location: 'garden')
-        }
-
-        expect(response).to have_http_status(:unprocessable_content)
-        expect(response.body).to include('sensor-setup-root')
+          expect(response).to redirect_to(new_sensors_setup_path)
+          expect(flash[:alert]).to eq(I18n.t('controllers.sensors.setup.sensor_not_found'))
+        end
       end
     end
   end

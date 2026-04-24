@@ -4,19 +4,13 @@ module Sensors
                by: -> { Current.user.id }
 
     def new
-      if params[:uid].present? && params[:secret_key].present?
-        @sensor = Sensor.find_by(uid: params[:uid], secret_key: params[:secret_key])
+      if params[:token].present?
+        handle_token_param
 
-        if @sensor&.pairable?
-          @sensor
-        else
-          toast_now :alert, I18n.t('controllers.sensors.setup.sensor_not_found_or_paired')
-
-          @sensor = Sensor.new
-        end
-      else
-        @sensor = Sensor.new
+        return if performed?
       end
+
+      @sensor = session_sensor || Sensor.new
     end
 
     def validate_uid
@@ -27,9 +21,9 @@ module Sensors
 
     def create
       ActiveRecord::Base.transaction do
-        raise ActiveRecord::Rollback unless plant && sensor.update(
-          sensor_params.except(:uid, :secret_key)
-        )
+        raise ActiveRecord::Rollback unless plant && sensor.update(sensor_params)
+
+        session.delete(:setup_sensor_id)
 
         redirect_to root_path, notice: I18n.t('controllers.sensors.setup.successful')
         return
@@ -42,23 +36,47 @@ module Sensors
 
     private
 
+    def handle_token_param
+      if token_sensor&.pairable?
+        session[:setup_sensor_id] = token_sensor.id
+
+        redirect_to new_sensors_setup_path
+      else
+        toast_now :alert, I18n.t('controllers.sensors.setup.sensor_not_found_or_paired')
+      end
+    end
+
     def plant
       @plant ||= Plant.find(sensor_params[:plant_id])
     end
 
     def sensor
       @sensor ||=
-        Sensor.find_by!(**sensor_params.slice(:uid, :secret_key).compact_blank, user_id: Current.user.id, plant_id: nil)
+        Sensor.find_by!(id: session[:setup_sensor_id], user_id: Current.user.id, plant_id: nil)
     end
 
     def sensor_params
       params.require(:sensor)
-            .permit(:uid, :secret_key, :plant_id, :nickname, :environment, :location, :moisture_threshold)
+            .permit(:plant_id, :nickname, :environment, :location, :moisture_threshold)
             .with_defaults(user: Current.user)
     end
 
     def validation
       @validation ||= Sensors::UidValidator.call(params.require(:uid).to_s.strip)
+    end
+
+    def decrypted_token
+      @decrypted_token ||=
+        Sensor.decrypt_encrypted_token(params[:token], purpose: :sensor_setup) || {}
+    end
+
+    def token_sensor
+      @token_sensor ||=
+        Sensor.find_by(uid: decrypted_token['uid'], secret_key: decrypted_token['secret_key'])
+    end
+
+    def session_sensor
+      Sensor.find_by(id: session[:setup_sensor_id]) if session[:setup_sensor_id]
     end
   end
 end

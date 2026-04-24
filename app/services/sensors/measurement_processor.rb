@@ -21,7 +21,7 @@ module Sensors
     end
 
     def call
-      validate_data?
+      validate_data!
 
       if @sensor
         update_sensor_current_data
@@ -65,12 +65,16 @@ module Sensors
         success: Response.new(:ok, { message: 'Data saved successfully' }),
         unauthorized: Response.new(:unauthorized, { error: 'Access denied: Invalid UID or Secret Key' }),
         unprocessable_content: lambda { |error|
-          Response.new(:unprocessable_content, { error: "Internal error: #{error.message}" })
+          Rails.logger.error("[MeasurementProcessor] #{error.class}: #{error.message}")
+
+          Response.new(:unprocessable_content, {
+                         error: "[MeasurementProcessor] Unable to process measurement data: #{error.message}"
+                       })
         }
       }
     end
 
-    def validate_data?
+    def validate_data!
       return if REQUIRED_DATA.all? { @data.key?(it) }
 
       raise MeasurementDataError, 'Missing required data: moisture_level_raw and uptime_seconds'

@@ -46,7 +46,7 @@ RSpec.describe Sensors::MeasurementProcessor do
       it 'returns unprocessable_content' do
         expect(service.status).to eq(:unprocessable_content)
         expect(service.message[:error]).to eq(
-          'Internal error: Missing required data: moisture_level_raw and uptime_seconds'
+          '[MeasurementProcessor] Unable to process measurement data: Missing required data: moisture_level_raw and uptime_seconds'
         )
       end
     end
@@ -56,7 +56,9 @@ RSpec.describe Sensors::MeasurementProcessor do
 
       it 'returns unprocessable_content' do
         expect(service.status).to eq(:unprocessable_content)
-        expect(service.message[:error]).to include('Missing required data')
+        expect(service.message[:error]).to eq(
+          '[MeasurementProcessor] Unable to process measurement data: Missing required data: moisture_level_raw and uptime_seconds'
+        )
       end
     end
 
@@ -274,7 +276,9 @@ RSpec.describe Sensors::MeasurementProcessor do
 
       it 'returns unprocessable_content' do
         expect(service.status).to eq(:unprocessable_content)
-        expect(service.message[:error]).to start_with('Internal error:')
+        expect(service.message[:error]).to include(
+          '[MeasurementProcessor] Unable to process measurement data:'
+        )
       end
     end
   end

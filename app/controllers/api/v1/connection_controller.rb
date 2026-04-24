@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Api
   module V1
-    class ConnectionController < ActionController::API
+    class ConnectionController < BaseController
       rate_limit to: 30, within: 1.minute, name: 'api-v1-connection',
                  with: -> { render json: { error: 'Rate limit exceeded' }, status: :too_many_requests }
 
@@ -22,12 +24,8 @@ module Api
 
       private
 
-      def sensor
-        @sensor ||= Sensor.find_by(uid: connection_params[:sensor_uid], secret_key: connection_params[:secret_key])
-      end
-
       def paired?
-        ActiveModel::Type::Boolean.new.cast(connection_params[:paired])
+        ActiveModel::Type::Boolean.new.cast(params.dig(:connection, :paired))
       end
 
       def notification_type
@@ -40,10 +38,6 @@ module Api
           .where(user_id: sensor.user_id, notifiable: sensor)
           .where("data @> ?", { first_connection: true }.to_json)
           .none?
-      end
-
-      def connection_params
-        params.require(:connection).permit(:sensor_uid, :secret_key, :paired)
       end
     end
   end
