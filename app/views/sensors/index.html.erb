@@ -1,7 +1,4 @@
 <div class="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-pulse-mist">
-
-  <%= turbo_stream_from Current.user, :sensors %>
-
   <header class="pt-14 px-6 pb-6 flex justify-between items-center">
     <div class="flex flex-col">
         <span class="text-pulse-forest text-[9px] font-bold uppercase tracking-[0.2em] font-merriweather italic"><%= t('.collection_kicker') %></span>
@@ -27,7 +24,7 @@
         <div id="sensors_list" class="space-y-4">
           <% if @sensors.any? %>
             <% @sensors.each do |sensor| %>
-              <%= render "sensors/sensor_card", sensor: sensor %>
+              <%= render Components::SensorCard.new(sensor:) %>
             <% end %>
           <% else %>
             <div class="bg-white/40 border border-dashed border-pulse-sage rounded-[2.5rem] p-10 text-center">

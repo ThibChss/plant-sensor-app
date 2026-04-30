@@ -32,8 +32,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Sensor < ApplicationRecord
-  include Broadcaster::Sensor
   include Encryptor
+
+  broadcasts_refreshes
 
   DEFAULT_MOISTURE_THRESHOLD = 25
 

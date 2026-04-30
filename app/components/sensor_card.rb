@@ -2,13 +2,17 @@
 
 module Components
   class SensorCard < Components::Base
+    include Phlex::Rails::Helpers::TurboStreamFrom
+
     def initialize(sensor:)
       @sensor = sensor
       @plant = sensor.plant
     end
 
     def view_template
-      a(href: sensor_path(@sensor), id: @sensor.dom_id, class: card_classes) do
+      turbo_stream_from @sensor
+
+      a(href: sensor_path(@sensor), class: card_classes) do
         cache [@sensor, @plant, I18n.locale], expires_in: 1.hour do
           image_section
           body_section

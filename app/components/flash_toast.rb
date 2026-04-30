@@ -4,6 +4,7 @@ module Components
   class FlashToast < Components::Base
     # :viewport — fixed to browser window (real mobile / full-screen)
     # :device_frame — absolute to the layout’s relative phone chrome (desktop preview)
+
     def initialize(flash:, position: :viewport)
       @flash = flash
       @position = position.to_s.inquiry
