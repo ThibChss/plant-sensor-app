@@ -38,15 +38,6 @@ class Sensor < ApplicationRecord
 
   DEFAULT_MOISTURE_THRESHOLD = 25
 
-  CURRENT_DATA_KEYS = %i[
-    moisture_level_percent
-    moisture_level_raw
-    temperature
-    battery_level_raw
-    battery_level_percent
-    uptime_seconds
-  ].freeze
-
   INDOOR_LOCATIONS = %i[
     living_room
     kitchen
@@ -74,8 +65,6 @@ class Sensor < ApplicationRecord
     /\A\d{8}\z/
   ].freeze
 
-  private_constant :CURRENT_DATA_KEYS
-
   belongs_to :user, optional: true
   belongs_to :plant, optional: true
 
@@ -88,7 +77,7 @@ class Sensor < ApplicationRecord
   encrypts :secret_key, deterministic: true
   attr_readonly :secret_key, :uid
 
-  store_accessor :current_data, *CURRENT_DATA_KEYS
+  store_accessor :current_data, *SensorReading.current_data_keys
 
   validates :uid, :secret_key, presence: true, uniqueness: { case_sensitive: false }, if: -> { new_record? }
   validates :secret_key, format: { with: SECRET_KEY_REGEXP }, if: -> { new_record? }

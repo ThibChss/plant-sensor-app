@@ -26,4 +26,17 @@
 #
 class SensorReading < ApplicationRecord
   belongs_to :sensor
+
+  EXCLUDED_COLUMNS = %w[
+    id
+    sensor_id
+    created_at
+    updated_at
+  ].freeze
+
+  private_constant :EXCLUDED_COLUMNS
+
+  def self.current_data_keys
+    column_names.excluding(*EXCLUDED_COLUMNS)
+  end
 end
