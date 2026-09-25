@@ -21,6 +21,9 @@ module Admin
 
     def qr_sticker
       svg = render_to_string(Components::SensorSticker.new(sensor: @sensor), layout: false)
+      # TODO: Find if there is a better fix => Used to work but specs crash if there is not this line
+      # libvips blocks SVG load by default; sticker SVG is app-generated, not user-uploaded.
+      Vips.block('VipsForeignLoadSvg', false)
       png = Vips::Image.svgload_buffer(svg.b, scale: 4).write_to_buffer('.png')
 
       send_data png,
