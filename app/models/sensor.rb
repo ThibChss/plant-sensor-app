@@ -129,11 +129,11 @@ class Sensor < ApplicationRecord
   end
 
   def generate_secret_key
-    self.secret_key = "gpm_sk__#{SecureRandom.base58(36)}" if secret_key.blank?
+    self.secret_key = "gpm_sk__#{random_code(n: 36)}" if secret_key.blank?
   end
 
   def generate_uid
-    self.uid = "GP-#{SecureRandom.base58(5)}-#{SecureRandom.base58(5)}".upcase if uid.blank?
+    self.uid = "GP-#{random_code}-#{random_code}".upcase if uid.blank?
   end
 
   def generate_pairing_code
@@ -153,5 +153,9 @@ class Sensor < ApplicationRecord
       **current_data,
       watering_event: saved_change_to_last_watered_at?
     )
+  end
+
+  def random_code(n: 5)
+    SecureRandom.base58(n)
   end
 end

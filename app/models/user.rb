@@ -22,6 +22,8 @@
 class User < ApplicationRecord
   has_secure_password
 
+  LAST_SEEN_THRESHOLD = 2.minutes.freeze
+
   has_many :sessions, dependent: :destroy
   has_many :sensors, dependent: :destroy
   has_many :plants, through: :sensors
@@ -49,6 +51,6 @@ class User < ApplicationRecord
   end
 
   def active?
-    last_seen_at > 2.minutes.ago
+    last_seen_at > LAST_SEEN_THRESHOLD.ago
   end
 end
