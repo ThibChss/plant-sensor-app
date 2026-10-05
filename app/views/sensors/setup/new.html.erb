@@ -41,7 +41,7 @@
        data-sensor-setup-threshold-location-labels-value="<%= h(sensor_location_labels.to_json) %>"
        data-sensor-setup-plant-search-sensor-setup-wizard-outlet="#sensor-setup-root">
     <main class="min-h-0 flex-1 overflow-y-auto overscroll-y-contain no-scrollbar pb-5">
-      <%= form_with model: @sensor, url: sensors_setup_path,
+      <%= form_with model: @sensor, url: sensors_setup_path, method: :post,
                     data: {
                       sensor_setup_wizard_target: 'form',
                       action: 'submit->sensor-setup-wizard#clearWizardOnSubmit'

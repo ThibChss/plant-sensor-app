@@ -13,10 +13,8 @@ module Components
       turbo_stream_from @sensor
 
       a(href: sensor_path(@sensor), class: card_classes) do
-        cache [@sensor, @plant, I18n.locale], expires_in: 1.hour do
-          image_section
-          body_section
-        end
+        image_section
+        body_section
 
         sync_footer
       end
