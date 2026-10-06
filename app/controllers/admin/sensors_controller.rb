@@ -1,4 +1,3 @@
-require 'vips'
 module Admin
   class SensorsController < Admin::BaseController
     before_action :set_sensor, only: %i[destroy qr_sticker qr_sticker_preview destroy_confirmation]
@@ -20,6 +19,8 @@ module Admin
     end
 
     def qr_sticker
+      require 'vips'
+
       svg = render_to_string(Components::SensorSticker.new(sensor: @sensor), layout: false)
       # TODO: Find if there is a better fix => Used to work but specs crash if there is not this line
       # libvips blocks SVG load by default; sticker SVG is app-generated, not user-uploaded.

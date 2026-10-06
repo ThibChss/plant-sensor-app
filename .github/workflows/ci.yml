@@ -38,6 +38,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install libvips
+        run: sudo apt-get update && sudo apt-get install -y libvips42
+
       # Caches ~/.bundle and vendor/bundle; cache key includes Gemfile.lock so new gems install only when the lockfile changes.
       - uses: ruby/setup-ruby@v1
         with:
