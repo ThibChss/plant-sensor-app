@@ -86,7 +86,6 @@
       ],
       "fr": [
         "Chêne vert",
-        "Chêne vert",
         "Chêne à feuilles rondes"
       ]
     },
@@ -200,9 +199,7 @@
         "Grande ortie",
         "Ortie",
         "Ortie dioïque",
-        "Grande ortie, ortie dioïque",
-        "Ortie dioïque",
-        "Grande ortie"
+        "Grande ortie, ortie dioïque"
       ]
     },
     "trefle_id": "109527"
@@ -309,9 +306,7 @@
         "Dactyle vulgaire",
         "Dactyle",
         "Chiendent à bossettes",
-        "Pied-de-poule",
-        "Dactyle aggloméré",
-        "Dactyle aggloméré"
+        "Pied-de-poule"
       ]
     },
     "trefle_id": "227322"
@@ -434,9 +429,7 @@
         "Plantain étroit",
         "Herbe aux cinq coutures",
         "Plantain intermédiaire",
-        "Plantain très élevé",
-        "Plantain lancéolé",
-        "Plantain lancéolé"
+        "Plantain très élevé"
       ]
     },
     "trefle_id": "128917"
@@ -452,6 +445,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 20000.0,
+        "min": 3700.0
       },
       "ph_maximum": 7.5,
       "ph_minimum": 5.5,
@@ -474,6 +471,7 @@
         "august",
         "september"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 4,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -485,14 +483,8 @@
         "march"
       ],
       "soil_nutriments": 4,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 60
-      },
-      "min_soil_moisture": {
-        "indoor": 30,
-        "outdoor": 20
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 25
       },
@@ -506,6 +498,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 30.0,
+      "minimum_temperature": 10.0,
       "atmospheric_humidity": 5,
       "maximum_precipitation": {
         "mm": 1000
@@ -515,10 +509,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 3,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/d788a757cd8bac8c3b1378a970c078a7a937a174",
-    "max_temp": 35.0,
-    "min_temp": -40.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Milfoil",
     "scientific_name": "Achillea millefolium",
     "translated_name": {
@@ -567,9 +561,7 @@
         "Sourcils-de-Vénus",
         "Achillée des monts Sudètes",
         "Herbe au charpentier",
-        "Achillée tomenteuse",
-        "Achillée millefeuille",
-        "Achillée millefeuille"
+        "Achillée tomenteuse"
       ]
     },
     "trefle_id": "11974"
@@ -585,6 +577,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 35000.0,
+        "min": 1500.0
       },
       "ph_maximum": 7.5,
       "ph_minimum": 5.5,
@@ -614,6 +610,7 @@
         "september",
         "october"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 2,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -624,14 +621,8 @@
         "march"
       ],
       "soil_nutriments": 5,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 70
-      },
-      "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 50
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 15
       },
@@ -645,6 +636,8 @@
           "min_days": 3
         }
       },
+      "maximum_temperature": 37.0,
+      "minimum_temperature": 5.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1200
@@ -654,10 +647,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/170ca6a6020d9e9f95f86112577aeabcb23f5b96",
-    "max_temp": 32.0,
-    "min_temp": -25.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Dutch clover",
     "scientific_name": "Trifolium repens",
     "translated_name": {
@@ -680,9 +673,7 @@
         "Trèfle rampant",
         "Trefle Blanc",
         "Trèfle de Hollande",
-        "Coucou",
-        "Trèfle blanc",
-        "Trèfle blanc"
+        "Coucou"
       ]
     },
     "trefle_id": "51676"
@@ -796,9 +787,7 @@
         "Houlque laineuse",
         "Houque laineuse",
         "Blanchard",
-        "Petite Fenasse",
-        "Houque laineuse",
-        "Houque laineuse"
+        "Petite Fenasse"
       ]
     },
     "trefle_id": "230410"
@@ -814,6 +803,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 6000.0,
+        "min": 1500.0
       },
       "ph_maximum": 7.5,
       "ph_minimum": 5.5,
@@ -846,6 +839,7 @@
         "september",
         "october"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 3,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -855,14 +849,8 @@
         "february"
       ],
       "soil_nutriments": 8,
-      "max_soil_moisture": {
-        "indoor": 90,
-        "outdoor": 100
-      },
-      "min_soil_moisture": {
-        "indoor": 60,
-        "outdoor": 70
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 15
       },
@@ -876,6 +864,8 @@
           "min_days": 3
         }
       },
+      "maximum_temperature": 32.0,
+      "minimum_temperature": 8.0,
       "atmospheric_humidity": 7,
       "maximum_precipitation": {
         "mm": 1500
@@ -885,10 +875,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 9,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/90746f2a4592ed4dbc6a166234f488654565605e",
-    "max_temp": 30.0,
-    "min_temp": -25.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Creeping buttercup",
     "scientific_name": "Ranunculus repens",
     "translated_name": {
@@ -898,9 +888,7 @@
       ],
       "fr": [
         "Renoncule rampante",
-        "Bassinet",
-        "Renoncule rampante",
-        "Renoncule rampante"
+        "Bassinet"
       ]
     },
     "trefle_id": "122095"
@@ -916,6 +904,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 50000.0,
+        "min": 3500.0
       },
       "ph_maximum": 8.0,
       "ph_minimum": 5.5,
@@ -939,6 +931,7 @@
         "august",
         "september"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 3,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -949,14 +942,8 @@
         "march"
       ],
       "soil_nutriments": 7,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 80
-      },
-      "min_soil_moisture": {
-        "indoor": 50,
-        "outdoor": 40
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 150
       },
@@ -970,6 +957,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 32.0,
+      "minimum_temperature": 5.0,
       "atmospheric_humidity": 7,
       "maximum_precipitation": {
         "mm": 1200
@@ -979,10 +968,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/0d16977470dfdcd37d495a5b33c2f343224ebe98",
-    "max_temp": 35.0,
-    "min_temp": -25.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Pedunculate oak",
     "scientific_name": "Quercus robur",
     "translated_name": {
@@ -1002,9 +991,7 @@
         "Chêne à grappes",
         "Chêne femelle",
         "Gravelin",
-        "Chêne rouvre",
-        "Chêne pédonculé",
-        "Chêne pédonculé"
+        "Chêne rouvre"
       ]
     },
     "trefle_id": "77134"
@@ -1099,9 +1086,7 @@
       ],
       "fr": [
         "Fétuque rouge",
-        "Fétuque traçante",
-        "Fétuque rouge",
-        "Fétuque rouge"
+        "Fétuque traçante"
       ]
     },
     "trefle_id": "229796"
@@ -1117,6 +1102,10 @@
       "toxicity": {
         "pets": false,
         "humans": false
+      },
+      "light_lux": {
+        "max": 60000.0,
+        "min": 3500.0
       },
       "ph_maximum": 8.0,
       "ph_minimum": 5.5,
@@ -1146,6 +1135,7 @@
         "september",
         "october"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 2,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -1156,14 +1146,8 @@
         "march"
       ],
       "soil_nutriments": 7,
-      "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": 70
-      },
-      "min_soil_moisture": {
-        "indoor": null,
-        "outdoor": 40
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 90
       },
@@ -1177,6 +1161,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 5.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1500
@@ -1186,10 +1172,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/84ef20b0276c3e0a6d32dd97a7b987b510feb961",
-    "max_temp": 30.0,
-    "min_temp": -25.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "European ash",
     "scientific_name": "Fraxinus excelsior",
     "translated_name": {
@@ -1204,9 +1190,7 @@
         "Frêne commun",
         "Frêne élevé",
         "Frêne",
-        "Frêne d'Europe",
-        "Frêne commun",
-        "Frêne commun"
+        "Frêne d'Europe"
       ]
     },
     "trefle_id": "221551"
@@ -1316,9 +1300,7 @@
         "Circe des champs",
         "Chardon des vignes",
         "Herbe aux varices",
-        "Sarette",
-        "Chardon des champs",
-        "Chardon des champs"
+        "Sarette"
       ]
     },
     "trefle_id": "1999"
@@ -1334,6 +1316,10 @@
       "toxicity": {
         "pets": false,
         "humans": false
+      },
+      "light_lux": {
+        "max": 35000.0,
+        "min": 1500.0
       },
       "ph_maximum": 7.5,
       "ph_minimum": 5.5,
@@ -1364,6 +1350,7 @@
         "september",
         "october"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 2,
       "days_to_harvest": 65,
       "dormancy_months": [
@@ -1374,14 +1361,8 @@
         "march"
       ],
       "soil_nutriments": 6,
-      "max_soil_moisture": {
-        "indoor": 80,
-        "outdoor": 75
-      },
-      "min_soil_moisture": {
-        "indoor": 50,
-        "outdoor": 40
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 60
       },
@@ -1395,6 +1376,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 37.0,
+      "minimum_temperature": 5.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1200
@@ -1404,10 +1387,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/3bb52539dcca8b6bf19b9bf752631def901ba64c",
-    "max_temp": 30.0,
-    "min_temp": -30.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Cowgrass clover",
     "scientific_name": "Trifolium pratense",
     "translated_name": {
@@ -1431,9 +1414,7 @@
         "Trèfle rouge",
         "Trèfle violet",
         "Trefle des pres",
-        "Trèfle commun",
-        "Trèfle des prés",
-        "Trèfle des prés"
+        "Trèfle commun"
       ]
     },
     "trefle_id": "51671"
@@ -1449,6 +1430,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 50000.0,
+        "min": 3700.0
       },
       "ph_maximum": 8.0,
       "ph_minimum": 5.5,
@@ -1472,6 +1457,7 @@
         "august",
         "september"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 2,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -1482,14 +1468,8 @@
         "march"
       ],
       "soil_nutriments": 7,
-      "max_soil_moisture": {
-        "indoor": null,
-        "outdoor": 70
-      },
-      "min_soil_moisture": {
-        "indoor": null,
-        "outdoor": 40
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 100
       },
@@ -1503,6 +1483,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 5.0,
       "atmospheric_humidity": 7,
       "maximum_precipitation": {
         "mm": 1000
@@ -1512,10 +1494,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/a733221df31a1ff99af03566841744f3b4c6cffe",
-    "max_temp": 35.0,
-    "min_temp": -25.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Beech",
     "scientific_name": "Fagus sylvatica",
     "translated_name": {
@@ -1532,9 +1514,7 @@
         "Hêtre",
         "Fayard",
         "Hêtre européen",
-        "Fouteau",
-        "Hêtre commun",
-        "Hêtre commun"
+        "Fouteau"
       ]
     },
     "trefle_id": "257554"
@@ -1550,6 +1530,10 @@
       "toxicity": {
         "pets": false,
         "humans": false
+      },
+      "light_lux": {
+        "max": 30000.0,
+        "min": 3500.0
       },
       "ph_maximum": 7.5,
       "ph_minimum": 4.5,
@@ -1575,6 +1559,7 @@
         "september",
         "october"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 3,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -1586,14 +1571,8 @@
         "april"
       ],
       "soil_nutriments": 5,
-      "max_soil_moisture": {
-        "indoor": 100,
-        "outdoor": 100
-      },
-      "min_soil_moisture": {
-        "indoor": 80,
-        "outdoor": 90
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 20
       },
@@ -1607,6 +1586,8 @@
           "min_days": 1
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 5.0,
       "atmospheric_humidity": 10,
       "maximum_precipitation": {
         "mm": 2000
@@ -1616,10 +1597,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 10,
+    "ideal_humidity": null,
     "image_url": "https://d2seqvvyy3b8p2.cloudfront.net/31545c7b5c65236a5d7f28ca040ee058.jpg",
-    "max_temp": 38.0,
-    "min_temp": -30.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Soft rush",
     "scientific_name": "Juncus effusus",
     "translated_name": {
@@ -1641,9 +1622,7 @@
         "Jonc à lier",
         "Jonc épars",
         "Jonc diffus",
-        "Jonc",
-        "Jonc épars",
-        "Jonc diffus"
+        "Jonc"
       ]
     },
     "trefle_id": "208842"
@@ -1659,6 +1638,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 6000.0,
+        "min": 1500.0
       },
       "ph_maximum": 7.5,
       "ph_minimum": 4.5,
@@ -1685,6 +1668,7 @@
         "august",
         "september"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 3,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -1695,14 +1679,8 @@
         "february"
       ],
       "soil_nutriments": 6,
-      "max_soil_moisture": {
-        "indoor": 90,
-        "outdoor": 90
-      },
-      "min_soil_moisture": {
-        "indoor": 60,
-        "outdoor": 60
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 15
       },
@@ -1716,6 +1694,8 @@
           "min_days": 3
         }
       },
+      "maximum_temperature": 32.0,
+      "minimum_temperature": 8.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1200
@@ -1725,10 +1705,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 8,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/43c58aa2ef3d5a11ac1dd83d9b465e639338a3da",
-    "max_temp": 30.0,
-    "min_temp": -30.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Meadow buttercup",
     "scientific_name": "Ranunculus acris",
     "translated_name": {
@@ -1752,9 +1732,7 @@
         "Bassinet",
         "Bouton-d'or",
         "Fleur de beurre",
-        "Pied-de-coq",
-        "Renoncule âcre",
-        "Renoncule âcre"
+        "Pied-de-coq"
       ]
     },
     "trefle_id": "121308"
@@ -1770,6 +1748,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 50000.0,
+        "min": 4000.0
       },
       "ph_maximum": 8.0,
       "ph_minimum": 6.0,
@@ -1794,6 +1776,7 @@
         "august",
         "september"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 2,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -1804,14 +1787,8 @@
         "march"
       ],
       "soil_nutriments": 6,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 70
-      },
-      "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 30
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 60
       },
@@ -1825,6 +1802,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 40.0,
+      "minimum_temperature": 10.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1500
@@ -1834,10 +1813,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/9a428f47e57e087f677d58967659592f8232c737",
-    "max_temp": 35.0,
-    "min_temp": -25.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Hawthorn",
     "scientific_name": "Crataegus monogyna",
     "translated_name": {
@@ -1863,9 +1842,7 @@
         "Noble Épine",
         "Poire d'oiseau",
         "Senellier",
-        "Épine noire",
-        "Aubépine monogyne",
-        "Aubépine monogyne"
+        "Épine noire"
       ]
     },
     "trefle_id": "265588"
@@ -1881,6 +1858,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 30000.0,
+        "min": 3700.0
       },
       "ph_maximum": 7.0,
       "ph_minimum": 5.5,
@@ -1907,6 +1888,7 @@
         "september",
         "october"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 3,
       "days_to_harvest": 40,
       "dormancy_months": [
@@ -1916,14 +1898,8 @@
         "february"
       ],
       "soil_nutriments": 8,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 60
-      },
-      "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 30
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 20
       },
@@ -1937,6 +1913,8 @@
           "min_days": 3
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 10.0,
       "atmospheric_humidity": 5,
       "maximum_precipitation": {
         "mm": 1200
@@ -1946,10 +1924,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 8,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/b07ad83adb571370a40982de0ec45248871486d6",
-    "max_temp": 28.0,
-    "min_temp": -5.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Garden sorrel",
     "scientific_name": "Rumex acetosa",
     "translated_name": {
@@ -1979,9 +1957,7 @@
         "Oseille aigre",
         "Surette",
         "Rumex alpestre",
-        "Rumex rugueux",
-        "Oseille commune",
-        "Oseille commune"
+        "Rumex rugueux"
       ]
     },
     "trefle_id": "106776"
@@ -1997,6 +1973,10 @@
       "toxicity": {
         "pets": false,
         "humans": false
+      },
+      "light_lux": {
+        "max": 50000.0,
+        "min": 3700.0
       },
       "ph_maximum": 6.0,
       "ph_minimum": 4.5,
@@ -2023,6 +2003,7 @@
         "august",
         "september"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 2,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -2032,14 +2013,8 @@
         "march"
       ],
       "soil_nutriments": 3,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 60
-      },
-      "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 30
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 25
       },
@@ -2053,6 +2028,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 4.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1500
@@ -2062,10 +2039,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": null,
     "image_url": "https://d2seqvvyy3b8p2.cloudfront.net/04a6d1e14c82502b58222574e2a99cde.jpg",
-    "max_temp": 30.0,
-    "min_temp": -25.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Heather",
     "scientific_name": "Calluna vulgaris",
     "translated_name": {
@@ -2092,9 +2069,7 @@
         "Fausse Bruyère",
         "Grosse Brande",
         "Péterolle",
-        "Callune vulgaire",
-        "Bruyère commune",
-        "Bruyère commune"
+        "Callune vulgaire"
       ]
     },
     "trefle_id": "155829"
@@ -2201,8 +2176,6 @@
         "Fausse Spirée",
         "Filipendule ulmaire",
         "Spirée ulmaire",
-        "Reine des prés",
-        "Reine-des-prés",
         "Reine des prés"
       ]
     },
@@ -2294,8 +2267,7 @@
     "translated_name": {
       "en": [],
       "fr": [
-        "Ocotillo",
-        null
+        "Ocotillo"
       ]
     },
     "trefle_id": "186137"
@@ -2387,7 +2359,6 @@
     "translated_name": {
       "en": [],
       "fr": [
-        "Arbre de Judée",
         "Arbre de Judée"
       ]
     },
@@ -2480,7 +2451,6 @@
     "translated_name": {
       "en": [],
       "fr": [
-        "Figuier de Barbarie",
         "Figuier de Barbarie"
       ]
     },
@@ -2497,6 +2467,10 @@
       "toxicity": {
         "pets": false,
         "humans": false
+      },
+      "light_lux": {
+        "max": 60000.0,
+        "min": 3700.0
       },
       "ph_maximum": 8.0,
       "ph_minimum": 6.0,
@@ -2524,6 +2498,7 @@
         "august",
         "september"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 5,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -2532,14 +2507,8 @@
         "february"
       ],
       "soil_nutriments": 6,
-      "max_soil_moisture": {
-        "indoor": 80,
-        "outdoor": 70
-      },
-      "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 30
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 80
       },
@@ -2553,6 +2522,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 5.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1500
@@ -2562,10 +2533,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/a2b911fc3378735b04a5079d4ee111101eee0ed9",
-    "max_temp": 38.0,
-    "min_temp": -7.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Mimosa",
     "scientific_name": "Acacia dealbata",
     "translated_name": {
@@ -2583,9 +2554,7 @@
         "Mimosa d'hiver",
         "Mimosa des fleuristes",
         "Mimosa blanchissant",
-        "Mimosa de Bormes",
-        "Mimosa d'hiver",
-        "Mimosa d'hiver"
+        "Mimosa de Bormes"
       ]
     },
     "trefle_id": "44585"
@@ -2689,8 +2658,7 @@
         "Radis sauvage",
         "Radis ravenelle",
         "Raifort sauvage",
-        "Raveluche",
-        "Ravenelle"
+        "Raveluche"
       ]
     },
     "trefle_id": "106599"
@@ -2706,6 +2674,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 50000.0,
+        "min": 3700.0
       },
       "ph_maximum": 8.0,
       "ph_minimum": 6.0,
@@ -2732,6 +2704,7 @@
         "september",
         "october"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 4,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -2741,14 +2714,8 @@
         "february"
       ],
       "soil_nutriments": 7,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 60
-      },
-      "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 30
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 50
       },
@@ -2762,6 +2729,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 10.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1500
@@ -2771,10 +2740,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/08bdf8d6415162b600fba4e14fbd06abe3ba974d",
-    "max_temp": 35.0,
-    "min_temp": -15.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Cherry-laurel",
     "scientific_name": "Prunus laurocerasus",
     "translated_name": {
@@ -2791,8 +2760,7 @@
         "Laurier cerise",
         "Laurier de Trébizonde",
         "Laurier-amandier",
-        "Laurier-palme",
-        "Laurier-cerise"
+        "Laurier-palme"
       ]
     },
     "trefle_id": "266596"
@@ -2980,8 +2948,7 @@
       ],
       "fr": [
         "Brachypode penné",
-        "Palène",
-        "Brachypode penné"
+        "Palène"
       ]
     },
     "trefle_id": "226075"
@@ -2997,6 +2964,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 15000.0,
+        "min": 800.0
       },
       "ph_maximum": 7.0,
       "ph_minimum": 5.5,
@@ -3026,6 +2997,7 @@
         "september",
         "october"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 2,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -3035,14 +3007,8 @@
         "february"
       ],
       "soil_nutriments": 8,
-      "max_soil_moisture": {
-        "indoor": 75,
-        "outdoor": 75
-      },
-      "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 40
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 40
       },
@@ -3056,6 +3022,8 @@
           "min_days": 3
         }
       },
+      "maximum_temperature": 32.0,
+      "minimum_temperature": 12.0,
       "atmospheric_humidity": 9,
       "maximum_precipitation": {
         "mm": 3000
@@ -3065,10 +3033,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 7,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/a3a043c163463e4cf1941e473a134700ed327d84",
-    "max_temp": 30.0,
-    "min_temp": 18.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Fruit-salad-plant",
     "scientific_name": "Monstera deliciosa",
     "translated_name": {
@@ -3119,6 +3087,10 @@
         "pets": false,
         "humans": false
       },
+      "light_lux": {
+        "max": 100000.0,
+        "min": 3000.0
+      },
       "ph_maximum": 8.0,
       "ph_minimum": 6.0,
       "row_spacing": {
@@ -3147,6 +3119,7 @@
         "august",
         "september"
       ],
+      "soil_humidity": 5,
       "soil_salinity": 4,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -3158,14 +3131,8 @@
         "march"
       ],
       "soil_nutriments": 3,
-      "max_soil_moisture": {
-        "indoor": 30,
-        "outdoor": 30
-      },
-      "min_soil_moisture": {
-        "indoor": 10,
-        "outdoor": 10
-      },
+      "max_soil_moisture": 50.0,
+      "min_soil_moisture": 7.0,
       "minimum_root_depth": {
         "cm": 20
       },
@@ -3179,6 +3146,8 @@
           "min_days": 21
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 8.0,
       "atmospheric_humidity": 2,
       "maximum_precipitation": {
         "mm": 500
@@ -3188,10 +3157,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 1,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/e5daa60eb0aa1da15302dd6700bb758dc6563c29",
-    "max_temp": 45.0,
-    "min_temp": -7.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Le conte barrel cactus",
     "scientific_name": "Ferocactus cylindraceus",
     "translated_name": {
@@ -3208,9 +3177,7 @@
         "Miner's compass",
         "Eastwood's Barrel Cactus"
       ],
-      "fr": [
-        null
-      ]
+      "fr": []
     },
     "trefle_id": "184684"
   },
@@ -3311,8 +3278,7 @@
       "fr": [
         "Androsace septentrionale",
         "Androsace du Nord",
-        "Androsace septentrional",
-        "Androsace septentrionale"
+        "Androsace septentrional"
       ]
     },
     "trefle_id": "143358"
@@ -3521,8 +3487,7 @@
       ],
       "fr": [
         "Liane des sorciers",
-        "Jasmin-bois",
-        null
+        "Jasmin-bois"
       ]
     },
     "trefle_id": "224504"
@@ -3633,8 +3598,7 @@
         "Cresson sauvage",
         "Faux Cresson",
         "Passerage sauvage",
-        "Petite Dentaire",
-        "Cardamine des prés"
+        "Petite Dentaire"
       ]
     },
     "trefle_id": "157199"
@@ -3762,8 +3726,7 @@
         "Laiteron âpre",
         "Brède lastron",
         "Laiteron potager",
-        "Laiteron lisse",
-        "Laiteron rude"
+        "Laiteron lisse"
       ]
     },
     "trefle_id": "8927"
@@ -3885,8 +3848,7 @@
         "Laiteron",
         "Laiteron commun",
         "Laiteron des champs",
-        "Laiteron piquant",
-        "Laiteron maraîcher"
+        "Laiteron piquant"
       ]
     },
     "trefle_id": "17007"
@@ -3996,8 +3958,7 @@
         "Lycopode officinal",
         "Éguaire",
         "Selaginelle fausse sélaginelle",
-        "Sélaginelle épineuse",
-        "Lycopode en massue"
+        "Sélaginelle épineuse"
       ]
     },
     "trefle_id": "291178"
@@ -4013,6 +3974,10 @@
       "toxicity": {
         "pets": false,
         "humans": false
+      },
+      "light_lux": {
+        "max": 55000.0,
+        "min": 2500.0
       },
       "ph_maximum": 7.5,
       "ph_minimum": 4.5,
@@ -4041,6 +4006,7 @@
         "august",
         "september"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 3,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -4051,14 +4017,8 @@
         "march"
       ],
       "soil_nutriments": 5,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 60
-      },
-      "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 30
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 150
       },
@@ -4072,6 +4032,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 5.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 2000
@@ -4081,10 +4043,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/33d84b84c09347d360afa0d610e220664cfb6d93",
-    "max_temp": 35.0,
-    "min_temp": -35.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Scotch pine",
     "scientific_name": "Pinus sylvestris",
     "translated_name": {
@@ -4105,8 +4067,7 @@
       "fr": [
         "Pin sylvestre",
         "Pin de Riga",
-        "Pin du Nord",
-        "Pin sylvestre"
+        "Pin du Nord"
       ]
     },
     "trefle_id": "127357"
@@ -4217,8 +4178,7 @@
         "Petit Sureau",
         "Herbe à l'aveugle",
         "Herbe à punaises",
-        "Herbe aux yeux",
-        "Sureau yèble"
+        "Herbe aux yeux"
       ]
     },
     "trefle_id": "115825"
@@ -4234,6 +4194,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 50000.0,
+        "min": 4000.0
       },
       "ph_maximum": 8.5,
       "ph_minimum": 5.0,
@@ -4264,6 +4228,7 @@
         "september",
         "october"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 8,
       "days_to_harvest": null,
       "dormancy_months": [
@@ -4274,14 +4239,8 @@
         "march"
       ],
       "soil_nutriments": 4,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 60
-      },
-      "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 30
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 50
       },
@@ -4295,6 +4254,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 5.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1500
@@ -4304,10 +4265,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 4,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/2ff93222759bd7436338492c834074bba64948f4",
-    "max_temp": 40.0,
-    "min_temp": -7.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Oleander",
     "scientific_name": "Nerium oleander",
     "translated_name": {
@@ -4327,8 +4288,7 @@
         "Oléandre",
         "Nérion",
         "Rosage",
-        "Nérion laurier-rose",
-        "Laurier-rose"
+        "Nérion laurier-rose"
       ]
     },
     "trefle_id": "64150"
@@ -4344,6 +4304,10 @@
       "toxicity": {
         "pets": true,
         "humans": true
+      },
+      "light_lux": {
+        "max": 50000.0,
+        "min": 3000.0
       },
       "ph_maximum": 7.5,
       "ph_minimum": 6.0,
@@ -4377,18 +4341,13 @@
         "september",
         "october"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 5,
       "days_to_harvest": null,
       "dormancy_months": [],
       "soil_nutriments": 6,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 60
-      },
-      "min_soil_moisture": {
-        "indoor": 40,
-        "outdoor": 30
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 40
       },
@@ -4402,6 +4361,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 35.0,
+      "minimum_temperature": 5.0,
       "atmospheric_humidity": 6,
       "maximum_precipitation": {
         "mm": 1200
@@ -4411,10 +4372,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/eb0f353a739f7489583a7fdb050e77f9b2191d1c",
-    "max_temp": 30.0,
-    "min_temp": -12.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "Laurustinus",
     "scientific_name": "Viburnum tinus",
     "translated_name": {
@@ -4427,8 +4388,7 @@
         "Laurier-tin",
         "Viorne-tin",
         "Fatamot",
-        "Viorne tin",
-        "Laurier-tin"
+        "Viorne tin"
       ]
     },
     "trefle_id": "111185"
@@ -4536,8 +4496,7 @@
         "Fausse Lysimaque",
         "Osier de saint Antoine",
         "Osier fleuri",
-        "Plante à feu",
-        "Épilobe en épi"
+        "Plante à feu"
       ]
     },
     "trefle_id": "180320"
@@ -4769,6 +4728,10 @@
         "pets": false,
         "humans": false
       },
+      "light_lux": {
+        "max": 6000.0,
+        "min": 1500.0
+      },
       "ph_maximum": 7.0,
       "ph_minimum": 6.0,
       "row_spacing": {
@@ -4804,18 +4767,13 @@
         "november",
         "december"
       ],
+      "soil_humidity": 6,
       "soil_salinity": 3,
       "days_to_harvest": null,
       "dormancy_months": [],
       "soil_nutriments": 5,
-      "max_soil_moisture": {
-        "indoor": 70,
-        "outdoor": 70
-      },
-      "min_soil_moisture": {
-        "indoor": 30,
-        "outdoor": 30
-      },
+      "max_soil_moisture": 60.0,
+      "min_soil_moisture": 15.0,
       "minimum_root_depth": {
         "cm": 10
       },
@@ -4829,6 +4787,8 @@
           "min_days": 7
         }
       },
+      "maximum_temperature": 32.0,
+      "minimum_temperature": 10.0,
       "atmospheric_humidity": 7,
       "maximum_precipitation": {
         "mm": null
@@ -4838,10 +4798,10 @@
       },
       "_growth_profile_enriched": true
     },
-    "ideal_humidity": 6,
+    "ideal_humidity": null,
     "image_url": "https://bs.plantnet.org/image/o/21b7dab48594def004c2c7117fd614790ad196d6",
-    "max_temp": 30.0,
-    "min_temp": 13.0,
+    "max_temp": null,
+    "min_temp": null,
     "name": "American rubberplant",
     "scientific_name": "Peperomia obtusifolia",
     "translated_name": {
@@ -4852,10 +4812,109 @@
         "Pepper-face"
       ],
       "fr": [
-        "Peperomia à feuilles obtuses",
         "Peperomia à feuilles obtuses"
       ]
     },
     "trefle_id": "126118"
+  },
+  {
+    "id": "ee0549b4-4c54-4f59-bb01-e66de7a5641e",
+    "growth_data": {
+      "light": 7,
+      "sowing": "Spring",
+      "spread": {
+        "cm": 25
+      },
+      "toxicity": {
+        "pets": true,
+        "humans": true
+      },
+      "ph_maximum": 7.0,
+      "ph_minimum": 6.0,
+      "row_spacing": {
+        "cm": 25
+      },
+      "bloom_months": [
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december"
+      ],
+      "fruit_months": [],
+      "soil_texture": 4,
+      "growth_months": [
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december"
+      ],
+      "soil_salinity": 3,
+      "days_to_harvest": null,
+      "dormancy_months": [],
+      "soil_nutriments": 7,
+      "max_soil_moisture": {
+        "indoor": 70,
+        "outdoor": 70
+      },
+      "min_soil_moisture": {
+        "indoor": 40,
+        "outdoor": 40
+      },
+      "minimum_root_depth": {
+        "cm": 15
+      },
+      "watering_frequency": {
+        "indoor": {
+          "max_days": 7,
+          "min_days": 3
+        },
+        "outdoor": {
+          "max_days": 5,
+          "min_days": 2
+        }
+      },
+      "atmospheric_humidity": 8,
+      "maximum_precipitation": {
+        "mm": 2000
+      },
+      "minimum_precipitation": {
+        "mm": 1000
+      },
+      "_growth_profile_enriched": true
+    },
+    "ideal_humidity": 7,
+    "image_url": "https://bs.plantnet.org/image/o/3c14f6bb93644f166cd4f6102ba425c2044fa4ab",
+    "max_temp": 29.0,
+    "min_temp": 12.0,
+    "name": "Clubed begonia",
+    "scientific_name": "Begonia cucullata",
+    "translated_name": {
+      "en": [
+        "Clubed begonia",
+        "Clubbed Begonia",
+        "Wax begonia"
+      ],
+      "fr": [
+        "Begonia",
+        "Bégonia toujours en fleurs"
+      ]
+    },
+    "trefle_id": "218951"
   }
 ]
