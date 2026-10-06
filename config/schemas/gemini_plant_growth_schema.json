@@ -1,0 +1,89 @@
+{
+    "type": "OBJECT",
+    "properties": {
+      "french_name": { "type": "STRING", "nullable": true },
+      "sowing": { "type": "STRING", "enum": ["Spring", "Summer", "Autumn", "Winter"], "nullable": true },
+      "days_to_harvest": { "type": "INTEGER", "nullable": true },
+      "row_spacing": {
+        "type": "OBJECT",
+        "properties": { "cm": { "type": "INTEGER", "nullable": true } }
+      },
+      "spread": {
+        "type": "OBJECT",
+        "properties": { "cm": { "type": "INTEGER", "nullable": true } }
+      },
+      "ph_minimum": { "type": "NUMBER", "nullable": true },
+      "ph_maximum": { "type": "NUMBER", "nullable": true },
+      "light": { "type": "INTEGER", "description": "Scale 1 to 10 (10=full sun)", "nullable": true },
+      "atmospheric_humidity": { "type": "INTEGER", "description": "Scale 1 to 10", "nullable": true },
+      "min_soil_moisture": {
+        "type": "OBJECT",
+        "properties": {
+          "indoor": { "type": "INTEGER", "nullable": true },
+          "outdoor": { "type": "INTEGER", "nullable": true }
+        }
+      },
+      "max_soil_moisture": {
+        "type": "OBJECT",
+        "properties": {
+          "indoor": { "type": "INTEGER", "nullable": true },
+          "outdoor": { "type": "INTEGER", "nullable": true }
+        }
+      },
+      "growth_months": { "type": "ARRAY", "items": { "type": "STRING" } },
+      "bloom_months": { "type": "ARRAY", "items": { "type": "STRING" } },
+      "dormancy_months": { "type": "ARRAY", "items": { "type": "STRING" } },
+      "fruit_months": { "type": "ARRAY", "items": { "type": "STRING" } },
+      "minimum_precipitation": {
+        "type": "OBJECT",
+        "properties": { "mm": { "type": "INTEGER", "nullable": true } }
+      },
+      "maximum_precipitation": {
+        "type": "OBJECT",
+        "properties": { "mm": { "type": "INTEGER", "nullable": true } }
+      },
+      "minimum_root_depth": {
+        "type": "OBJECT",
+        "properties": { "cm": { "type": "INTEGER", "nullable": true } }
+      },
+      "minimum_temperature": { "type": "NUMBER", "nullable": true },
+      "maximum_temperature": { "type": "NUMBER", "nullable": true },
+      "soil_nutriments": { "type": "INTEGER", "description": "Scale 1 to 10", "nullable": true },
+      "soil_salinity": { "type": "INTEGER", "description": "Scale 1 to 10", "nullable": true },
+      "soil_texture": { "type": "INTEGER", "description": "Scale 1 (sandy) to 10 (clayey)", "nullable": true },
+      "soil_humidity": { "type": "INTEGER", "description": "Scale 1 to 10", "nullable": true },
+      "toxicity": {
+        "type": "OBJECT",
+        "properties": {
+          "pets": { "type": "BOOLEAN", "nullable": true },
+          "humans": { "type": "BOOLEAN", "nullable": true }
+        }
+      },
+      "watering_frequency": {
+        "type": "OBJECT",
+        "properties": {
+          "indoor": {
+            "type": "OBJECT",
+            "properties": {
+              "min_days": { "type": "INTEGER", "nullable": true },
+              "max_days": { "type": "INTEGER", "nullable": true }
+            }
+          },
+          "outdoor": {
+            "type": "OBJECT",
+            "properties": {
+              "min_days": { "type": "INTEGER", "nullable": true },
+              "max_days": { "type": "INTEGER", "nullable": true }
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "french_name", "sowing", "days_to_harvest", "row_spacing", "spread", "ph_minimum", "ph_maximum",
+      "light", "atmospheric_humidity", "min_soil_moisture", "max_soil_moisture", "growth_months",
+      "bloom_months", "dormancy_months", "fruit_months", "minimum_precipitation",
+      "maximum_precipitation", "minimum_root_depth", "minimum_temperature", "maximum_temperature",
+      "soil_nutriments", "soil_salinity", "soil_texture", "soil_humidity", "toxicity", "watering_frequency"
+    ]
+  }
